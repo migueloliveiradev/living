@@ -1,6 +1,6 @@
 <script setup>
-import Post from 'components/feed/posts/Post.vue';
-
+import Post from '@/components/feed/posts/Post.vue';
+import FeedLayout from '@/components/layouts/FeedLayout.vue';
 
 definePageMeta({
     middleware: 'auth'
@@ -9,8 +9,10 @@ definePageMeta({
 </script>
 
 <template>
-    <div>
+    <FeedLayout>
         <h1>Welcome to the feed</h1>
-        <Post />
-    </div>
+        <div class="posts">
+            <Post v-for="post in Array(5)" />
+        </div>
+    </FeedLayout>
 </template>

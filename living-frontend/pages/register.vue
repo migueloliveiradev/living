@@ -44,7 +44,7 @@ function inputBanner(event: any) {
                             <label for="username" className="form-label">Username</label>
                             <input type="text" className="form-control" id="username"
                                 placeholder='Esse será usuario unico que aparecerá para os outros usuários' required
-                                v-model="form.username" />
+                                v-model="form.username" @keydown.space.prevent />
                         </div>
                         <div className="mb-3">
                             <label for="email" className="form-label">Email</label>

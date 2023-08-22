@@ -29,3 +29,8 @@ export interface UserRequest {
     photo: File;
     banner: File;
 }
+
+export interface UserLoginRequest {
+    email_or_username: string;
+    password: string;
+}

@@ -22,8 +22,8 @@ let following_count_random = Math.floor(Math.random() * 500)
                             height="180" />
                     </div>
                     <div class="profile-body-left-name">
-                        <p class="m-0">{{ user?.name }}</p>
-                        <p class="username m-0">@{{ (user?.username ?? "usuario") }}</p>
+                        <p class="m-0">{{ user?.name || "Usuario" }}</p>
+                        <p class="username m-0">@{{ (user?.username || "usuario") }}</p>
                     </div>
                 </div>
                 <div class="profile-body-right">
