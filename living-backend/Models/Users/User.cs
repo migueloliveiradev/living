@@ -10,12 +10,13 @@ public class User
     public string Name { get; set; }
     public string Email { get; set; }
     public string Password { get; set; }
-    public string PhotoUrl { get; set; }
-    public string BannerUrl { get; set; }
-    public string Bio { get; set; }
+    public string? PhotoUrl { get; set; }
+    public string? BannerUrl { get; set; }
+    public string? Bio { get; set; }
     public DateTime Birthday { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
+    public string Role { get; set; }
     public virtual ICollection<Post> Posts { get; set; }
     public virtual ICollection<Like> Likes { get; set; }
     public virtual ICollection<User> Followers { get; set; }

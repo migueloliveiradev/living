@@ -1,9 +1,11 @@
 
 using living_backend.Database;
+using living_backend.Shared.Policies.Json;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Text.Json;
 
 namespace living_backend;
 
@@ -13,12 +15,15 @@ public class Program
     {
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-        builder.Services.AddControllers();
+        builder.Services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = new SnakeCaseNamingPolicy());
+
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+
         builder.Services.AddDbContext<DatabaseContext>(options =>
         {
-            options.UseMySql("Server=127.0.0.1;Database=living;Uid=root;Pwd=root;", ServerVersion.AutoDetect("Server=127.0.0.1;Database=living;Uid=root;Pwd=root;"));
+            options.UseNpgsql("Server=127.0.0.1;Database=living;Uid=root;Pwd=root;");
+            options.UseLazyLoadingProxies();
         });
 
         builder.Services.AddAuthentication(x =>
@@ -47,7 +52,7 @@ public class Program
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
-           app.UseSwaggerUI();
+            app.UseSwaggerUI();
         }
 
         app.UseHttpsRedirection();

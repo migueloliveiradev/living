@@ -32,30 +32,25 @@ public class DatabaseContext : DbContext
             .HasForeignKey(e => e.OwnerId);
 
         modelBuilder.Entity<User>()
-            .HasMany(e => e.Followers)
-            .WithMany(e => e.Following)
+           .HasMany(u => u.Followers)
+           .WithMany()
+           .UsingEntity<UserFollow>();
+
+        modelBuilder.Entity<User>()
+            .HasMany(u => u.Following)
+            .WithMany()
             .UsingEntity<UserFollow>();
 
-        modelBuilder.Entity<Post>()
-            .Property(e => e.LikesCount)
-            .HasComputedColumnSql("(SELECT COUNT(*) FROM Likes WHERE PostId = Id)");
-
-        modelBuilder.Entity<Message>()
-            .HasOne(e => e.Sender)
+        modelBuilder.Entity<UserFollow>()
+            .HasOne(uf => uf.Follower)
             .WithMany()
-            .HasForeignKey(e => e.SenderId)
-            .OnDelete(DeleteBehavior.NoAction);
+            .HasForeignKey(uf => uf.FollowerId)
+            .HasPrincipalKey(u => u.Id);
 
-        modelBuilder.Entity<Message>()
-            .HasOne(e => e.Receiver)
+        modelBuilder.Entity<UserFollow>()
+            .HasOne(uf => uf.Following)
             .WithMany()
-            .HasForeignKey(e => e.ReceiverId)
-            .OnDelete(DeleteBehavior.NoAction);
-
-        modelBuilder.Entity<GroupUser>()
-            .HasOne(e => e.Group)
-            .WithMany()
-            .HasForeignKey(e => e.GroupId)
-            .OnDelete(DeleteBehavior.NoAction);
+            .HasForeignKey(uf => uf.FollowingId)
+            .HasPrincipalKey(u => u.Id);
     }
 }

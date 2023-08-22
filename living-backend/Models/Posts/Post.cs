@@ -15,7 +15,7 @@ public class Post
     public string Content { get; set; }
     public int LikesCount { get; }
     public Access Access { get; set; }
-    public DateTime CreatedAt { get; set; }
+    public DateTime CreatedAt { get; } = DateTime.Now;
 
     public virtual User User { get; set; }
     public virtual Group Group { get; set; }
