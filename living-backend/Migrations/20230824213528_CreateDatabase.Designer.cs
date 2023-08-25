@@ -12,8 +12,8 @@ using living_backend.Database;
 namespace living_backend.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230822192452_Create")]
-    partial class Create
+    [Migration("20230824213528_CreateDatabase")]
+    partial class CreateDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -244,9 +244,8 @@ namespace living_backend.Migrations
                     b.Property<string>("PhotoUrl")
                         .HasColumnType("text");
 
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Role")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -256,6 +255,9 @@ namespace living_backend.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Username")
+                        .IsUnique();
 
                     b.ToTable("Users");
                 });

@@ -1,6 +1,9 @@
 <script setup>
 import FeedLayout from '@/components/layouts/FeedLayout.vue';
 
+definePageMeta({
+    middleware: 'profile'
+})
 
 const route = useRoute()
 let username = route.params.username

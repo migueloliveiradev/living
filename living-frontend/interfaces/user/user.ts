@@ -26,11 +26,15 @@ export interface UserRequest {
     password_confirmation: string;
     birth_date: string;
     bio: string;
-    photo: File;
-    banner: File;
 }
 
 export interface UserLoginRequest {
     email_or_username: string;
     password: string;
+}
+
+export interface UserRegisterResponse {
+    token: string | null;
+    errors: { [key: string]: any; } | null;
+    success: boolean;
 }

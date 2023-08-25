@@ -5,7 +5,8 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "TOKEN_JWT": "testeeeeeeeeeeeeeeeeeeeeeeeee"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5131"
@@ -15,18 +16,11 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "TOKEN_JWT": "testeeeeeeeeeeeeeeeeeeeeeeeee"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:7179;http://localhost:5131"
-    },
-    "IIS Express": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
-      "launchUrl": "swagger",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
     },
     "Docker": {
       "commandName": "Docker",

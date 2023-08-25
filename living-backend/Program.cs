@@ -1,11 +1,12 @@
-
 using living_backend.Database;
+using living_backend.Repositories.Posts;
+using living_backend.Repositories.Users;
+using living_backend.Services.Users;
 using living_backend.Shared.Policies.Json;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using System.Text.Json;
 
 namespace living_backend;
 
@@ -26,6 +27,10 @@ public class Program
             options.UseLazyLoadingProxies();
         });
 
+        builder.Services.AddScoped<IUserRepository, UserRepository>();
+        builder.Services.AddScoped<UserLoginService>();
+        builder.Services.AddScoped<IPostRepository, PostRepository>();
+
         builder.Services.AddAuthentication(x =>
         {
             x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -38,10 +43,20 @@ public class Program
             x.TokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("testeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")),
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("TOKEN_JWT")!)),
                 ValidateIssuer = false,
                 ValidateAudience = false
             };
+        });
+
+        builder.Services.AddCors(services => 
+        {
+            services.AddDefaultPolicy(builder =>
+            {
+                builder.AllowAnyOrigin();
+                builder.AllowAnyMethod();
+                builder.AllowAnyHeader();
+            });
         });
 
         builder.Services.AddAuthorization();
@@ -60,6 +75,7 @@ public class Program
         app.UseAuthentication();
         app.UseAuthorization();
 
+        app.UseCors();
 
         app.MapControllers();
 

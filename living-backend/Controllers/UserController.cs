@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 
 namespace living_backend.Controllers;
+[Route("/user")]
 public class UserController : Controller
 {
     private readonly IUserRepository userRepository;
@@ -9,8 +10,11 @@ public class UserController : Controller
     {
         this.userRepository = userRepository;
     }
-    public IActionResult Index()
+    [HttpGet("check_username_available/")]
+    public IActionResult CheckUsernameAvailable(string username)
     {
-        return View();
+        bool usernameAvailable = userRepository.CheckUsernameExists(username);
+
+        return Json(!usernameAvailable);
     }
 }

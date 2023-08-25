@@ -72,7 +72,7 @@ public class PostRepository : IPostRepository
     }
 
     public void RemoveAttachments(Post post, params Attachment[] attachment)
-    { 
+    {
         context.Attachments.RemoveRange(attachment);
         context.SaveChanges();
     }

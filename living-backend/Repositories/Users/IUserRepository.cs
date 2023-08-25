@@ -12,11 +12,11 @@ public interface IUserRepository
     bool CheckUsernameExists(string username);
     bool CheckEmailExists(string email);
     bool CheckPassword(string password, string hashedPassword);
-    bool CheckPasswordUser(string password, int user_id);
-    User? CreateUser(User user);
-    User? UpdateUser(User user);
-    void FollowUser(int user_id, int user_id_to_follow);
-    void UnfollowUser(int user_id, int user_id_to_unfollow);
-    void DeleteUser(int id);
+    bool CheckPassword(string password, int user_id);
+    User Create(User user);
+    User Update(User user);
+    void Follow(int user_id, int user_id_to_follow);
+    void Unfollow(int user_id, int user_id_to_unfollow);
+    void Delete(int id);
 
 }

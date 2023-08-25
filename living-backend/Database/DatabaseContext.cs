@@ -32,6 +32,10 @@ public class DatabaseContext : DbContext
             .HasForeignKey(e => e.OwnerId);
 
         modelBuilder.Entity<User>()
+            .HasIndex(u => u.Username)
+            .IsUnique();
+
+        modelBuilder.Entity<User>()
            .HasMany(u => u.Followers)
            .WithMany()
            .UsingEntity<UserFollow>();

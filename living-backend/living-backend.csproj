@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\Response\" />
+    <Folder Include="Shared\Validations\" />
   </ItemGroup>
 
 </Project>

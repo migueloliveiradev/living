@@ -6,7 +6,8 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "start": "nuxt start"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
@@ -23,6 +24,7 @@
     "@fortawesome/free-brands-svg-icons": "^6.4.2",
     "@fortawesome/free-regular-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
-    "@fortawesome/vue-fontawesome": "^3.0.3"
+    "@fortawesome/vue-fontawesome": "^3.0.3",
+    "@types/marked": "^5.0.1"
   }
 }

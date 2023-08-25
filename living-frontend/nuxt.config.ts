@@ -5,4 +5,9 @@ export default defineNuxtConfig({
     "~/node_modules/bootstrap/dist/css/bootstrap.min.css",
     "~/assets/css/main.scss"
   ],
+  runtimeConfig: {
+    public: {
+      ...process.env,
+    }
+  }
 })

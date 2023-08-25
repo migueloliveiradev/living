@@ -1,11 +1,10 @@
 ﻿using living_backend.DTOs.Request.Posts;
 using living_backend.Models.Posts;
 using living_backend.Shared.Extensions.Mvc;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace living_backend.Controllers;
-[ Route("/posts")]
+[Route("/posts")]
 public class PostController : Controller
 {
     [HttpGet("timeline")]

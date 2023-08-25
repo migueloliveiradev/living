@@ -27,7 +27,7 @@ public class UserRepository : IUserRepository
         return Hash.Check(password, hashedPassword);
     }
 
-    public bool CheckPasswordUser(string password, int user_id)
+    public bool CheckPassword(string password, int user_id)
     {
         return context.Users.Any(u => u.Id == user_id && Hash.Check(password, u.Password));
     }
@@ -37,19 +37,19 @@ public class UserRepository : IUserRepository
         return context.Users.Any(u => u.Username == username);
     }
 
-    public User? CreateUser(User user)
+    public User Create(User user)
     {
         context.Users.Add(user);
         context.SaveChanges();
         return user;
     }
 
-    public void DeleteUser(int id)
+    public void Delete(int id)
     {
         throw new NotImplementedException();
     }
 
-    public void FollowUser(int user_id, int user_id_to_follow)
+    public void Follow(int user_id, int user_id_to_follow)
     {
         context.UserFollows.Add(new UserFollow
         {
@@ -80,12 +80,12 @@ public class UserRepository : IUserRepository
         return context.Users.FirstOrDefault(u => u.Username == usernameOrEmail || u.Email == usernameOrEmail);
     }
 
-    public void UnfollowUser(int user_id, int user_id_to_unfollow)
+    public void Unfollow(int user_id, int user_id_to_unfollow)
     {
         context.UserFollows.Where(uf => uf.FollowerId == user_id && uf.FollowingId == user_id_to_unfollow).ExecuteDelete();
     }
 
-    public User? UpdateUser(User user)
+    public User Update(User user)
     {
         context.Users.Update(user);
         context.SaveChanges();
