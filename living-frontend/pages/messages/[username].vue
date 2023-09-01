@@ -14,8 +14,9 @@ let mensagem = reactive<MessageRequest>({
 
 const { pending, data: posts } = await useLazyFetch<Array<Post>>(`https://localhost:7179/messages/${username}`, {
     method: 'GET',
+    server: false,
     headers: {
-        'Autorization': `Bearer ${localStorage.getItem('token')}`
+        'Autorization': `Bearer ${useCookie('token')}`
     }
 })
 
@@ -26,8 +27,9 @@ async function sendMessage() {
 
     const { data } = await useFetch<Array<Post>>(`https://localhost:7179/messages/send`, {
         method: 'POST',
+        server: false,
         headers: {
-            'Autorization': `Bearer ${localStorage.getItem('token')}`
+            'Autorization': `Bearer ${useCookie('token')}`
         },
         body: {
             message: mensagem.content,
@@ -48,7 +50,8 @@ async function sendMessage() {
                 <Message />
             </div>
             <form @submit.prevent="sendMessage" class="d-flex">
-                <input type="text" class="form-control" v-model="mensagem.content" required placeholder="Digite sua mensagem" />
+                <input type="text" class="form-control" v-model="mensagem.content" required
+                    placeholder="Digite sua mensagem" />
                 <button type="submit" class="btn btn-primary">Enviar</button>
             </form>
         </div>
