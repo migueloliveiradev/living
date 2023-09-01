@@ -1,10 +1,7 @@
 using living_backend.Config;
 using living_backend.Database;
 using living_backend.Hubs;
-using living_backend.Repositories.Posts;
-using living_backend.Repositories.Users;
-using living_backend.Services.Users;
-using living_backend.Shared.Policies.Json;
+using living_backend.Shared.JSON.Converters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -20,8 +17,12 @@ public class Program
     {
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-        builder.Services.AddControllers().AddJsonOptions(options => {
+        builder.Services.AddControllers().AddJsonOptions(options =>
+        {
             options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower;
+            options.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.SnakeCaseLower;
+            options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+            options.JsonSerializerOptions.Converters.Add(new DateTimeConverter());
         });
 
         builder.Services.AddSignalR();
@@ -32,7 +33,6 @@ public class Program
         builder.Services.AddDbContext<DatabaseContext>(options =>
         {
             options.UseNpgsql("Server=127.0.0.1;Database=living;Uid=root;Pwd=root;");
-            options.UseLazyLoadingProxies();
         });
 
         builder.Services.ConfigureDependencyInjection();
@@ -55,7 +55,7 @@ public class Program
             };
         });
 
-        builder.Services.AddCors(services => 
+        builder.Services.AddCors(services =>
         {
             services.AddDefaultPolicy(builder =>
             {
@@ -82,7 +82,7 @@ public class Program
         app.UseAuthorization();
 
         app.UseCors();
-        
+
         app.MapHub<NotificationHub>("/notifications");
 
         app.MapControllers();
