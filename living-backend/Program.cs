@@ -1,4 +1,6 @@
+using living_backend.Config;
 using living_backend.Database;
+using living_backend.Hubs;
 using living_backend.Repositories.Posts;
 using living_backend.Repositories.Users;
 using living_backend.Services.Users;
@@ -7,6 +9,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace living_backend;
 
@@ -16,7 +20,11 @@ public class Program
     {
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-        builder.Services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = new SnakeCaseNamingPolicy());
+        builder.Services.AddControllers().AddJsonOptions(options => {
+            options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower;
+        });
+
+        builder.Services.AddSignalR();
 
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
@@ -27,9 +35,7 @@ public class Program
             options.UseLazyLoadingProxies();
         });
 
-        builder.Services.AddScoped<IUserRepository, UserRepository>();
-        builder.Services.AddScoped<UserLoginService>();
-        builder.Services.AddScoped<IPostRepository, PostRepository>();
+        builder.Services.ConfigureDependencyInjection();
 
         builder.Services.AddAuthentication(x =>
         {
@@ -76,6 +82,8 @@ public class Program
         app.UseAuthorization();
 
         app.UseCors();
+        
+        app.MapHub<NotificationHub>("/notifications");
 
         app.MapControllers();
 

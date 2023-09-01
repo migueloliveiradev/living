@@ -56,5 +56,10 @@ public class DatabaseContext : DbContext
             .WithMany()
             .HasForeignKey(uf => uf.FollowingId)
             .HasPrincipalKey(u => u.Id);
+
+        modelBuilder.Entity<Post>()
+            .Property(p => p.GroupId)
+            .IsRequired(false);
+
     }
 }
