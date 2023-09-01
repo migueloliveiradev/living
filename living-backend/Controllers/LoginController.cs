@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace living_backend.Controllers;
-public class LoginController : Controller
+public class LoginController : ControllerBase
 {
     private readonly IUserRepository userRepository;
     private readonly UserLoginService userLoginService;
@@ -36,7 +36,7 @@ public class LoginController : Controller
 
         string token = JWT.GenerateToken(userCreated);
 
-        return Json(new UserRegisterResponse(token, true));
+        return Ok(new UserRegisterResponse(token, true));
     }
 
     [HttpPost("/login")]
@@ -46,20 +46,19 @@ public class LoginController : Controller
 
         if (!teste.sucess)
         {
-            return BadRequest(new { error = teste.menssage });
+            return BadRequest(new UserLoginResponse(null, false));
         }
 
         User user = userRepository.GetUserByUsername(userLogin.Username)!;
 
         string token = JWT.GenerateToken(user);
 
-        return Json(new { token });
+        return Ok(new UserLoginResponse(token, true));
     }
 
-    [Authorize]
-    [HttpGet("/test")]
-    public IActionResult Test()
+    [HttpGet("/check_login")]
+    public IActionResult CheckLogin()
     {
-        return Json(new { message = "Hello World", user = User.Identity!.Name });
+        return Ok(User.Identity!.IsAuthenticated);
     }
 }

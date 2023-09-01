@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace living_backend.Controllers;
 [Route("/posts")]
-public class PostController : Controller
+public class PostController : ControllerBase
 {
     [HttpGet("timeline")]
     public IActionResult GetPostsTimeline()

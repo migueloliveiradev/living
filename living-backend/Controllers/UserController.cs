@@ -2,8 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 
 namespace living_backend.Controllers;
-[Route("/user")]
-public class UserController : Controller
+
+[Authorize, Route("/user")]
+public class UserController : ControllerBase
 {
     private readonly IUserRepository userRepository;
     public UserController(IUserRepository userRepository)
