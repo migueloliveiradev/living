@@ -13,10 +13,10 @@ async function logar() {
         method: 'POST',
         body: login,
         onResponse: (response) => {
-            console.log(response.response._data)
             let response_data = response.response._data as UserLoginResponse
             if (response_data.success) {
-                localStorage.setItem('token', response_data.token!)
+                let token = useCookie('token')
+                token = token
                 navigateTo('/feed')
                 return;
             }
