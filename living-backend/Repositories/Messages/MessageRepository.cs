@@ -25,7 +25,7 @@ public class MessageRepository : IMessageRepository
         return context.Messages
             .Include(m => m.Sender)
             .Include(m => m.Receiver)
-            .Where(m => m.Sender.Username == username 
+            .Where(m => m.Sender.Username == username
                 || m.Sender.Username == username_me
                 || m.Receiver.Username == username
                 || m.Receiver.Username == username_me)
