@@ -42,7 +42,7 @@
                     </NuxtLink>
                 </ul>
             </div>
-            <NuxtLink to="/me" class='sidebar-footer mb-2'>
+            <NuxtLink to="/u/miguel" class='sidebar-footer mb-2'>
                 <div class='m-3 d-flex align-items-center'>
                     <img class="sidebar-footer-icon" src="/eimigueloliveir.png" alt="avatar perfil" width="50"
                         height="50" />

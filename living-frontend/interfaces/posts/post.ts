@@ -7,6 +7,7 @@ export interface Post {
     user_id: number;
     user: User | null;
     likes: Array<Like>;
+    likes_count: number;
 }
 
 
