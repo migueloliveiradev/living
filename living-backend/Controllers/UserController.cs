@@ -1,4 +1,5 @@
-﻿using living_backend.Models.Users;
+﻿
+using living_backend.Models.Users;
 using living_backend.Repositories.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ namespace living_backend.Controllers;
 public class UserController : ControllerBase
 {
     private readonly IUserRepository userRepository;
+
     public UserController(IUserRepository userRepository)
     {
         this.userRepository = userRepository;
@@ -31,6 +33,18 @@ public class UserController : ControllerBase
         }
 
         User user = userRepository.GetUserByUsername(User.Identity.Name!)!;
+        return Ok(user);
+    }
+
+    [AllowAnonymous, HttpGet("get_profile_user/{username}")]
+    public IActionResult GetProfileUser(string username)
+    {
+        User user = userRepository.GetUserByUsername(username)!;
+        if (user == null)
+        {
+            return NotFound();
+        }
+
         return Ok(user);
     }
 }

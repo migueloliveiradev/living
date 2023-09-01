@@ -1,7 +1,6 @@
 ﻿using living_backend.Shared.JSON.Converters;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace living_backend.DTOs.Response.Users;

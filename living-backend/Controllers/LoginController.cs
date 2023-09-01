@@ -4,7 +4,6 @@ using living_backend.Models.Users;
 using living_backend.Repositories.Users;
 using living_backend.Services.Users;
 using living_backend.Shared.Password;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace living_backend.Controllers;

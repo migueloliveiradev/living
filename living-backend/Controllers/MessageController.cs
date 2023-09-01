@@ -23,7 +23,7 @@ public class MessageController : ControllerBase
     [HttpPost("/messages/send")]
     public IActionResult SendMessage(MessageRequest messageRequest)
     {
-        if(!ModelState.IsValid)
+        if (!ModelState.IsValid)
         {
             return UnprocessableEntity(ModelState);
         }

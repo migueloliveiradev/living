@@ -1,7 +1,4 @@
-﻿using living_backend.Database;
-using living_backend.Models.Users;
-using living_backend.Repositories.Users;
-using Microsoft.AspNetCore.Mvc;
+﻿using living_backend.Models.Users;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
