@@ -1,5 +1,7 @@
-<script setup>
+<script setup lang="ts">
 import FeedLayout from '@/components/layouts/FeedLayout.vue';
+import Loader from '@/components/loader/Loader.vue';
+import { User } from 'interfaces/user/user';
 
 definePageMeta({
     middleware: 'profile'
@@ -8,24 +10,30 @@ definePageMeta({
 const route = useRoute()
 let username = route.params.username
 
+let { pending, data } = await useLazyFetch<User>(`https://localhost:7179/user/get_profile_user/${username}`, {
+    server: false
+})
+
 </script>
 
 
 <template>
     <FeedLayout>
-        <div class="profile">
+        <Loader :loading="pending" />
+        <div v-if="!pending" class="profile">
             <div class="profile-header">
-                <img class="banner-profile" src="/banner.png" alt="banner perfil" width="1500" height="200" />
+                <img class="banner-profile" :src="data?.banner_url ?? '/banner.png'" alt="banner perfil" width="1500"
+                    height="200" />
             </div>
             <div class="profile-body d-flex justify-content-between">
                 <div class="profile-body-left d-flex">
                     <div class="profile-body-left-avatar">
-                        <img class="avatar-profile" src="/eimigueloliveir.png" alt="avatar perfil" width="180"
-                            height="180" />
+                        <img class="avatar-profile" :src="data?.banner_url ?? '/eimigueloliveir.png'" alt="avatar perfil"
+                            width="180" height="180" />
                     </div>
                     <div class="profile-body-left-name">
-                        <p class="m-0">Miguel Oliveira</p>
-                        <p class="username m-0">@{{ username }}</p>
+                        <p class="m-0">{{ data?.name }}</p>
+                        <p class="username m-0">@{{ data?.username }}</p>
                     </div>
                 </div>
                 <div class="profile-body-right">
@@ -33,23 +41,14 @@ let username = route.params.username
                         <button class="btn btn-secondary">Adicionar</button>
                     </div>
                     <div class="profile-body-right-numbers mb-1">
-                        <div class="d-flex justify-content-around">
-                            <p class="m-0">0</p>
-                            <p class="m-0">Amigos</p>
-                        </div>
-                        <div class="d-flex justify-content-around">
-                            <p class="m-0">0</p>
-                            <p class="m-0">Grupos</p>
-                        </div>
+                        <p class="text-center">0 Seguidores</p>
+                        <p class="text-center">0 Seguindo</p>
                     </div>
                 </div>
             </div>
             <div class="profile-content">
                 <div class="profile-content-header w-50">
-                    <p class="m-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                        Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a
-                        galley of type and scrambled it to make a type specimen book. It has survived not only five
-                        centuries</p>
+                    <p class="m-3">{{ data?.bio }}</p>
                 </div>
                 <div class="profile-content-body">
                     <div class="m-3 ">
