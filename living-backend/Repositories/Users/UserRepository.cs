@@ -39,6 +39,7 @@ public class UserRepository : IUserRepository
 
     public User Create(User user)
     {
+        user.Password = Hash.Make(user.Password);
         context.Users.Add(user);
         context.SaveChanges();
         return user;

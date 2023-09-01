@@ -1,11 +1,31 @@
 <script setup lang="ts">
-import { UserLoginRequest } from 'interfaces/user/user';
+import { UserLoginRequest, UserLoginResponse } from 'interfaces/user/user';
 
 let login = reactive<UserLoginRequest>({
-    email_or_username: '',
+    username: '',
     password: ''
 })
 
+let error = ref('')
+
+async function logar() {
+    const { data } = await useFetch<UserLoginResponse>(`https://localhost:7179/login`, {
+        method: 'POST',
+        body: login,
+        onResponse: (response) => {
+            console.log(response.response._data)
+            let response_data = response.response._data as UserLoginResponse
+            if (response_data.success) {
+                localStorage.setItem('token', response_data.token!)
+                navigateTo('/feed')
+                return;
+            }
+            error.value = "Usuário ou senha incorretos"
+        }
+    })
+
+    console.log(data)
+}
 
 </script>
 <template>
@@ -15,15 +35,16 @@ let login = reactive<UserLoginRequest>({
                 <h2>Login</h2>
             </div>
             <div class="login-content">
-                <form>
+                <form @submit.prevent="logar">
                     <div class="mb-3">
                         <label for="username" class="form-label">Username ou Email</label>
-                        <input type="text" class="form-control" id="username" v-model="login.email_or_username" />
+                        <input type="text" class="form-control" id="username" v-model="login.username" />
 
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Senha</label>
                         <input type="password" class="form-control" id="password" v-model="login.password" />
+                        <p class="form-text text-danger">{{ error }}</p>
                     </div>
                     <button type="submit" class="btn btn-primary">Entrar</button>
                 </form>
@@ -47,7 +68,8 @@ let login = reactive<UserLoginRequest>({
 .form-username-buttons {
     margin-right: 0 auto;
 }
-.login-main{
+
+.login-main {
     width: 50vh;
     height: 50vh;
     border: 1px solid #ccc;

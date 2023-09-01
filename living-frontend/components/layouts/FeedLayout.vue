@@ -34,7 +34,7 @@
                         </div>
                         <p class='ms-2'>Grupos</p>
                     </NuxtLink>
-                    <NuxtLink to="/message" class='list-group-item text-light p-3 button-nav m-2 d-flex pb-0'>
+                    <NuxtLink to="/messages" class='list-group-item text-light p-3 button-nav m-2 d-flex pb-0'>
                         <div>
                             <font-awesome-icon icon="fa-solid fa-message" />
                         </div>

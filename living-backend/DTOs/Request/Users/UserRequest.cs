@@ -35,7 +35,7 @@ public class UserRequest
     [JsonPropertyName("password_confirmed")]
     [Required(ErrorMessage = "ConfirmPassword é obrigatório")]
     [Compare("Password", ErrorMessage = "ConfirmPassword deve ser igual ao campo Password")]
-    public string ConfirmPassword { get; set; }
+    public string PasswordConfirmed { get; set; }
 
     [JsonPropertyName("bio")]
     [Required(ErrorMessage = "Bio é obrigatório")]

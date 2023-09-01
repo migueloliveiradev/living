@@ -1,4 +1,6 @@
-﻿using living_backend.Repositories.Users;
+﻿using living_backend.Models.Users;
+using living_backend.Repositories.Users;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace living_backend.Controllers;
@@ -16,6 +18,19 @@ public class UserController : ControllerBase
     {
         bool usernameAvailable = userRepository.CheckUsernameExists(username);
 
-        return Json(!usernameAvailable);
+        return Ok(!usernameAvailable);
+    }
+
+
+    [HttpGet("me")]
+    public IActionResult GetMe()
+    {
+        if (!User.Identity!.IsAuthenticated)
+        {
+            return Unauthorized();
+        }
+
+        User user = userRepository.GetUserByUsername(User.Identity.Name!)!;
+        return Ok(user);
     }
 }

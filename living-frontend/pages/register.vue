@@ -15,10 +15,6 @@ let form = reactive<UserRequest>({
     password_confirmation: ''
 })
 
-let seguranca_password = computed(() => {
-    return calcularSegurancaSenha()
-})
-
 let show_password = ref(false)
 let loading = ref(false)
 let username_avaliable = ref(true)
@@ -42,62 +38,26 @@ async function checkUsernameAvailable() {
 async function cadastrarUsuario() {
     loading.value = true
 
-    try {
+    const { data, error } = await useFetch<UserRegisterResponse>(`https://localhost:7179/register`, {
+        method: 'POST',
+        body: form,
+        onResponse: (response) => {
+            user_register.value.errors = (response.response._data as UserRegisterResponse).errors
+        }
+    })
 
-        const { data, error } = await useFetch(`https://localhost:7179/register`, {
-            method: 'POST',
-            body: form,
-            onResponse: (response) => {
-                console.log(response.response._data)
-                user_register.value.errors = (response.response._data as UserRegisterResponse).errors
-
-                console.log(user_register.value.errors)
-            }
+    console.log(data)
+    console.log(error)
 
 
-        })
-    }
-    catch (e) {
-        console.log(e)
-    }
-    loading.value = false
-
-    /*let response = JSON.parse(user.value) as UserRegisterResponse
-    console.log(response)
-    errors.value = response.errors
-
-    loading.value = false
-    if (user) {
+    if (user_register.value.success) {
+        const token = useCookie('token')
+        token.value = user_register.value.token
         step.value = 2
-    }*/
+    }
+
+    loading.value = false
 }
-
-function calcularSegurancaSenha() {
-    let seguranca = 0;
-
-    if (/[a-z]/.test(form.password)) {
-        seguranca += 25;
-    }
-
-    if (/[A-Z]/.test(form.password)) {
-        seguranca += 25;
-    }
-
-    if (/[0-9]/.test(form.password)) {
-        seguranca += 25;
-    }
-
-    if (/[^A-Za-z0-9]/.test(form.password)) {
-        seguranca += 25;
-    }
-
-    if (form.password.length >= 6 && form.password.length <= 30) {
-        seguranca += Math.min(form.password.length, 100);
-    }
-
-    return seguranca;
-}
-
 
 </script>
 <template>
@@ -116,7 +76,7 @@ function calcularSegurancaSenha() {
                     <div class="mb-3">
                         <label for="name" class="form-label">Nome</label>
                         <input type="text" class="form-control" id="name" required v-model="form.name" />
-                        <FormError :errors="user_register?.errors.Name" />
+                        <FormError :errors="user_register?.errors.name" />
                     </div>
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
@@ -125,12 +85,12 @@ function calcularSegurancaSenha() {
                             v-model="form.username" @keydown.space.prevent minlength="5" maxlength="15"
                             @input="checkUsernameAvailable" />
                         <p class="form-text text-danger" v-if="!username_avaliable">Username não disponivel</p>
-                        <FormError :errors="user_register?.errors.Username" />
+                        <FormError :errors="user_register?.errors.username" />
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
                         <input type="email" class="form-control" id="email" required v-model="form.email" />
-                        <FormError :errors="user_register?.errors.Email" />
+                        <FormError :errors="user_register?.errors.email" />
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Senha</label>
@@ -142,22 +102,13 @@ function calcularSegurancaSenha() {
                                     :icon="show_password ? 'fa-regular fa-eye-slash ' : 'fa-regular fa-eye'" />
                             </span>
                         </div>
-                        <p class="form-text mt-1 security" :class="{
-                            'text-danger': seguranca_password <= 25,
-                            'text-warning': seguranca_password <= 50,
-                            'text-info': seguranca_password <= 75,
-                            'text-success': seguranca_password <= 100
-                        }">
-
-                            {{ seguranca_password <= 25 ? 'Fraca' : '' }} {{ seguranca_password > 25 && seguranca_password <=
-                                50 ? 'Média' : '' }} {{ seguranca_password > 50 && seguranca_password <= 75 ? 'Boa' : ''
-    }} {{ seguranca_password > 75 && seguranca_password <= 100 ? 'Forte' : '' }} </p>
-
+                        <FormError :errors="user_register?.errors.password" />
                     </div>
                     <div class="mb-3">
                         <label for="password_confirmed" class="form-label">Confirme a senha</label>
                         <input type="password" class="form-control" id="password_confirmation" required
                             v-model="form.password_confirmation" />
+                        <FormError :errors="user_register?.errors.password_confirmed" />
                     </div>
                     <button type="submit" class="btn btn-primary" @click="cadastrarUsuario">Continuar</button>
                 </form>

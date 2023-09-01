@@ -3,7 +3,7 @@ import Post from '@/components/feed/posts/Post.vue';
 import FeedLayout from '@/components/layouts/FeedLayout.vue';
 
 definePageMeta({
-    middleware: 'auth'
+   
 })
 
 </script>

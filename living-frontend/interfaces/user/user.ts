@@ -29,8 +29,13 @@ export interface UserRequest {
 }
 
 export interface UserLoginRequest {
-    email_or_username: string;
+    username: string;
     password: string;
+}
+
+export interface UserLoginResponse {
+    token: string | null;
+    success: boolean;
 }
 
 export interface UserRegisterResponse {
