@@ -10,4 +10,10 @@ public static class ClaimsPrincipalExtensions
 
         return Convert.ToInt32(principal.FindFirstValue(ClaimTypes.NameIdentifier));
     }
+    public static string GetUsername(this ClaimsPrincipal principal)
+    {
+        ArgumentNullException.ThrowIfNull(principal, nameof(principal));
+
+        return principal.FindFirstValue(ClaimTypes.Name)!;
+    }
 }
