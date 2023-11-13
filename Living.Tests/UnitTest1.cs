@@ -1,10 +1,18 @@
+using Living.Application.UseCases.Posts.Create;
+
 namespace Living.Tests;
 
 public class UnitTest1 : SetupWebAPI
 {
-    [Fact]
-    public void Test1()
+    [Theory, AutoData]
+    public async Task Test1(CreatePostCommand command)
     {
-        
+        var response = await client.PostAsync("/api/posts", command.AsJsonContent());
+
+        response.Content.Should().NotBeNull();
+        var content = await response.Content.DeserializeContent<BaseResponse<Guid>>();
+
+        content.Should().NotBeNull();
+        content.Data.Should().NotBeEmpty();
     }
 }
