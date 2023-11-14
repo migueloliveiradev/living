@@ -11,13 +11,8 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
-    "@sidebase/nuxt-auth": "^0.6.0-beta.4",
-    "@types/bootstrap": "^5.2.6",
     "@types/node": "^18.17.3",
-    "bootstrap": "^5.3.1",
-    "nuxt": "^3.6.5",
-    "sass": "^1.66.1",
-    "sass-loader": "^13.3.2"
+    "nuxt": "^3.6.5"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.4.2",
@@ -26,8 +21,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/vue-fontawesome": "^3.0.3",
-    "@nuxtjs/auth-next": "5.0.0-1667386184.dfbbb54",
-    "@nuxtjs/axios": "^5.13.6",
-    "@types/marked": "^5.0.1"
+    "@nuxt/ui": "^2.10.0",
+    "nuxt-auth-utils": "^0.0.6"
   }
 }
