@@ -1,19 +1,18 @@
-﻿using Living.Domain.Base.Interface;
+﻿using Living.Domain.Base.Interfaces;
 using Living.Domain.Entity.Groups;
 using Living.Domain.Entity.Posts;
+using Microsoft.AspNetCore.Identity;
 
 namespace Living.Domain.Entity.Users;
-public class User : IEntity, ITimestamps
+public class User : IdentityUser, IEntity, ITimestamps
 {
     public Guid Id { get; init; }
-    public string Username { get; set; }
     public string Name { get; set; }
-    public string Email { get; set; }
     public string Password { get; set; }
-    public string? PhotoUrl { get; set; }
-    public string? BannerUrl { get; set; }
+    public string? PhotoFileName { get; set; }
+    public string? BannerFileName { get; set; }
     public string? Bio { get; set; }
-    public DateTime Birthday { get; set; }
+    public DateOnly Birthday { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime? LastUpdatedAt { get ;set ; }
     public DateTime? DeletedAt { get ;set ; }

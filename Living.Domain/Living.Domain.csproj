@@ -12,6 +12,11 @@
 
 	<ItemGroup>
 		<PackageReference Include="FluentValidation" Version="11.8.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Entity\Posts\Models\" />
 	</ItemGroup>
 
 </Project>

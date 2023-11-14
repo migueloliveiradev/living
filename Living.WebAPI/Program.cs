@@ -1,8 +1,11 @@
 using FluentValidation;
 using Living.Application.UseCases.Posts.Create;
-using Living.Application.Validation;
+using Living.Domain.Entity.Users;
+using Living.Infraestructure;
 using Living.WebAPI.Extensions;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
+using Microsoft.AspNetCore.Identity;
 
 namespace Living.WebAPI;
 public class Program
@@ -11,11 +14,21 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        builder.Services.AddDbContext<DatabaseContext>(options =>
+        {
+            options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresSQLConnection"));
+            options.UseSnakeCaseNamingConvention();
+        });
+
         builder.Services.AddControllers().AddJsonOptions(options =>
         {
             options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower;
             options.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.SnakeCaseLower;
         });
+
+        builder.Services.AddIdentityCore<User>()
+                .AddEntityFrameworkStores<DatabaseContext>()
+                .AddApiEndpoints();
 
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();

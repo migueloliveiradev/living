@@ -1,8 +1,7 @@
-﻿using FluentValidation.Results;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace Living.Domain.Base;
-public partial class BaseResponse<T> : IBaseResponse
+public class BaseResponse<T> : IBaseResponse
 {
     public BaseResponse(T data, StatusCodes statusCode)
     {
@@ -22,21 +21,13 @@ public partial class BaseResponse<T> : IBaseResponse
         Erros = erros;
     }
 
-    public StatusCodes StatusCode { get; set; }
-    public T? Data { get; set; }
-
-    [JsonInclude]
-    public Dictionary<string, string> Erros = new();
-}
-public partial class BaseResponse : IBaseResponse
-{
-    public BaseResponse(Dictionary<string, string> erros)
+    
+    public BaseResponse()
     {
-        StatusCode = StatusCodes.UnprocessableEntity;
-        Erros = erros;
     }
 
     public StatusCodes StatusCode { get; set; }
+    public T? Data { get; set; }
 
     [JsonInclude]
     public Dictionary<string, string> Erros = new();

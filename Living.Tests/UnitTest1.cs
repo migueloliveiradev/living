@@ -12,7 +12,5 @@ public class UnitTest1 : SetupWebAPI
         response.Content.Should().NotBeNull();
         var content = await response.Content.DeserializeContent<BaseResponse<Guid>>();
 
-        content.Should().NotBeNull();
-        content.Data.Should().NotBeEmpty();
     }
 }

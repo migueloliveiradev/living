@@ -10,7 +10,7 @@ public class SetupWebAPI : IDisposable
 
     public SetupWebAPI()
     {
-        factory = new WebApplicationFactory<Program>();
+        factory = new WebAPIApplicationFactory<Program>();
         client = factory.CreateClient();
     }
 
@@ -22,5 +22,6 @@ public class SetupWebAPI : IDisposable
     public void Dispose()
     {
         client.Dispose();
+        factory.Dispose();
     }
 }

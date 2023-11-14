@@ -1,4 +1,4 @@
-﻿using Living.Domain.Base.Interface;
+﻿using Living.Domain.Base.Interfaces;
 using Living.Domain.Entity.Users;
 
 namespace Living.Domain.Entity.Posts;

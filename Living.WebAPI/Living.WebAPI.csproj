@@ -8,24 +8,23 @@
 		<UserSecretsId>aspnet-Living.WebAPI-59b337b0-1b7c-41ab-ba3c-1625415705c1</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<LangVersion>preview</LangVersion>
-		<RestoreAdditionalProjectSources>
-			https://api.nuget.org/v3/index.json;
-			https://pkgs.dev.azure.com/fluentmigrator/fluentmigrator/_packaging/fluentmigrator/nuget/v3/index.json;
-		</RestoreAdditionalProjectSources>
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="EFCore.NamingConventions" Version="7.0.2" />
 		<PackageReference Include="FluentMigrator" Version="4.0.0-alpha.289" />
 		<PackageReference Include="FluentMigrator.Runner" Version="4.0.0-alpha.289" />
 		<PackageReference Include="FluentMigrator.Runner.Postgres" Version="4.0.0-alpha.268" />
 		<PackageReference Include="FluentValidation" Version="11.8.0" />
 		<PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
 		<PackageReference Include="MediatR" Version="12.1.1" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0-preview.6.23329.11" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.0-preview.6.23329.11" />
-		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.0-preview.6.23329.11" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="8.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+	    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>

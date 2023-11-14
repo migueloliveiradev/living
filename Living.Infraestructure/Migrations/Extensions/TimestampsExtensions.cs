@@ -4,7 +4,14 @@ using FluentMigrator.Builders.Create.Table;
 namespace Living.Infraestructure.Migrations.Extensions;
 internal static class TimestampsExtensions
 {
-    public static ICreateTableColumnOptionOrWithColumnSyntax WithTimestamps(this ICreateTableColumnOptionOrWithColumnSyntax fluent)
+    internal static ICreateTableWithColumnOrSchemaOrDescriptionSyntax WithId(this ICreateTableWithColumnOrSchemaOrDescriptionSyntax fluent)
+    {
+        fluent.WithColumn("id").AsGuid().PrimaryKey().Identity();
+
+        return fluent;
+    }
+
+    internal static ICreateTableColumnOptionOrWithColumnSyntax WithTimestamps(this ICreateTableColumnOptionOrWithColumnSyntax fluent)
     {
         fluent.WithColumn("created_at").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
             .WithColumn("last_updated_at").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
@@ -13,7 +20,7 @@ internal static class TimestampsExtensions
         return fluent;
     }
 
-    public static ICreateTableColumnOptionOrWithColumnSyntax WithTimestamp(this ICreateTableColumnOptionOrWithColumnSyntax fluent)
+    internal static ICreateTableColumnOptionOrWithColumnSyntax WithTimestamp(this ICreateTableColumnOptionOrWithColumnSyntax fluent)
     {
         fluent.WithColumn("created_at").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime);
 

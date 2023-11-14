@@ -1,10 +1,5 @@
-﻿using Living.Domain.Base.Interface;
+﻿using Living.Domain.Base.Interfaces;
 using Living.Domain.Entity.Groups;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Living.Domain.Entity.Posts;
 public class PostGroup : IEntity, ITimestamp

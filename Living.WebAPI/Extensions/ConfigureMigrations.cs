@@ -1,5 +1,6 @@
 ﻿using FluentMigrator.Runner;
-using Living.Infraestructure.Migrations;
+using FluentMigrator.Runner.Processors;
+using Living.Infraestructure.Migrations.Users;
 
 namespace Living.WebAPI.Extensions;
 
@@ -7,6 +8,8 @@ public static class ConfigureMigrations
 {
     public static IServiceCollection ConfigureFluentMigrator(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddSingleton<ProcessorOptions>();
+
         services.AddFluentMigratorCore()
                 .ConfigureRunner(rb => rb
                     .AddPostgres()
