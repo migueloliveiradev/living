@@ -1,7 +1,5 @@
-﻿using FluentValidation;
-
-namespace Living.Application.Validation;
-public class ValidationBehavior<TRequest> : IPipelineBehavior<TRequest, BaseResponse<Guid>>
+﻿namespace Living.Application.Validation;
+/*public class ValidationBehavior<TRequest> : IPipelineBehavior<TRequest, BaseResponse<Guid>>
     where TRequest : IRequest<BaseResponse>
 {
     private IEnumerable<IValidator<TRequest>> _validators;
@@ -27,4 +25,4 @@ public class ValidationBehavior<TRequest> : IPipelineBehavior<TRequest, BaseResp
         return await next();
     }
 
-}
+}*/

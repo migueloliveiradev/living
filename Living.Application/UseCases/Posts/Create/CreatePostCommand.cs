@@ -1,6 +1,4 @@
-﻿using Living.Domain.Base;
-using Living.Domain.Entity.Posts;
-using MediatR;
+﻿using Living.Domain.Entity.Posts;
 
 namespace Living.Application.UseCases.Posts.Create;
 public class CreatePostCommand : IRequest<BaseResponse<Guid>>
