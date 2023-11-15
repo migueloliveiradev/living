@@ -1,12 +1,24 @@
-﻿using FluentMigrator.Runner;
-using FluentMigrator.Runner.Processors;
+﻿using FluentMigrator.Runner.Processors;
+using FluentMigrator.Runner;
 using Living.Infraestructure.Migrations.Users;
+using System.Text.Json;
 
 namespace Living.WebAPI.Extensions;
 
-public static class ConfigureMigrations
+public static class Configurations
 {
-    public static IServiceCollection ConfigureFluentMigrator(this IServiceCollection services, IConfiguration configuration)
+    public static IMvcBuilder ConfigureJsonPolicy(this IMvcBuilder mvc)
+    {
+        mvc.AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower;
+            options.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.SnakeCaseLower;
+        });
+
+        return mvc;
+    }
+
+    public static IServiceCollection AddFluentMigrator(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddSingleton<ProcessorOptions>();
 
@@ -17,7 +29,7 @@ public static class ConfigureMigrations
                     .ScanIn(typeof(CreateTableUsers).Assembly).For.Migrations())
                 .AddLogging(lb => lb.AddFluentMigratorConsole())
                 .BuildServiceProvider(false);
-        
+
         return services;
     }
 

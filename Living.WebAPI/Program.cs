@@ -20,11 +20,7 @@ public class Program
             options.UseSnakeCaseNamingConvention();
         });
 
-        builder.Services.AddControllers().AddJsonOptions(options =>
-        {
-            options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower;
-            options.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.SnakeCaseLower;
-        });
+        builder.Services.AddControllers().ConfigureJsonPolicy();
 
         builder.Services.AddIdentityCore<User>()
                 .AddEntityFrameworkStores<DatabaseContext>()
@@ -41,7 +37,7 @@ public class Program
 
         builder.Services.AddValidatorsFromAssemblyContaining<CreatePostValidator>();
 
-        builder.Services.ConfigureFluentMigrator(builder.Configuration);
+        builder.Services.AddFluentMigrator(builder.Configuration);
 
         builder.Services.AddAuthentication().AddBearerToken();
         builder.Services.AddAuthorization();
