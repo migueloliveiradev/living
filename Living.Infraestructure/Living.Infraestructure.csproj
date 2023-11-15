@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="FluentMigrator" Version="4.0.0-alpha.289" />
+		<PackageReference Include="FluentMigrator.Runner" Version="4.0.0-alpha.289" />
+		<PackageReference Include="FluentMigrator.Runner.Postgres" Version="4.0.0-alpha.268" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Living.Domain\Living.Domain.csproj" />
+	</ItemGroup>
+
+</Project>

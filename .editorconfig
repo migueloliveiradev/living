@@ -11,6 +11,8 @@ dotnet_style_qualification_for_property = false:silent
 dotnet_style_qualification_for_method = false:silent
 dotnet_style_qualification_for_event = false:silent
 dotnet_style_readonly_field = true:suggestion
+dotnet_style_require_accessibility_modifiers = always:silent
+dotnet_style_predefined_type_for_member_access = true:silent
 [*.cs]
 #### Estilos de nomenclatura ####
 
@@ -72,6 +74,8 @@ csharp_style_prefer_pattern_matching = true:silent
 csharp_style_pattern_matching_over_is_with_cast_check = true:suggestion
 csharp_style_pattern_matching_over_as_with_null_check = true:suggestion
 csharp_style_namespace_declarations = file_scoped:silent
+csharp_style_prefer_not_pattern = true:suggestion
+csharp_style_prefer_extended_property_pattern = true:suggestion
 
 [*.vb]
 #### Estilos de nomenclatura ####

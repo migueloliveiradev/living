@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="MediatR" Version="12.1.1" />
+		<PackageReference Include="MediatR.Extensions.FluentValidation.AspNetCore" Version="5.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="UseCases\Posts\Comment\" />
+		<Folder Include="UseCases\Posts\Like\" />
+		<Folder Include="UseCases\Posts\Get\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Living.Domain\Living.Domain.csproj" />
+	</ItemGroup>
+
+</Project>
