@@ -1,4 +1,4 @@
-import { User } from "interfaces/user/user";
+import type { User } from "@/interfaces/user/user";
 
 export interface Post {
     id: number;
@@ -9,8 +9,6 @@ export interface Post {
     likes: Array<Like>;
     likes_count: number;
 }
-
-
 
 export interface Like {
     id: number;

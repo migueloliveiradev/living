@@ -6,6 +6,8 @@ using Living.WebAPI.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using HealthChecks.UI.Client;
 
 namespace Living.WebAPI;
 public class Program
@@ -19,6 +21,10 @@ public class Program
             options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresSQLConnection"));
             options.UseSnakeCaseNamingConvention();
         });
+
+        builder.Services.AddApplication();
+
+        builder.Services.ConfigureHealthChecks(builder.Configuration);
 
         builder.Services.AddControllers().ConfigureJsonPolicy();
 
@@ -53,6 +59,13 @@ public class Program
         app.UpdateDatabase();
 
         app.UseHttpsRedirection();
+
+        app.MapHealthChecks("/health", new HealthCheckOptions
+        {
+            Predicate = _ => true,
+            AllowCachingResponses = true,
+            ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+        });
 
         app.UseAuthorization();
 

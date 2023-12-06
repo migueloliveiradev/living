@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import FeedLayout from '@/components/layouts/FeedLayout.vue';
 import Loader from '@/components/loader/Loader.vue';
-import { User } from 'interfaces/user/user';
+import type { User } from '@/interfaces/user/user';
 
 definePageMeta({
     middleware: 'profile'

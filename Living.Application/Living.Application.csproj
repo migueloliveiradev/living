@@ -12,13 +12,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="UseCases\Posts\Comment\" />
 		<Folder Include="UseCases\Posts\Like\" />
-		<Folder Include="UseCases\Posts\Get\" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Living.Domain\Living.Domain.csproj" />
+		<ProjectReference Include="..\Living.Infraestructure\Living.Infraestructure.csproj" />
 	</ItemGroup>
 
 </Project>

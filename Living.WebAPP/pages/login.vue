@@ -1,27 +1,21 @@
 <script setup lang="ts">
-import { UserLoginRequest, UserLoginResponse } from 'interfaces/user/user';
 
-let login = reactive<UserLoginRequest>({
+
+let login = reactive({
     username: '',
     password: ''
 })
 
 let error = ref('')
 
+function usernameIsValid(): boolean {
+    return true
+}
+
 async function logar() {
-    const { data } = await useFetch<UserLoginResponse>(`https://localhost:7179/login`, {
+    const { data } = await useFetch(`https://localhost:7179/login`, {
         method: 'POST',
-        body: login,
-        onResponse: (response) => {
-            let response_data = response.response._data as UserLoginResponse
-            if (response_data.success) {
-                let token = useCookie('token')
-                token = token
-                navigateTo('/feed')
-                return;
-            }
-            error.value = "Usuário ou senha incorretos"
-        }
+        body: login
     })
 
     console.log(data)
@@ -29,51 +23,28 @@ async function logar() {
 
 </script>
 <template>
-    <div class="login form-center">
-        <div class="login-main">
-            <div class="login-header">
-                <h2>Login</h2>
-            </div>
-            <div class="login-content">
-                <form @submit.prevent="logar">
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Username ou Email</label>
-                        <input type="text" class="form-control" id="username" v-model="login.username" />
+    <div class="flex justify-center items-center m-5">
+        <UCard class="w-56 h-56 bg-black">
+            <UForm :state="login" class="space-y-4" @submit="logar">
+                <UFormGroup label="Email" name="email">
+                    <UInput v-model="login.username">
+                        <template #leading>
+                            <UAvatar src="https://avatars.githubusercontent.com/u/739984?v=4" size="3xs" />
+                        </template>
+                    </UInput>
+                </UFormGroup>
 
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Senha</label>
-                        <input type="password" class="form-control" id="password" v-model="login.password" />
-                        <p class="form-text text-danger">{{ error }}</p>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Entrar</button>
-                </form>
-            </div>
-        </div>
+                <UFormGroup label="Password" name="password">
+                    <UInput v-model="login.password" type="password" />
+                </UFormGroup>
+
+                <UButton type="submit">
+                    Submit
+                </UButton>
+            </UForm>
+        </UCard>
     </div>
 </template>
 <style>
-.form-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-}
 
-.form-register {
-    width: 50vh;
-    margin: 0 auto;
-}
-
-.form-username-buttons {
-    margin-right: 0 auto;
-}
-
-.login-main {
-    width: 50vh;
-    height: 50vh;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 2%;
-}
 </style>

@@ -9,7 +9,7 @@ public class BaseResponse<T> : IBaseResponse
         Data = data;
     }
 
-    public BaseResponse(T data)
+    public BaseResponse(T? data)
     {
         StatusCode = StatusCodes.OK;
         Data = data;

@@ -2,6 +2,6 @@
 public interface ITimestamps
 {
     DateTime CreatedAt { get; }
-    DateTime? LastUpdatedAt { get; }
+    DateTime? LastUpdatedAt { get; set; }
     DateTime? DeletedAt { get; set; }
 }

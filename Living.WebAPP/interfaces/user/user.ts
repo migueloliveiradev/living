@@ -1,4 +1,5 @@
-import { Group, Like, Post } from "../posts/post";
+import type { Group, Like, Post } from "../posts/post";
+
 
 export interface User {
     id: number;

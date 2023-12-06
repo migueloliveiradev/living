@@ -1,4 +1,6 @@
 ﻿using Living.Domain.Base.Interfaces;
+using Living.Domain.Entity.Comments;
+using Living.Domain.Entity.Posts.Enums;
 using Living.Domain.Entity.Users;
 
 namespace Living.Domain.Entity.Posts;
@@ -13,12 +15,16 @@ public class Post : IEntity, ITimestamps
     public DateTime? DeletedAt { get; set; }
 
     public virtual User User { get; set; }
-}
+    public virtual ICollection<Comment> Comments { get; set; }
+    public virtual ICollection<PostLike> PostLike { get; set; }
 
-public enum PostAccess
-{
-    Public,
-    Followers,
-    Group,
-    Private
+    public void AddComment(Guid UserId, string content)
+    {
+        Comments.Add(new Comment(Id, UserId, content));
+    }
+
+    public void AddLike(Guid userId)
+    {
+        PostLike.Add(new PostLike(Id, userId));
+    }
 }

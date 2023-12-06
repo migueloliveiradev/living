@@ -1,54 +1,49 @@
-<script setup>
+<script setup lang="ts">
+
+import type { VerticalNavigationLink } from '@nuxt/ui/dist/runtime/types';
+
+
+const links: VerticalNavigationLink[] = [{
+    label: 'Pagina Inicial',
+    icon: 'i-heroicons-home',
+    to: '/feed'
+}, {
+    label: 'Explorar',
+    icon: 'i-heroicons-chart-bar',
+    to: '/feed'
+}, {
+    label: 'Notificações',
+    icon: 'i-heroicons-command-line',
+    to: '/feed'
+},
+{
+    label: 'Grupos',
+    icon: 'i-heroicons-command-line',
+    to: '/feed'
+},
+{
+    label: 'Mensagens',
+    icon: 'i-heroicons-command-line',
+    to: '/feed'
+},
+{
+    label: 'Perfil',
+    avatar: {
+        src: 'https://avatars.githubusercontent.com/u/739984?v=4',
+        alt: 'Avatar',
+        size: 'md'
+        
+    },
+    badge: 100,
+    to: '/me'
+},
+]
+
 </script>
 <template>
     <div class="container-layout">
-        <div class="sidebar">
-            <div class="sidebar-header ">
-                <h2 class="text-center">Living</h2>
-            </div>
-            <div class="sidebar-content">
-                <ul class="list-group list-group-flush mt-5 buttons-nav">
-                    <NuxtLink to="/feed" class='list-group-item text-light p-3 button-nav m-2 d-flex pb-0'>
-                        <div>
-                            <font-awesome-icon icon="fa-solid fa-house" />
-                        </div>
-                        <p class='ms-2'>Pagina Inicial</p>
-                    </NuxtLink>
-
-                    <NuxtLink to="/feed" class='list-group-item text-light p-3 button-nav m-2 d-flex pb-0'>
-                        <div>
-                            <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
-                        </div>
-                        <p class='ms-2'>Explorar</p>
-                    </NuxtLink>
-                    <NuxtLink to="/feed" class='list-group-item text-light p-3 button-nav m-2 d-flex pb-0'>
-                        <div>
-                            <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
-                        </div>
-                        <p class='ms-2'>Notificações</p>
-                    </NuxtLink>
-
-                    <NuxtLink to="/feed" class='list-group-item text-light p-3 button-nav m-2 d-flex pb-0'>
-                        <div>
-                            <font-awesome-icon icon="fa-solid fa-users" />
-                        </div>
-                        <p class='ms-2'>Grupos</p>
-                    </NuxtLink>
-                    <NuxtLink to="/messages" class='list-group-item text-light p-3 button-nav m-2 d-flex pb-0'>
-                        <div>
-                            <font-awesome-icon icon="fa-solid fa-message" />
-                        </div>
-                        <p class='ms-2'>Mensagens</p>
-                    </NuxtLink>
-                </ul>
-            </div>
-            <NuxtLink to="/u/miguel" class='sidebar-footer mb-2'>
-                <div class='m-3 d-flex align-items-center'>
-                    <img class="sidebar-footer-icon" src="/eimigueloliveir.png" alt="avatar perfil" width="50"
-                        height="50" />
-                    <p class='m-0 ms-2'>Miguel Oliveira</p>
-                </div>
-            </NuxtLink>
+        <div>
+            <UVerticalNavigation class="w-38 h-38" :links="links" />
         </div>
         <div class='container-content'>
             <slot />
@@ -200,5 +195,7 @@
 .container-layout {
     margin-left: 15vh;
     margin-right: 15vh;
+    display: flex;
+
 }
 </style>

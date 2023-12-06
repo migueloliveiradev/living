@@ -1,5 +1,5 @@
 <script setup  lang="ts">
-import { Post } from '~/interfaces/posts/post'
+import type { Post } from '~/interfaces/posts/post'
 
 const props = defineProps({
     post: Object as PropType<Post>,
@@ -43,4 +43,17 @@ const props = defineProps({
             </div>
         </div>
     </div>
+    <UCard>
+        <template #header>
+            <div>
+                <UAvatar src="/eimigueloliveir.png" size="2xl" alt="Avatar" />
+            </div>
+        </template>
+
+        <Placeholder class="h-32" />
+
+        <template #footer>
+            <Placeholder class="h-8" />
+        </template>
+    </UCard>
 </template>

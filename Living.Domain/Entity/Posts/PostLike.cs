@@ -4,6 +4,13 @@ using Living.Domain.Entity.Users;
 namespace Living.Domain.Entity.Posts;
 public class PostLike : IEntity, ITimestamp
 {
+    public PostLike(Guid postId, Guid userId)
+    {
+        Id = Guid.NewGuid();
+        PostId = postId;
+        UserId = userId;
+    }
+
     public Guid Id { get; init; }
     public Guid PostId { get; set; }
     public Guid UserId { get; set; }
