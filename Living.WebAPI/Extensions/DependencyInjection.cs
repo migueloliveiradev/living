@@ -1,5 +1,5 @@
 ﻿using Living.Domain.Base.Interfaces;
-using Living.Domain.Entity.Posts.Interface;
+using Living.Domain.Entities.Posts.Interface;
 using Living.Infraestructure.Repositories;
 using Living.Infraestructure.UnitOfWorks;
 

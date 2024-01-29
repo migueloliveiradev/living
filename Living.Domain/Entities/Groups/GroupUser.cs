@@ -1,14 +1,14 @@
 ﻿using Living.Domain.Base.Interfaces;
-using Living.Domain.Entity.Groups;
+using Living.Domain.Entities.Users;
 
-namespace Living.Domain.Entity.Posts;
-public class PostGroup : IEntity, ITimestamp
+namespace Living.Domain.Entities.Groups;
+public class GroupUser : IEntity, ITimestamp
 {
     public Guid Id { get; init; }
-    public Guid PostId { get; set; }
     public Guid GroupId { get; set; }
+    public Guid UserId { get; set; }
     public DateTime CreatedAt { get; set; }
 
-    public virtual Post Post { get; set; }
     public virtual Group Group { get; set; }
+    public virtual User User { get; set; }
 }

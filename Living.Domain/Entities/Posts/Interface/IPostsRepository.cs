@@ -1,6 +1,7 @@
 ﻿using Living.Domain.Base.Interfaces;
+using Living.Domain.Entities.Posts;
 
-namespace Living.Domain.Entity.Posts.Interface;
+namespace Living.Domain.Entities.Posts.Interface;
 public interface IPostsRepository : IBaseRepository<Post>
 {
 }

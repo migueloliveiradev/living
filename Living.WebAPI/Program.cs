@@ -1,28 +1,23 @@
 using FluentValidation;
 using Living.Application.UseCases.Posts.Create;
-using Living.Domain.Entity.Users;
 using Living.Infraestructure;
-using Living.WebAPI.Extensions;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json;
 using Microsoft.AspNetCore.Identity;
+using Living.Domain.Entities.Roles;
+using Living.Domain.Entities.Users;
 
 namespace Living.WebAPI;
 public class Program
 {
     public static void Main(string[] args)
     {
-        var builder = WebApplication.CreateBuilder(args);
+        WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-        builder.Services.AddDbContext<DatabaseContext>(options =>
-        {
-            options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresSQLConnection"));
-            options.UseSnakeCaseNamingConvention();
-        });
+        builder.Services.AddDbContext<DatabaseContext>(options => options.UseInMemoryDatabase("Living"));
 
-        builder.Services.AddControllers().ConfigureJsonPolicy();
+        builder.Services.AddControllers();
 
-        builder.Services.AddIdentityCore<User>()
+        builder.Services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<DatabaseContext>()
                 .AddApiEndpoints();
 
@@ -37,20 +32,17 @@ public class Program
 
         builder.Services.AddValidatorsFromAssemblyContaining<CreatePostValidator>();
 
-        builder.Services.AddFluentMigrator(builder.Configuration);
 
         builder.Services.AddAuthentication().AddBearerToken();
         builder.Services.AddAuthorization();
 
-        var app = builder.Build();
+        WebApplication app = builder.Build();
 
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-
-        app.UpdateDatabase();
 
         app.UseHttpsRedirection();
 

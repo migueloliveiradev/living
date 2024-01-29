@@ -1,5 +1,4 @@
-﻿using FluentMigrator.Runner.Processors;
-using Living.Infraestructure;
+﻿using Living.Infraestructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -12,9 +11,7 @@ public class WebAPIApplicationFactory<TProgram> : WebApplicationFactory<TProgram
     {
         builder.ConfigureServices(services =>
         {
-            services.AddSingleton<ProcessorOptions>();
-
-            var dbContextDescriptor = services.Single(
+            ServiceDescriptor dbContextDescriptor = services.Single(
                 d => d.ServiceType ==
                     typeof(DbContextOptions<DatabaseContext>));
 
