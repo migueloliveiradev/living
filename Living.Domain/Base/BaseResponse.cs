@@ -8,19 +8,16 @@ public class BaseResponse<T> : BaseResponse
         Data = data;
     }
 
-    public BaseResponse(Notification notification)
+    public BaseResponse(Notification notification) : base(notification)
     {
-        _notifications.Add(notification);
     }
 
-    public BaseResponse(IEnumerable<Notification> notifications)
+    public BaseResponse(IEnumerable<Notification> notifications) : base(notifications)
     {
-        _notifications.AddRange(notifications);
     }
 
-    public BaseResponse(IEnumerable<IdentityError> errors)
+    public BaseResponse(IEnumerable<IdentityError> errors) : base(errors)
     {
-        _notifications.AddRange(errors.Select(p => new Notification("Identity", p.Code)));
     }
 
     public T? Data { get; set; }
@@ -28,29 +25,35 @@ public class BaseResponse<T> : BaseResponse
 
 public class BaseResponse
 {
-    protected readonly List<Notification> _notifications = [];
     public BaseResponse()
     {
     }
 
     public BaseResponse(Notification notification)
     {
-        _notifications.Add(notification);
+        Notifications.TryAdd(notification.Key, []);
+        Notifications[notification.Key] = [..Notifications[notification.Key], notification.Code];
     }
 
     public BaseResponse(IEnumerable<Notification> notifications)
     {
-        _notifications.AddRange(notifications);
+        foreach (var notification in notifications)
+        {
+            Notifications.TryAdd(notification.Key, []);
+            Notifications[notification.Key] = [..Notifications[notification.Key], notification.Code];
+        }
     }
 
     public BaseResponse(IEnumerable<IdentityError> errors)
     {
-        _notifications.AddRange(errors.Select(p => new Notification("Identity", p.Code)));
+        foreach (var error in errors)
+        {
+            Notifications.TryAdd("IDENTITY", []);
+            Notifications["IDENTITY"] = [..Notifications["IDENTITY"], error.Code];
+        }
     }
 
-    public bool HasNotifications => _notifications.Count is not 0;
+    public bool HasNotifications => Notifications.Count > 0;
 
-    public Dictionary<string, string[]> Notifications => _notifications
-        .GroupBy(x => x.Key)
-        .ToDictionary(x => x.Key, x => x.Select(y => y.Code).ToArray());
+    public Dictionary<string, string[]> Notifications { get; set; } = [];
 }

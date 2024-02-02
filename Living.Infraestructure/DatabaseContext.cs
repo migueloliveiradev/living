@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace Living.Infraestructure;
-public class DatabaseContext(DbContextOptions<DatabaseContext> options) : IdentityDbContext<User, Role, Guid>(options)
+public class DatabaseContext(DbContextOptions options) : IdentityDbContext<User, Role, Guid>(options)
 {
     public DbSet<UserFollow> UserFollows => Set<UserFollow>();
     public DbSet<Post> Posts => Set<Post>();
