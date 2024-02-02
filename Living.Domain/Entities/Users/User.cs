@@ -8,7 +8,8 @@ using Microsoft.AspNetCore.Identity;
 namespace Living.Domain.Entities.Users;
 public class User : IdentityUser<Guid>, IEntity, ITimestamps
 {
-    public string Name { get; set; }
+    public required string Name { get; set; }
+    public override required string? UserName { get; set; }
     public string? Bio { get; set; }
     public DateOnly Birthday { get; set; }
     public DateTime CreatedAt { get; set; }

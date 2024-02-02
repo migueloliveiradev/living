@@ -10,7 +10,6 @@ public class PostController(IMediator mediator) : Controller
     [HttpPost]
     public async Task<IActionResult> Index([FromBody] CreatePostCommand command)
     {
-
         return Ok(await mediator.Send(command));
     }
 }

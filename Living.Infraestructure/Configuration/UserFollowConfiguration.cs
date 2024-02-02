@@ -15,7 +15,7 @@ internal class UserFollowConfiguration : IEntityTypeConfiguration<UserFollow>
             .HasForeignKey(x => x.FollowerId);
 
         builder.HasOne(x => x.Following)
-            .WithMany(x => x.UsersFollowers)
+            .WithMany(x => x.UsersFollowing)
             .HasForeignKey(x => x.FollowingId);
     }
 }

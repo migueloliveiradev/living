@@ -12,8 +12,8 @@ public class Post : IEntity, ITimestamps
     public required PostAccess Access { get; set; }
     public required PostType Type { get; set; }
     public Guid? GroupId { get; set; }
-    public Guid PostParentId { get; set; }
-    public Guid PostChildId { get; set; }
+    public Guid? PostParentId { get; set; }
+    public Guid? PostChildId { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime? LastUpdatedAt { get; set; }
     public DateTime? DeletedAt { get; set; }

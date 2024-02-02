@@ -38,13 +38,13 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .WithOne(e => e.User)
             .HasForeignKey(e => e.UserId);
 
-        builder.HasMany(e => e.UsersFollowers)
-            .WithOne(e => e.Following)
-            .HasForeignKey(e => e.FollowingId);
+        //builder.HasMany(e => e.UsersFollowers)
+        //    .WithOne(e => e.Following)
+        //    .HasForeignKey(e => e.FollowingId);
 
-        builder.HasMany(e => e.UsersFollowing)
-            .WithOne(e => e.Follower)
-            .HasForeignKey(e => e.FollowerId);
+        //builder.HasMany(e => e.UsersFollowing)
+        //    .WithOne(e => e.Follower)
+        //    .HasForeignKey(e => e.FollowerId);
 
         builder.HasMany(e => e.GroupsUser)
             .WithOne(e => e.User)
