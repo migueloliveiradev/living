@@ -12,9 +12,9 @@ public class RegisterUserHandler(IMapper mapper, UserManager<User> userManager) 
 
         var result = await userManager.CreateAsync(user, request.Password);
 
-        if (result.Succeeded)
-            return Results.Ok(new BaseResponse());
+        if (!result.Succeeded)
+            return Results.BadRequest(new BaseResponse(result.Errors));
 
-        return Results.BadRequest(new BaseResponse(result.Errors));
+        return Results.Ok(new BaseResponse());
     }
 }
