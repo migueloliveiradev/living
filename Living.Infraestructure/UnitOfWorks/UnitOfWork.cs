@@ -1,4 +1,5 @@
 ﻿using Living.Domain.Base.Interfaces;
+using Living.Infraestructure.Context;
 
 namespace Living.Infraestructure.UnitOfWorks;
 public class UnitOfWork : IUnitOfWork

@@ -18,6 +18,12 @@ internal class GroupConfiguration : IEntityTypeConfiguration<Group>
             .IsRequired()
             .HasMaxLength(500);
 
+        builder.Property(g => g.CreatedAt)
+            .ValueGeneratedOnAdd();
+
+        builder.Property(g => g.LastUpdatedAt)
+            .ValueGeneratedOnUpdate();
+
         builder.HasOne(g => g.Owner)
             .WithMany(u => u.GroupsOwned)
             .HasForeignKey(g => g.OwnerId);

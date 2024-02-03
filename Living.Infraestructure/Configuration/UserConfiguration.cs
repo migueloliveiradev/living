@@ -25,10 +25,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .IsRequired();
 
         builder.Property(e => e.LastUpdatedAt)
-            .IsRequired(false);
-
-        builder.Property(e => e.DeletedAt)
-            .IsRequired(false);
+            .IsRequired();
 
         builder.HasMany(e => e.Posts)
             .WithOne(e => e.Author)
@@ -38,13 +35,15 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .WithOne(e => e.User)
             .HasForeignKey(e => e.UserId);
 
-        //builder.HasMany(e => e.UsersFollowers)
-        //    .WithOne(e => e.Following)
-        //    .HasForeignKey(e => e.FollowingId);
+        builder.HasMany(e => e.UsersFollowers)
+            .WithOne(e => e.Follower)
+            .HasForeignKey(e => e.FollowerId)
+            .IsRequired();
 
-        //builder.HasMany(e => e.UsersFollowing)
-        //    .WithOne(e => e.Follower)
-        //    .HasForeignKey(e => e.FollowerId);
+        builder.HasMany(e => e.UsersFollowing)
+            .WithOne(e => e.Following)
+            .HasForeignKey(e => e.FollowingId)
+            .IsRequired();
 
         builder.HasMany(e => e.GroupsUser)
             .WithOne(e => e.User)
@@ -70,7 +69,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .IsRequired();
 
         builder.HasMany(e => e.UserRoles)
-            .WithOne()
+            .WithOne(p => p.User)
             .HasForeignKey(e => e.UserId)
             .IsRequired();
 

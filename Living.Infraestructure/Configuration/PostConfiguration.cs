@@ -20,13 +20,10 @@ internal class PostConfiguration : IEntityTypeConfiguration<Post>
             .IsRequired();
 
         builder.Property(x => x.CreatedAt)
-            .IsRequired();
+            .ValueGeneratedOnAdd();
 
         builder.Property(x => x.LastUpdatedAt)
-            .IsRequired(false);
-
-        builder.Property(x => x.DeletedAt)
-            .IsRequired(false);
+            .ValueGeneratedOnAddOrUpdate();
 
         builder.Property(x => x.PostParentId)
             .IsRequired(false);

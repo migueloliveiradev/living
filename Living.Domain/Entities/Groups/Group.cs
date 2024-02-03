@@ -10,8 +10,7 @@ public class Group : IEntity, ITimestamps
     public required string Description { get; set; }
     public required Guid OwnerId { get; set; }
     public DateTime CreatedAt { get; set; }
-    public DateTime? LastUpdatedAt { get; set; }
-    public DateTime? DeletedAt { get; set; }
+    public DateTime LastUpdatedAt { get; set; }
     public User Owner { get; set; }
     public List<Post> Posts { get; set; } = [];
     public List<GroupUser> GroupUsers { get; set; } = [];

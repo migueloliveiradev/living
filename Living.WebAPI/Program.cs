@@ -1,12 +1,13 @@
 using FluentValidation;
 using Living.Application.UseCases.Posts.Create;
-using Living.Infraestructure;
 using Microsoft.EntityFrameworkCore;
 using Living.Domain.Entities.Roles;
 using Living.Domain.Entities.Users;
 using Living.Application.Mapping;
 using Living.Domain.Entities.Users.Constants;
 using Microsoft.AspNetCore.Identity;
+using Living.Infraestructure.Context;
+using Living.Infraestructure.Context.Interceptors;
 
 namespace Living.WebAPI;
 public class Program
@@ -15,7 +16,11 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.Services.AddDbContext<DatabaseContext>(options => options.UseInMemoryDatabase("Living"));
+        builder.Services.AddDbContext<DatabaseContext>(options =>
+        {
+            options.AddInterceptors(new TimestampsInterceptor());
+            options.UseNpgsql(builder.Configuration["PostgresConnection"]);
+        });
 
         builder.Services.AddControllers();
 

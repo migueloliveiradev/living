@@ -1,6 +1,5 @@
 ﻿using Living.Domain.Base.Interfaces;
 using Living.Domain.Entities.Groups;
-using Living.Domain.Entities.Posts.Models;
 using Living.Domain.Entities.Users;
 
 namespace Living.Domain.Entities.Posts;
@@ -15,8 +14,7 @@ public class Post : IEntity, ITimestamps
     public Guid? PostParentId { get; set; }
     public Guid? PostChildId { get; set; }
     public DateTime CreatedAt { get; set; }
-    public DateTime? LastUpdatedAt { get; set; }
-    public DateTime? DeletedAt { get; set; }
+    public DateTime LastUpdatedAt { get; set; }
 
     public Post? PostParent { get; set; }
     public List<Post> PostsParent { get; set; } = [];
@@ -33,23 +31,6 @@ public class Post : IEntity, ITimestamps
             PostId = Id,
             UserId = userId
         });
-    }
-
-    public PostItem ToItem()
-    {
-        return new()
-        {
-            Id = Id,
-            Content = Content,
-            AuthorId = AuthorId,
-            Access = Access,
-            CreatedAt = CreatedAt,
-            LastUpdatedAt = LastUpdatedAt,
-            DeletedAt = DeletedAt,
-            Author = Author.ToAuthor(),
-            CommentsCount = PostsChildren.Count,
-            LikesCount = PostLikes.Count
-        };
     }
 }
 
