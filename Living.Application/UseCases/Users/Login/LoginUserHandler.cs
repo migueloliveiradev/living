@@ -13,11 +13,11 @@ public class LoginUserHandler(UserManager<User> userManager) : IRequestHandler<L
         var user = await userManager.FindByEmailAsync(request.Email);
 
         if (user is null)
-            return Results.NotFound(new BaseResponse(UserErrors.USER_NOT_FOUND));
+            return Results.NotFound(new BaseResponse(UserErrors.NOT_FOUND));
 
         var passwordIsValid = await userManager.CheckPasswordAsync(user, request.Password);
         if (!passwordIsValid)
-            return Results.BadRequest(new BaseResponse(UserErrors.USER_PASSWORD_INVALID));
+            return Results.BadRequest(new BaseResponse(UserErrors.PASSWORD_INVALID));
         
         var authenticationScheme = request.UseCookies ? IdentityConstants.ApplicationScheme : BearerTokenDefaults.AuthenticationScheme;
 

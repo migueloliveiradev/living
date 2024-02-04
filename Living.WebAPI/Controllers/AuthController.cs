@@ -8,13 +8,13 @@ namespace Living.WebAPI.Controllers;
 public class AuthController(IMediator mediator) : ControllerBase
 {
     [HttpPost("register")]
-    public async Task<IResult> Register(RegisterUserCommand command)
+    public async Task<IResult> Register([FromBody] RegisterUserCommand command)
     {
         return await mediator.Send(command);
     }
 
     [HttpPost("login")]
-    public async Task<IResult> Login(LoginUserCommand command)
+    public async Task<IResult> Login([FromBody] LoginUserCommand command)
     {
         return await mediator.Send(command);
     }

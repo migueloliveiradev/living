@@ -8,6 +8,9 @@ using Living.Domain.Entities.Users.Constants;
 using Microsoft.AspNetCore.Identity;
 using Living.Infraestructure.Context;
 using Living.Infraestructure.Context.Interceptors;
+using Living.Application.UseCases.Users.Login;
+using MediatR.Extensions.FluentValidation.AspNetCore;
+using Living.WebAPI.ExceptionsHandler;
 
 namespace Living.WebAPI;
 public class Program
@@ -19,7 +22,8 @@ public class Program
         builder.Services.AddDbContext<DatabaseContext>(options =>
         {
             options.AddInterceptors(new TimestampsInterceptor());
-            options.UseNpgsql(builder.Configuration["PostgresConnection"]);
+            //options.UseNpgsql(builder.Configuration["PostgresConnection"]);
+            options.UseInMemoryDatabase("Living");
         });
 
         builder.Services.AddControllers();
@@ -39,7 +43,12 @@ public class Program
 
         builder.Services.AddAutoMapper(typeof(BaseProfile));
 
-        builder.Services.AddValidatorsFromAssemblyContaining<CreatePostValidator>();
+        builder.Services.AddValidatorsFromAssemblyContaining<LoginUserCommand>();
+
+        builder.Services.AddFluentValidation([typeof(LoginUserCommand).Assembly]);
+
+        builder.Services.AddExceptionHandler<FluentValidationExceptionHandler>();
+        builder.Services.AddProblemDetails();
 
         builder.Services.AddMediatR(configuration =>
         {
@@ -48,6 +57,11 @@ public class Program
 
         builder.Services.AddAuthentication().AddBearerToken();
         builder.Services.AddAuthorization();
+
+        builder.Services.AddCors(options => options.AddDefaultPolicy(
+        builder => builder.AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod()));
 
         var app = builder.Build();
 
@@ -58,6 +72,10 @@ public class Program
         }
 
         app.UseAuthentication();
+
+        app.UseCors();
+
+        app.UseExceptionHandler();
 
         app.UseHttpsRedirection();
 
