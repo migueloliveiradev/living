@@ -11,6 +11,7 @@ using Living.Infraestructure.Context.Interceptors;
 using Living.Application.UseCases.Users.Login;
 using MediatR.Extensions.FluentValidation.AspNetCore;
 using Living.WebAPI.ExceptionsHandler;
+using Living.WebAPI.Extensions;
 
 namespace Living.WebAPI;
 public class Program
@@ -22,8 +23,7 @@ public class Program
         builder.Services.AddDbContext<DatabaseContext>(options =>
         {
             options.AddInterceptors(new TimestampsInterceptor());
-            //options.UseNpgsql(builder.Configuration["PostgresConnection"]);
-            options.UseInMemoryDatabase("Living");
+            options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection"));
         });
 
         builder.Services.AddControllers();
@@ -70,6 +70,8 @@ public class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+
+        app.MigrateDatabase();
 
         app.UseAuthentication();
 
