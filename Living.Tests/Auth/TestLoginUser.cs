@@ -65,7 +65,7 @@ public class TestLoginUser : SetupWebAPI
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         var content = await response.Content.ReadFromJsonAsync<BaseResponse>();
         content!.Notifications.Should().ContainKey("USER");
-        content.Notifications["USER"].Should().Contain(UserErrors.USER_NOT_FOUND.Code);
+        content.Notifications["USER"].Should().Contain(UserErrors.NOT_FOUND.Code);
     }
 
     [Fact]
@@ -85,6 +85,6 @@ public class TestLoginUser : SetupWebAPI
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         var content = await response.Content.ReadFromJsonAsync<BaseResponse>();
         content!.Notifications.Should().ContainKey("USER");
-        content.Notifications["USER"].Should().Contain(UserErrors.USER_PASSWORD_INVALID.Code);
+        content.Notifications["USER"].Should().Contain(UserErrors.PASSWORD_INVALID.Code);
     }
 }
