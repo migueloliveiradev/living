@@ -1,5 +1,5 @@
 ﻿namespace Living.Domain.Base.Interfaces;
-internal interface ITimestamp
+public interface ITimestamp
 {
     DateTime CreatedAt { get; set; }
 }

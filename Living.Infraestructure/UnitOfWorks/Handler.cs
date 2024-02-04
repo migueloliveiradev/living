@@ -1,27 +1,20 @@
 ﻿using Living.Domain.Base.Interfaces;
 
 namespace Living.Infraestructure.UnitOfWorks;
-public abstract class Handler
+public class Handler(IUnitOfWork unitOfWork)
 {
-    private readonly IUnitOfWork _unitOfWork;
-
-    protected Handler(IUnitOfWork unitOfWork)
-    {
-        _unitOfWork = unitOfWork;
-    }
-
     public async Task BeginTransaction()
     {
-        await _unitOfWork.BeginTransaction();
+        await unitOfWork.BeginTransaction();
     }
 
     protected async Task CommitAsync()
     {
-        await _unitOfWork.Commit();
+        await unitOfWork.Commit();
     }
 
-    public async Task Rollback()
+    protected async Task Rollback()
     {
-        await _unitOfWork.Rollback();
+        await unitOfWork.Rollback();
     }
 }

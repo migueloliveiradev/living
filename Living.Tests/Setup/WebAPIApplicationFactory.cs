@@ -1,19 +1,17 @@
-﻿using FluentMigrator.Runner.Processors;
-using Living.Infraestructure;
+﻿using Living.Infraestructure.Context;
+using Living.WebAPI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Living.Tests.Setup;
-public class WebAPIApplicationFactory<TProgram> : WebApplicationFactory<TProgram> where TProgram : class
+public class WebAPIApplicationFactory : WebApplicationFactory<Program>
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.ConfigureServices(services =>
         {
-            services.AddSingleton<ProcessorOptions>();
-
             var dbContextDescriptor = services.Single(
                 d => d.ServiceType ==
                     typeof(DbContextOptions<DatabaseContext>));
@@ -22,8 +20,12 @@ public class WebAPIApplicationFactory<TProgram> : WebApplicationFactory<TProgram
 
             services.AddDbContext<DatabaseContext>((container, options) =>
             {
-                options.UseSqlite("DataSource=:memory:");
+                options.UseSqlite($"Data Source=living.db");
             });
         });
+
+        builder.UseEnvironment("Testing");
+
+        base.ConfigureWebHost(builder);
     }
 }

@@ -1,34 +1,59 @@
-﻿using System.Text.Json.Serialization;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace Living.Domain.Base;
-public class BaseResponse<T> : IBaseResponse
+public class BaseResponse<T> : BaseResponse
 {
-    public BaseResponse(T data, StatusCodes statusCode)
-    {
-        StatusCode = statusCode;
-        Data = data;
-    }
-
     public BaseResponse(T data)
     {
-        StatusCode = StatusCodes.OK;
         Data = data;
     }
 
-    public BaseResponse(Dictionary<string, string> erros)
+    public BaseResponse(Notification notification) : base(notification)
     {
-        StatusCode = StatusCodes.UnprocessableEntity;
-        Erros = erros;
     }
 
-    
+    public BaseResponse(IEnumerable<Notification> notifications) : base(notifications)
+    {
+    }
+
+    public BaseResponse(IEnumerable<IdentityError> errors) : base(errors)
+    {
+    }
+
+    public T? Data { get; set; }
+}
+
+public class BaseResponse
+{
     public BaseResponse()
     {
     }
 
-    public StatusCodes StatusCode { get; set; }
-    public T? Data { get; set; }
+    public BaseResponse(Notification notification)
+    {
+        Notifications.TryAdd(notification.Key, []);
+        Notifications[notification.Key] = [..Notifications[notification.Key], notification.Code];
+    }
 
-    [JsonInclude]
-    public Dictionary<string, string> Erros = new();
+    public BaseResponse(IEnumerable<Notification> notifications)
+    {
+        foreach (var notification in notifications)
+        {
+            Notifications.TryAdd(notification.Key, []);
+            Notifications[notification.Key] = [..Notifications[notification.Key], notification.Code];
+        }
+    }
+
+    public BaseResponse(IEnumerable<IdentityError> errors)
+    {
+        foreach (var error in errors)
+        {
+            Notifications.TryAdd("IDENTITY", []);
+            Notifications["IDENTITY"] = [..Notifications["IDENTITY"], error.Code];
+        }
+    }
+
+    public bool HasNotifications => Notifications.Count > 0;
+
+    public Dictionary<string, string[]> Notifications { get; set; } = [];
 }

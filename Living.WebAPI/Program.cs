@@ -1,11 +1,17 @@
 using FluentValidation;
 using Living.Application.UseCases.Posts.Create;
-using Living.Domain.Entity.Users;
-using Living.Infraestructure;
-using Living.WebAPI.Extensions;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json;
+using Living.Domain.Entities.Roles;
+using Living.Domain.Entities.Users;
+using Living.Application.Mapping;
+using Living.Domain.Entities.Users.Constants;
 using Microsoft.AspNetCore.Identity;
+using Living.Infraestructure.Context;
+using Living.Infraestructure.Context.Interceptors;
+using Living.Application.UseCases.Users.Login;
+using MediatR.Extensions.FluentValidation.AspNetCore;
+using Living.WebAPI.ExceptionsHandler;
+using Living.WebAPI.Extensions;
 
 namespace Living.WebAPI;
 public class Program
@@ -16,31 +22,46 @@ public class Program
 
         builder.Services.AddDbContext<DatabaseContext>(options =>
         {
-            options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresSQLConnection"));
-            options.UseSnakeCaseNamingConvention();
+            options.AddInterceptors(new TimestampsInterceptor());
+            options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection"));
         });
 
-        builder.Services.AddControllers().ConfigureJsonPolicy();
+        builder.Services.AddControllers();
 
-        builder.Services.AddIdentityCore<User>()
+        builder.Services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<DatabaseContext>()
-                .AddApiEndpoints();
+                .AddErrorDescriber<UserIdentityErrorDescriber>();
+
+        builder.Services.Configure<IdentityOptions>(options =>
+        {
+            options.User.RequireUniqueEmail = true;
+            options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ._1234567890";
+        });
 
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
+        builder.Services.AddAutoMapper(typeof(BaseProfile));
+
+        builder.Services.AddValidatorsFromAssemblyContaining<LoginUserCommand>();
+
+        builder.Services.AddFluentValidation([typeof(LoginUserCommand).Assembly]);
+
+        builder.Services.AddExceptionHandler<FluentValidationExceptionHandler>();
+        builder.Services.AddProblemDetails();
+
         builder.Services.AddMediatR(configuration =>
         {
-            //configuration.AddBehavior(typeof(ValidationBehavior<>));
             configuration.RegisterServicesFromAssemblyContaining(typeof(CreatePostCommand));
         });
 
-        builder.Services.AddValidatorsFromAssemblyContaining<CreatePostValidator>();
-
-        builder.Services.AddFluentMigrator(builder.Configuration);
-
         builder.Services.AddAuthentication().AddBearerToken();
         builder.Services.AddAuthorization();
+
+        builder.Services.AddCors(options => options.AddDefaultPolicy(
+        builder => builder.AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod()));
 
         var app = builder.Build();
 
@@ -50,7 +71,13 @@ public class Program
             app.UseSwaggerUI();
         }
 
-        app.UpdateDatabase();
+        app.MigrateDatabase();
+
+        app.UseAuthentication();
+
+        app.UseCors();
+
+        app.UseExceptionHandler();
 
         app.UseHttpsRedirection();
 

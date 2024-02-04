@@ -1,4 +1,5 @@
-﻿using Living.WebAPI;
+﻿using Living.Infraestructure.Context;
+using Living.WebAPI;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,8 +11,16 @@ public class SetupWebAPI : IDisposable
 
     public SetupWebAPI()
     {
-        factory = new WebAPIApplicationFactory<Program>();
+        factory = new WebAPIApplicationFactory();
         client = factory.CreateClient();
+
+        CreateDatabase();
+    }
+
+    private void CreateDatabase()
+    {
+        using var context = GetService<DatabaseContext>()!;
+        context.Database.EnsureCreated();
     }
 
     protected T GetService<T>()

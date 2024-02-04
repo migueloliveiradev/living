@@ -1,5 +1,6 @@
-﻿using Living.Domain.Entity.Posts;
-using Living.Domain.Entity.Posts.Interface;
+﻿using Living.Domain.Entities.Posts;
+using Living.Domain.Entities.Posts.Interface;
+using Living.Infraestructure.Context;
 
 namespace Living.Infraestructure.Repositories;
 public class PostsRepository : BaseRepository<Post>, IPostsRepository
