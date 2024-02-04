@@ -1,27 +1,25 @@
 {
   "name": "nuxt-app",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
-    "start": "nuxt start"
+    "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@nuxt/devtools": "latest",
-    "@types/node": "^18.17.3",
-    "nuxt": "^3.6.5"
+    "@nuxt/devtools": "^1.0.8",
+    "@nuxtjs/i18n": "^8.0.0",
+    "nuxt": "^3.10.0",
+    "nuxt-primevue": "^0.2.2",
+    "vue": "^3.4.15",
+    "vue-router": "^4.2.5"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^6.4.2",
-    "@fortawesome/fontawesome-svg-core": "^6.4.2",
-    "@fortawesome/free-brands-svg-icons": "^6.4.2",
-    "@fortawesome/free-regular-svg-icons": "^6.4.2",
-    "@fortawesome/free-solid-svg-icons": "^6.4.2",
-    "@fortawesome/vue-fontawesome": "^3.0.3",
-    "@nuxt/ui": "^2.10.0",
-    "nuxt-auth-utils": "^0.0.6"
+    "primeflex": "^3.3.1",
+    "primeicons": "^6.0.1",
+    "primevue": "^3.47.2"
   }
 }
