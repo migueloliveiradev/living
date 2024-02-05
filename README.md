@@ -4,17 +4,43 @@
 
 Uma futura rede social para você compartilhar e salvar suas memórias, seus interesses, suas ideias e dividir com seus amigos
 
-# Tecnologias Utilizadas 
+## Tecnologias Utilizadas 
 - Back End
-  - [ASP.NET Core 8](https://learn.microsoft.com/pt-br/aspnet/core/)
-  - [Entity Framework Core 8](https://learn.microsoft.com/pt-br/ef/core/)
-  - [MediatR](https://github.com/jbogard/MediatR)
-  - [Xunit](https://github.com/xunit/xunit)
-  - [PostgreSQL](https://www.postgresql.org/)
+  - WebAPI
+    - [ASP.NET Core 8](https://learn.microsoft.com/pt-br/aspnet/core/)
+    - [ASP.NET Core Identity](https://learn.microsoft.com/pt-br/aspnet/core/security/authentication/identity)
+    - [MediatR](https://github.com/jbogard/MediatR)
+    - [.NET Core Native DI](https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection)
+    - [AutoMapper](https://github.com/AutoMapper/AutoMapper)
+    - [FluentValidation](https://github.com/FluentValidation/FluentValidation)
+  - Persistência
+    - [Entity Framework Core 8](https://learn.microsoft.com/pt-br/ef/core/)
+    - [PostgreSQL](https://www.postgresql.org/)
+  - Documentação
+    - [Swagger UI](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)
+  - Testes
+    - [xUnit](https://learn.microsoft.com/pt-br/dotnet/core/testing/unit-testing-with-dotnet-test)
+    - [AutoFixture](https://github.com/AutoFixture/AutoFixture/)
+    - [FluentAssertions](https://github.com/fluentassertions/fluentassertions/)
+    - [TestServer](https://learn.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-8.0)
+    - [Coverlet](https://github.com/coverlet-coverage/coverlet)
 - Front End
-  - [Nuxt](https://nuxt.com/)
-  - [Nuxt UI
-](https://ui.nuxt.com/)
+  - Frameworks
+    - [Vue.Js 3](https://vuejs.org/)
+    - [Nuxt 3](https://nuxt.com/)
+  - UI
+    - [PrimeVue](https://primevue.org/)
+    - [PrimeFlex](https://primeflex.org/)
+    - [PrimeIcons](https://primevue.org/icons)
+
+## Design Patterns
+  - CQRS
+  - Unit Of Work
+  - Repository & Generic Repository
+  - Dependency injection
+  - ORM
+  - Mediator
+
 # Contribuidores 
 <a href="https://github.com/eimigueloliveir/living/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=eimigueloliveir/living" />
