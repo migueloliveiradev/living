@@ -1,6 +1,4 @@
 ﻿using Living.Domain.Entities.Posts;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Living.Infraestructure.Configuration;
 internal class PostConfiguration : IEntityTypeConfiguration<Post>
@@ -54,12 +52,12 @@ internal class PostConfiguration : IEntityTypeConfiguration<Post>
             .WithOne(x => x.PostChild)
             .HasForeignKey(x => x.PostChildId);
 
-        builder.HasMany(x => x.PostsChildren)
+        builder.HasMany(x => x.PostsChildrens)
             .WithOne(x => x.PostParent)
             .HasForeignKey(x => x.PostParentId);
 
         builder.HasOne(x => x.PostParent)
-            .WithMany(x => x.PostsChildren)
+            .WithMany(x => x.PostsChildrens)
             .HasForeignKey(x => x.PostParentId);
     }
 }

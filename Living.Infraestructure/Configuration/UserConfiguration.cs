@@ -1,9 +1,7 @@
 ﻿using Living.Domain.Entities.Users;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Living.Infraestructure.Configuration;
-public class UserConfiguration : IEntityTypeConfiguration<User>
+internal class UserConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
@@ -53,17 +51,17 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .WithOne(e => e.Owner)
             .HasForeignKey(e => e.OwnerId);
 
-        builder.HasMany(e => e.Claims)
+        builder.HasMany(e => e.UserClaims)
             .WithOne()
             .HasForeignKey(e => e.UserId)
             .IsRequired();
 
-        builder.HasMany(e => e.Logins)
+        builder.HasMany(e => e.UserLogins)
             .WithOne()
             .HasForeignKey(e => e.UserId)
             .IsRequired();
 
-        builder.HasMany(e => e.Tokens)
+        builder.HasMany(e => e.UserTokens)
             .WithOne()
             .HasForeignKey(e => e.UserId)
             .IsRequired();

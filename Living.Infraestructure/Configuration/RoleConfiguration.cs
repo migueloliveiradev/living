@@ -1,6 +1,4 @@
 ﻿using Living.Domain.Entities.Roles;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Living.Infraestructure.Configuration;
 internal class RoleConfiguration : IEntityTypeConfiguration<Role>
@@ -15,6 +13,10 @@ internal class RoleConfiguration : IEntityTypeConfiguration<Role>
             .IsRequired();
 
         builder.HasMany(e => e.UserRoles)
+            .WithOne(e => e.Role)
+            .HasForeignKey(e => e.RoleId);
+
+        builder.HasMany(e => e.RoleClaims)
             .WithOne(e => e.Role)
             .HasForeignKey(e => e.RoleId);
     }

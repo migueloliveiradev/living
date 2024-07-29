@@ -1,36 +1,29 @@
-﻿using Living.Infraestructure.Context;
-using Living.WebAPI;
-using Microsoft.AspNetCore.Mvc.Testing;
+﻿using Living.Tests.Setup.Factory;
 using Microsoft.Extensions.DependencyInjection;
+using System.Net.Http.Json;
 
 namespace Living.Tests.Setup;
-public class SetupWebAPI : IDisposable
+
+[CollectionDefinition("WebAPI")]
+public record WebAPIFactoryCollection : ICollectionFixture<WebAPIFactory>;
+
+[Collection("WebAPI")]
+public partial class SetupWebAPI(WebAPIFactory webAPI)
 {
-    protected readonly HttpClient client;
-    private readonly WebApplicationFactory<Program> factory;
+    protected T GetService<T>() => webAPI.Services.GetService<T>()!;
 
-    public SetupWebAPI()
+
+    protected async Task<T> PostAsync<T>(string path, object? body = null)
     {
-        factory = new WebAPIApplicationFactory();
-        client = factory.CreateClient();
-
-        CreateDatabase();
+        var response = await webAPI.HttpClient.PostAsJsonAsync(path, body);
+        var data = await response.Content.ReadFromJsonAsync<T>();
+        return data!;
     }
 
-    private void CreateDatabase()
+    protected async Task<T> GetAsync<T>(string path)
     {
-        using var context = GetService<DatabaseContext>()!;
-        context.Database.EnsureCreated();
-    }
-
-    protected T GetService<T>()
-    {
-        return factory.Services.GetService<T>()!;
-    }
-
-    public void Dispose()
-    {
-        client.Dispose();
-        factory.Dispose();
+        var response = await webAPI.HttpClient.GetAsync(path);
+        var data = await response.Content.ReadFromJsonAsync<T>();
+        return data!;
     }
 }

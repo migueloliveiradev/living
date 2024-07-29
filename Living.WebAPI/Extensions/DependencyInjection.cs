@@ -1,7 +1,7 @@
-﻿using Living.Domain.Base.Interfaces;
-using Living.Domain.Entities.Posts.Interface;
+﻿using Living.Domain.Entities.Posts.Interface;
 using Living.Infraestructure.Repositories;
 using Living.Infraestructure.UnitOfWorks;
+using Living.Shared.Handlers;
 
 namespace Living.WebAPI.Extensions;
 

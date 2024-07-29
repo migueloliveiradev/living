@@ -19,7 +19,7 @@ public class Post : IEntity, ITimestamps
     public Post? PostParent { get; set; }
     public List<Post> PostsParent { get; set; } = [];
     public Post? PostChild { get; set; }
-    public List<Post> PostsChildren { get; set; } = [];
+    public List<Post> PostsChildrens { get; set; } = [];
     public User Author { get; set; }
     public Group? Group { get; set; }
     public List<PostLike> PostLikes { get; set; } = [];

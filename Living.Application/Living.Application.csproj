@@ -7,9 +7,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="AutoMapper" Version="12.0.1" />
-		<PackageReference Include="MediatR" Version="12.2.0" />
+		<PackageReference Include="MediatR" Version="12.4.0" />
 		<PackageReference Include="MediatR.Extensions.FluentValidation.AspNetCore" Version="5.1.0" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -24,6 +24,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Living.Domain\Living.Domain.csproj" />
+		<ProjectReference Include="..\Living.Shared\Living.Shared.csproj" />
 	</ItemGroup>
 
 </Project>

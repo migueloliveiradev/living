@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
-using Microsoft.AspNetCore.Http;
+using Living.Domain.Entities.Users.Models;
 
 namespace Living.Application.UseCases.Users.Login;
-public class LoginUserCommand : IRequest<IResult>
+public class LoginUserCommand : IRequest<BaseResponse<UserLoginResponse>>
 {
     public string Email { get; set; } = null!;
     public string Password { get; set; } = null!;

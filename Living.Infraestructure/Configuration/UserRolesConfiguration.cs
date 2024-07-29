@@ -1,6 +1,4 @@
 ﻿using Living.Domain.Entities.Roles;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Living.Infraestructure.Configuration;
 internal class UserRolesConfiguration : IEntityTypeConfiguration<UserRole>

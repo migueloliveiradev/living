@@ -2,14 +2,13 @@
 using Living.Domain.Entities.Posts;
 using Living.Domain.Entities.Roles;
 using Living.Domain.Entities.Users;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace Living.Infraestructure.Context;
 public class DatabaseContext(DbContextOptions options)
-    : IdentityDbContext<User, Role, Guid, IdentityUserClaim<Guid>, UserRole, IdentityUserLogin<Guid>, IdentityRoleClaim<Guid>, IdentityUserToken<Guid>>(options)
+    : IdentityDbContext<User, Role, Guid, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>(options)
 {
     public DbSet<UserFollow> UserFollows => Set<UserFollow>();
     public DbSet<Post> Posts => Set<Post>();
@@ -19,9 +18,6 @@ public class DatabaseContext(DbContextOptions options)
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
-        modelBuilder.HasDefaultSchema("Living");
-
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 }

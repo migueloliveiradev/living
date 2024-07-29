@@ -3,9 +3,6 @@ using Living.Domain.Entities.Posts.Interface;
 using Living.Infraestructure.Context;
 
 namespace Living.Infraestructure.Repositories;
-public class PostsRepository : BaseRepository<Post>, IPostsRepository
+public class PostsRepository(DatabaseContext context) : BaseRepository<Post>(context), IPostsRepository
 {
-    public PostsRepository(DatabaseContext context) : base(context)
-    {
-    }
 }

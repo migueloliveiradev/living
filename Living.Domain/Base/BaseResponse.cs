@@ -1,8 +1,15 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.Net;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("Living.Tests")]
 namespace Living.Domain.Base;
+
 public class BaseResponse<T> : BaseResponse
 {
+    internal BaseResponse()
+    {
+    }
     public BaseResponse(T data)
     {
         Data = data;
@@ -29,31 +36,37 @@ public class BaseResponse
     {
     }
 
-    public BaseResponse(Notification notification)
+    public BaseResponse(Notification notification, HttpStatusCode httpStatusCode = HttpStatusCode.BadRequest)
     {
-        Notifications.TryAdd(notification.Key, []);
-        Notifications[notification.Key] = [..Notifications[notification.Key], notification.Code];
+        Notifications.Add(notification.Key, [notification.Code]);
+        HttpStatusCode = httpStatusCode;
     }
 
-    public BaseResponse(IEnumerable<Notification> notifications)
+    public BaseResponse(IEnumerable<Notification> notifications, HttpStatusCode httpStatusCode = HttpStatusCode.BadRequest)
     {
         foreach (var notification in notifications)
         {
             Notifications.TryAdd(notification.Key, []);
-            Notifications[notification.Key] = [..Notifications[notification.Key], notification.Code];
+            Notifications[notification.Key] = [.. Notifications[notification.Key], notification.Code];
         }
+
+        HttpStatusCode = httpStatusCode;
     }
 
-    public BaseResponse(IEnumerable<IdentityError> errors)
+    public BaseResponse(IEnumerable<IdentityError> errors, HttpStatusCode httpStatusCode = HttpStatusCode.BadRequest)
     {
         foreach (var error in errors)
         {
             Notifications.TryAdd("IDENTITY", []);
-            Notifications["IDENTITY"] = [..Notifications["IDENTITY"], error.Code];
+            Notifications["IDENTITY"] = [.. Notifications["IDENTITY"], error.Code];
         }
+
+        HttpStatusCode = httpStatusCode;
     }
 
     public bool HasNotifications => Notifications.Count > 0;
 
     public Dictionary<string, string[]> Notifications { get; set; } = [];
+
+    public HttpStatusCode HttpStatusCode { get; set; } = HttpStatusCode.OK;
 }

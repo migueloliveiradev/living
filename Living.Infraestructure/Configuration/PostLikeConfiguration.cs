@@ -1,6 +1,4 @@
 ﻿using Living.Domain.Entities.Posts;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Living.Infraestructure.Configuration;
 internal class PostLikeConfiguration : IEntityTypeConfiguration<PostLike>

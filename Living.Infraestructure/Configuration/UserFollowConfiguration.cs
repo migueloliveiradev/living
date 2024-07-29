@@ -1,6 +1,4 @@
 ﻿using Living.Domain.Entities.Users;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Living.Infraestructure.Configuration;
 internal class UserFollowConfiguration : IEntityTypeConfiguration<UserFollow>
