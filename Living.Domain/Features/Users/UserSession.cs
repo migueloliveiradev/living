@@ -1,5 +1,4 @@
-﻿using Living.Domain.Base.Interfaces;
-using Living.Domain.Entities.Users;
+﻿using Living.Domain.Entities.Users;
 
 namespace Living.Domain.Features.Users;
 public class UserSession(Guid userId, string refreshToken) : IEntity, ITimestamps

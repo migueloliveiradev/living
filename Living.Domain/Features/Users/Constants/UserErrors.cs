@@ -1,6 +1,4 @@
-﻿using Living.Domain.Base;
-
-namespace Living.Domain.Entities.Users.Constants;
+﻿namespace Living.Domain.Entities.Users.Constants;
 public class UserErrors
 {
     public static Notification NOT_FOUND => new("USER");

@@ -1,10 +1,7 @@
 ﻿using Living.Domain.Entities.Users;
 using Living.Domain.Entities.Users.Constants;
-using Living.Domain.Entities.Users.Interfaces;
 using Living.Domain.Services;
-using Living.Shared.Handlers;
 using Microsoft.AspNetCore.Identity;
-using System.Net;
 
 namespace Living.Application.UseCases.Users.Login;
 public class LoginUserHandler(

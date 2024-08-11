@@ -1,33 +1,47 @@
 ﻿using Living.Application.UseCases.Users.Login;
 using Living.Application.UseCases.Users.Register;
+using Living.Domain.Entities.Users.Constants;
+using Living.Domain.Entities.Users.Interfaces;
+using Living.Shared.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace Living.Tests.Setup;
 public partial class SetupWebAPI
 {
-#pragma warning disable IDE0060
+    protected IUserRepository UserRepository => GetService<IUserRepository>();
+
     protected async Task LoginAsync(string? permission = null)
     {
-        var register = await RegisterAsync();
+        var registerUserCommand = RegisterUserFaker.Instance.Generate();
+        var userId = await RegisterAsync(registerUserCommand);
 
-        var token = await LoginWebAPIAsync(register.Email, register.Password);
+        var cookies = await LoginWebAPIAsync(registerUserCommand.Email, registerUserCommand.Password);
 
-        //webAPI.AddBearerToken(token);
+        var user = await UserRepository.DBSet()
+            .FirstOrDefaultAsync(x => x.Id == userId);
 
-        // TODO: Add permission
+        if (user is null)
+            throw new Exception("User not found");
+
+        if (permission is not null)
+            user.AddClaim(UserClaimsTokens.PERMISSION, permission);
+
+        await UserRepository.CommitAsync();
+
+        webAPI.AddCookies(cookies);
     }
 
-    private async Task<RegisterUserCommand> RegisterAsync()
+    private async Task<Guid> RegisterAsync(RegisterUserCommand registerUserCommand)
     {
-        var registerUserCommand = RegisterUserFaker.Instance.Generate();
         var responseRegister = await PostAsync<BaseResponse<Guid>>("/api/auth/register", registerUserCommand);
 
         if (responseRegister.HasNotifications)
             throw new Exception(responseRegister.Notifications.ToString());
 
-        return registerUserCommand;
+        return responseRegister.Data;
     }
 
-    private async Task<string> LoginWebAPIAsync(string email, string password)
+    private async Task<List<Cookie>> LoginWebAPIAsync(string email, string password)
     {
         var command = new LoginUserCommand
         {
@@ -35,11 +49,8 @@ public partial class SetupWebAPI
             Password = password,
         };
 
-        var responseLogin = await PostAsync<BaseResponse>("/api/auth/login", command);
+        var responseLogin = await Client.PostAsJsonAsync("/api/auth/login", command);
 
-        if (responseLogin.HasNotifications)
-            throw new Exception(responseLogin.Notifications.ToString());
-
-        return "responseLogin.Data!.AccessToken";
+        return responseLogin.GetCookies();
     }
 }

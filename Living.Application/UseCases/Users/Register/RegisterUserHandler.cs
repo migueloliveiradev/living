@@ -1,6 +1,4 @@
 ﻿using Living.Domain.Entities.Users;
-using Living.Domain.Entities.Users.Interfaces;
-using Living.Shared.Handlers;
 using Microsoft.AspNetCore.Identity;
 
 namespace Living.Application.UseCases.Users.Register;

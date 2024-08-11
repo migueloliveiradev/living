@@ -1,5 +1,4 @@
-﻿using Living.Domain.Base.Interfaces;
-using Living.Domain.Entities.Groups;
+﻿using Living.Domain.Entities.Groups;
 using Living.Domain.Entities.Posts;
 using Living.Domain.Entities.Roles;
 using Living.Domain.Features.Users;
@@ -54,5 +53,15 @@ public class User : IdentityUser<Guid>, IEntity, ITimestamps
         var session = UserSessions.FirstOrDefault(s => s.RefreshToken == currentRefleshToken);
         if (session is not null)
             session.Update(newRefleshToken);
+    }
+
+    public void AddClaim(string type, string value)
+    {
+        UserClaims.Add(new UserClaim()
+        {
+            UserId = Id,
+            ClaimType = type,
+            ClaimValue = value
+        });
     }
 }

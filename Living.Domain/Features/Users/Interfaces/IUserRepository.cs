@@ -1,5 +1,4 @@
-﻿using Living.Domain.Base.Interfaces;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 
 namespace Living.Domain.Entities.Users.Interfaces;
 public interface IUserRepository : IBaseRepository<User>

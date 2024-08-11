@@ -3,9 +3,6 @@ using Living.Domain.Entities.Users.Constants;
 using Living.Domain.Entities.Users.Models;
 using Living.Domain.Features.Users.Constants;
 using Living.Shared.Extensions;
-using Living.Tests.Setup.Factory;
-using System.Net;
-using System.Net.Http.Json;
 
 namespace Living.Tests.Auth;
 public class TestLoginUser(WebAPIFactory webAPI) : SetupWebAPI(webAPI)

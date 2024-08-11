@@ -1,6 +1,5 @@
 ﻿using Living.Domain.Entities.Users.Constants;
 using Living.Domain.Entities.Users.Extensions;
-using Living.Domain.Entities.Users.Interfaces;
 using Living.Domain.Entities.Users.Models;
 
 namespace Living.Application.UseCases.Users.Me;
