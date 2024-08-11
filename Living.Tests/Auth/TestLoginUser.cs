@@ -1,13 +1,17 @@
 ﻿using Living.Application.UseCases.Users.Login;
+using Living.Domain.Entities.Users.Constants;
 using Living.Domain.Entities.Users.Models;
+using Living.Domain.Features.Users.Constants;
+using Living.Shared.Extensions;
 using Living.Tests.Setup.Factory;
 using System.Net;
+using System.Net.Http.Json;
 
 namespace Living.Tests.Auth;
 public class TestLoginUser(WebAPIFactory webAPI) : SetupWebAPI(webAPI)
 {
     [Fact]
-    public async Task ShouldLoginUserUsingBearerToken()
+    public async Task ShouldLoginUser()
     {
         var registerUserCommand = RegisterUserFaker.Instance.Generate();
         var responseRegister = await PostAsync<BaseResponse<Guid>>("/api/auth/register", registerUserCommand);
@@ -16,74 +20,75 @@ public class TestLoginUser(WebAPIFactory webAPI) : SetupWebAPI(webAPI)
         var login = new LoginUserCommand
         {
             Email = registerUserCommand.Email,
-            Password = registerUserCommand.Password,
-            UseCookies = false
+            Password = registerUserCommand.Password
         };
 
-        var responseLogin = await PostAsync<BaseResponse<UserLoginResponse>>("/api/auth/login", login);
+        var responseLogin = await Client.PostAsJsonAsync("/api/auth/login", login);
+        responseLogin.StatusCode.Should().Be(HttpStatusCode.OK);
 
-        responseLogin.HttpStatusCode.Should().Be(HttpStatusCode.OK);
-        responseLogin.Data!.AccessToken.Should().NotBeNullOrEmpty();
-        responseLogin.Data.RefreshToken.Should().NotBeNullOrEmpty();
-        responseLogin.Data.TokenType.Should().Be("Bearer");
-        responseLogin.Data.ExpiresIn.Should().BeGreaterThan(0);
-    }
+        var cookies = responseLogin.GetCookies();
 
-    /*[Fact]
-    public async Task ShouldLoginUserUsingCookies()
-    {
-        var registerUserCommand = RegisterUserFaker.Instance.Generate();
-        var responseRegister = await client.PostAsJsonAsync("/api/auth/register", registerUserCommand);
-        responseRegister.StatusCode.Should().Be(HttpStatusCode.OK);
+        var accessToken = cookies.FirstOrDefault(p => p.Name == UserCookies.ACCESS_TOKEN);
+        accessToken!.Value.Should().NotBeNull();
 
-        var responseLogin = await client.PostAsJsonAsync("/api/auth/login", new LoginUserCommand
+        var refreshToken = cookies.FirstOrDefault(p => p.Name == UserCookies.REFRESH_TOKEN);
+        refreshToken!.Value.Should().NotBeNull();
+
+        var userId = cookies.FirstOrDefault(p => p.Name == UserCookies.USER_ID);
+        userId.Should().NotBeNull();
+        userId!.Value.IsGuid().Should().BeTrue();
+
+        webAPI.AddCookies(cookies);
+
+        var me = await GetAsync<BaseResponse<UserItemDetails>>("/api/auth/me");
+
+        me.HttpStatusCode.Should().Be(HttpStatusCode.OK);
+        me.Data.Should().BeEquivalentTo(new UserItemDetails
         {
-            Email = registerUserCommand.Email,
-            Password = registerUserCommand.Password,
-            UseCookies = true
+            Id = userId!.Value.ToGuid(),
+            Name = registerUserCommand.Name,
+            Username = registerUserCommand.Username,
+            Bio = "",
+            Birthday = DateOnly.MinValue,
+            CreatedAt = me.Data!.CreatedAt,
+            FollowersCount = 0,
+            FollowingCount = 0,
+            PostsCount = 0
         });
 
-        responseLogin.EnsureSuccessStatusCode();
-        var cookies = responseLogin.Headers.FirstOrDefault(p => p.Key == "Set-Cookie").Value;
-        cookies.Should().HaveCount(1);
-        var cookie = cookies.First();
-        cookie.Should().StartWith(".AspNetCore.Identity.Application=");
     }
 
     [Fact]
-    public async Task ShouldNotLoginUserWhenUserNotInvalid()
+    public async Task ShouldNotLoginUser_WhenUserNotInvalid()
     {
         var registerUserCommand = RegisterUserFaker.Instance.Generate();
-        var response = await client.PostAsJsonAsync("/api/auth/login", new LoginUserCommand
+        var response = await PostAsync<BaseResponse>("/api/auth/login", new LoginUserCommand
         {
             Email = registerUserCommand.Email,
             Password = registerUserCommand.Password,
-            UseCookies = false
         });
 
-        response.StatusCode.Should().Be(HttpStatusCode.NotFound);
-        var content = await response.Content.ReadFromJsonAsync<BaseResponse>();
-        content!.Notifications.Should().ContainKey("USER");
-        content.Notifications["USER"].Should().Contain(UserErrors.NOT_FOUND.Code);
+        response.HttpStatusCode.Should().Be(HttpStatusCode.NotFound);
+
+        response.Notifications.Should().ContainKey("USER");
+        response.Notifications["USER"].Should().Contain(UserErrors.NOT_FOUND.Code);
     }
 
     [Fact]
-    public async Task ShouldNotLoginUserWhenPasswordIsInvalid()
+    public async Task ShouldNotLoginUser_WhenPasswordIsInvalid()
     {
         var registerUserCommand = RegisterUserFaker.Instance.Generate();
-        var responseRegister = await client.PostAsJsonAsync("/api/auth/register", registerUserCommand);
-        responseRegister.StatusCode.Should().Be(HttpStatusCode.OK);
+        var responseRegister = await PostAsync<BaseResponse<Guid>>("/api/auth/register", registerUserCommand);
+        responseRegister.HttpStatusCode.Should().Be(HttpStatusCode.OK);
 
-        var response = await client.PostAsJsonAsync("/api/auth/login", new LoginUserCommand
+        var response = await PostAsync<BaseResponse>("/api/auth/login", new LoginUserCommand
         {
             Email = registerUserCommand.Email,
             Password = "invalid-password",
-            UseCookies = false
         });
 
-        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-        var content = await response.Content.ReadFromJsonAsync<BaseResponse>();
-        content!.Notifications.Should().ContainKey("USER");
-        content.Notifications["USER"].Should().Contain(UserErrors.PASSWORD_INVALID.Code);
-    }*/
+        response.HttpStatusCode.Should().Be(HttpStatusCode.BadRequest);
+        response.Notifications.Should().ContainKey("USER");
+        response.Notifications["USER"].Should().Contain(UserErrors.PASSWORD_INVALID.Code);
+    }
 }

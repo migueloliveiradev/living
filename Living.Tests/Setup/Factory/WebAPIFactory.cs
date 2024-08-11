@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
-using System.Net.Http.Headers;
+using System.Net;
 using Testcontainers.PostgreSql;
 
 namespace Living.Tests.Setup.Factory;
@@ -36,9 +36,12 @@ public class WebAPIFactory : IAsyncLifetime
 
     public IServiceProvider Services => Factory.Services;
 
-    public void AddBearerToken(string token)
+    public void AddCookies(List<Cookie> cookieCollection)
     {
-        HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        foreach (var cookie in cookieCollection)
+        {
+            HttpClient.DefaultRequestHeaders.Add("Cookie", cookie.ToString());
+        }
     }
 
     public async Task InitializeAsync()

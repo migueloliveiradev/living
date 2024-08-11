@@ -1,17 +1,26 @@
 ﻿using Living.Domain.Entities.Users;
+using Living.Domain.Entities.Users.Interfaces;
+using Living.Shared.Handlers;
 using Microsoft.AspNetCore.Identity;
 
 namespace Living.Application.UseCases.Users.Register;
-public class RegisterUserHandler(UserManager<User> userManager) : IRequestHandler<RegisterUserCommand, BaseResponse<Guid>>
+public class RegisterUserHandler(
+    IUserRepository userRepository,
+    UserManager<User> userManager,
+    IUnitOfWork unitOfWork)
+    : Handler(unitOfWork), IRequestHandler<RegisterUserCommand, BaseResponse<Guid>>
 {
     public async Task<BaseResponse<Guid>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
         var user = request.ToUser();
 
-        var result = await userManager.CreateAsync(user, request.Password);
+        userRepository.Insert(user);
 
-        if (!result.Succeeded)
-            return new(result.Errors);
+        user.PasswordHash = userManager.PasswordHasher.HashPassword(user, request.Password);
+        user.SecurityStamp = Guid.NewGuid().ToString();
+
+        await CommitAsync(cancellationToken);
+
 
         return new(user.Id);
     }

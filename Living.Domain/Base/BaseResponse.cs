@@ -1,15 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.Net;
-using System.Runtime.CompilerServices;
+using System.Text.Json.Serialization;
 
-[assembly: InternalsVisibleTo("Living.Tests")]
 namespace Living.Domain.Base;
 
 public class BaseResponse<T> : BaseResponse
 {
-    internal BaseResponse()
-    {
-    }
+    [JsonConstructor]
     public BaseResponse(T data)
     {
         Data = data;

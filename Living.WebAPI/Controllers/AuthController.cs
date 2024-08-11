@@ -1,5 +1,8 @@
 ﻿using Living.Application.UseCases.Users.Login;
+using Living.Application.UseCases.Users.Me;
+using Living.Application.UseCases.Users.RefleshToken;
 using Living.Application.UseCases.Users.Register;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Living.WebAPI.Controllers;
 [Route("api/auth")]
@@ -16,5 +19,18 @@ public class AuthController(IMediator mediator) : ControllerAPI
     public async Task<IActionResult> Login([FromBody] LoginUserCommand command)
     {
         return CreateResponse(await mediator.Send(command));
+    }
+
+    [HttpPost("reflesh-token")]
+    public async Task<IActionResult> RefleshToken()
+    {
+        return CreateResponse(await mediator.Send(new RefleshTokenCommand()));
+    }
+
+    [HttpGet("me")]
+    [Authorize]
+    public async Task<IActionResult> Me()
+    {
+        return CreateResponse(await mediator.Send(new GetCurrentUserQuery()));
     }
 }

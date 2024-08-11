@@ -1,6 +1,6 @@
 ﻿namespace Living.Domain.Base.Interfaces;
-public interface ITimestamps : ITimestamp
+public interface ITimestamps
 {
-    DateTime LastUpdatedAt { get; set; }
-    
+    DateTime CreatedAt { get; }
+    DateTime LastUpdatedAt { get; }
 }

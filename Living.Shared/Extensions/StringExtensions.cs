@@ -1,18 +1,16 @@
 ﻿using Living.Shared.Helpers;
-using System.Text.RegularExpressions;
 
 namespace Living.Shared.Extensions;
 public static partial class StringExtensions
 {
     public static string ToPascalCase(this string @string)
     {
-
-        Regex invalidCharsRgx = RegexHelpers.InvalidChars();
-        Regex whiteSpace = RegexHelpers.WhiteSpace();
-        Regex startsWithLowerCaseChar = RegexHelpers.StartsWithLowerCaseChar();
-        Regex firstCharFollowedByUpperCasesOnly = RegexHelpers.FirstCharFollowedByUpperCasesOnly();
-        Regex lowerCaseNextToNumber = RegexHelpers.LowerCaseNextToNumber();
-        Regex upperCaseInside = RegexHelpers.UpperCaseInside();
+        var invalidCharsRgx = RegexHelpers.InvalidChars();
+        var whiteSpace = RegexHelpers.WhiteSpace();
+        var startsWithLowerCaseChar = RegexHelpers.StartsWithLowerCaseChar();
+        var firstCharFollowedByUpperCasesOnly = RegexHelpers.FirstCharFollowedByUpperCasesOnly();
+        var lowerCaseNextToNumber = RegexHelpers.LowerCaseNextToNumber();
+        var upperCaseInside = RegexHelpers.UpperCaseInside();
 
         var pascalCase = invalidCharsRgx.Replace(whiteSpace.Replace(@string, "_"), string.Empty)
             .Split(['_'], StringSplitOptions.RemoveEmptyEntries)
@@ -22,5 +20,15 @@ public static partial class StringExtensions
             .Select(w => upperCaseInside.Replace(w, m => m.Value.ToLower()));
 
         return string.Concat(pascalCase);
+    }
+
+    public static Guid ToGuid(this string @string)
+    {
+        return Guid.Parse(@string);
+    }
+
+    public static bool IsGuid(this string @string)
+    {
+        return Guid.TryParse(@string, out _);
     }
 }

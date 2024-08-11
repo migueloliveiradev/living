@@ -10,7 +10,12 @@ public record WebAPIFactoryCollection : ICollectionFixture<WebAPIFactory>;
 [Collection("WebAPI")]
 public partial class SetupWebAPI(WebAPIFactory webAPI)
 {
-    protected T GetService<T>() => webAPI.Services.GetService<T>()!;
+    protected HttpClient Client => webAPI.HttpClient;
+    protected T GetService<T>()
+        where T : notnull
+    {
+        return webAPI.Services.GetRequiredService<T>();
+    }
 
 
     protected async Task<T> PostAsync<T>(string path, object? body = null)
@@ -23,6 +28,8 @@ public partial class SetupWebAPI(WebAPIFactory webAPI)
     protected async Task<T> GetAsync<T>(string path)
     {
         var response = await webAPI.HttpClient.GetAsync(path);
+        //var json = await response.Content.ReadAsStringAsync();
+
         var data = await response.Content.ReadFromJsonAsync<T>();
         return data!;
     }

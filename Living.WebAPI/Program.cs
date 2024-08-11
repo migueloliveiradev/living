@@ -1,9 +1,5 @@
-using FluentValidation;
-using Living.Application.UseCases.Posts.Create;
 using Living.Application.UseCases.Users.Login;
-using Living.WebAPI.ExceptionsHandler;
 using Living.WebAPI.Extensions;
-using MediatR.Extensions.FluentValidation.AspNetCore;
 
 namespace Living.WebAPI;
 public class Program
@@ -12,7 +8,9 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.Services.AddDatabase(builder.Configuration);
+        builder.Services.ConfigureAllOptions(builder.Configuration);
+
+        builder.Services.AddDatabase();
 
         builder.Services.AddControllers();
 
@@ -20,21 +18,15 @@ public class Program
 
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
-
-        builder.Services.AddValidatorsFromAssemblyContaining<LoginUserCommand>();
-
-        builder.Services.AddFluentValidation([typeof(LoginUserCommand).Assembly]);
-
-        builder.Services.AddExceptionHandler<FluentValidationExceptionHandler>();
         builder.Services.AddProblemDetails();
 
         builder.Services.AddMediatR(configuration =>
         {
-            configuration.RegisterServicesFromAssemblyContaining(typeof(CreatePostCommand));
+            configuration.RegisterServicesFromAssemblyContaining(typeof(LoginUserCommand));
         });
 
-        builder.Services.AddAuthentication().AddBearerToken();
-        builder.Services.AddAuthorization();
+        builder.Services.ConfigureAuthentication();
+        builder.Services.AddApplication();
 
         builder.Services.AddCors(options => options.AddDefaultPolicy(
         builder => builder.AllowAnyOrigin()

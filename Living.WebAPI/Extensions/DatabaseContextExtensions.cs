@@ -2,23 +2,26 @@
 using Living.Infraestructure.Context;
 using Living.Infraestructure.Context.Interceptors;
 using Living.Infraestructure.Migrations;
+using Living.Infraestructure.Settings;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace Living.WebAPI.Extensions;
 
 public static class DatabaseContextExtensions
 {
-    public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddDatabase(this IServiceCollection services)
     {
-        var connectionString = configuration.GetConnectionString("PostgresConnection")!;
+        using var serviceProvider = services.BuildServiceProvider();
+        var connectionStrings = serviceProvider.GetRequiredService<IOptions<ConnectionStrings>>().Value;
 
         services.AddDbContext<DatabaseContext>(options =>
         {
-            options.AddInterceptors(new TimestampsInterceptor());
-            options.UseNpgsql(connectionString);
+            options.AddInterceptors(new SavingChangesInterceptor());
+            options.UseNpgsql(connectionStrings.PostgresConnection);
         });
 
-        return services.AddFluentMigrator(connectionString);
+        return services.AddFluentMigrator(connectionStrings.PostgresConnection);
     }
 
     private static IServiceCollection AddFluentMigrator(this IServiceCollection services, string connectionString)

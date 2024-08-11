@@ -1,6 +1,5 @@
 ﻿using Living.Application.UseCases.Users.Login;
 using Living.Application.UseCases.Users.Register;
-using Living.Domain.Entities.Users.Models;
 
 namespace Living.Tests.Setup;
 public partial class SetupWebAPI
@@ -12,7 +11,7 @@ public partial class SetupWebAPI
 
         var token = await LoginWebAPIAsync(register.Email, register.Password);
 
-        webAPI.AddBearerToken(token);
+        //webAPI.AddBearerToken(token);
 
         // TODO: Add permission
     }
@@ -34,14 +33,13 @@ public partial class SetupWebAPI
         {
             Email = email,
             Password = password,
-            UseCookies = false
         };
 
-        var responseLogin = await PostAsync<BaseResponse<UserLoginResponse>>("/api/auth/login", command);
+        var responseLogin = await PostAsync<BaseResponse>("/api/auth/login", command);
 
         if (responseLogin.HasNotifications)
             throw new Exception(responseLogin.Notifications.ToString());
 
-        return responseLogin.Data!.AccessToken;
+        return "responseLogin.Data!.AccessToken";
     }
 }

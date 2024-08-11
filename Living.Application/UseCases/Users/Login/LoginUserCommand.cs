@@ -1,13 +1,10 @@
 ﻿using FluentValidation;
-using Living.Domain.Entities.Users.Models;
 
 namespace Living.Application.UseCases.Users.Login;
-public class LoginUserCommand : IRequest<BaseResponse<UserLoginResponse>>
+public class LoginUserCommand : IRequest<BaseResponse>
 {
     public string Email { get; set; } = null!;
     public string Password { get; set; } = null!;
-
-    public bool UseCookies { get; set; } = true;
 }
 
 public class LoginCommandValidator : AbstractValidator<LoginUserCommand>

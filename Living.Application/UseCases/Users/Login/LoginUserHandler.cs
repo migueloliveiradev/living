@@ -1,91 +1,60 @@
 ﻿using Living.Domain.Entities.Users;
 using Living.Domain.Entities.Users.Constants;
-using Living.Domain.Entities.Users.Models;
+using Living.Domain.Entities.Users.Interfaces;
+using Living.Domain.Services;
+using Living.Shared.Handlers;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+using System.Net;
 
 namespace Living.Application.UseCases.Users.Login;
 public class LoginUserHandler(
-    UserManager<User> userManager,
-    IConfiguration configuration)
-    : IRequestHandler<LoginUserCommand, BaseResponse<UserLoginResponse>>
+    IUserRepository userRepository,
+    SignInManager<User> signInManager,
+    IUserContext currentUser,
+    ITokenService tokenService,
+    IUnitOfWork unitOfWork) : Handler(unitOfWork), IRequestHandler<LoginUserCommand, BaseResponse>
 {
-    public async Task<BaseResponse<UserLoginResponse>> Handle(LoginUserCommand request, CancellationToken cancellationToken)
+    public async Task<BaseResponse> Handle(LoginUserCommand request, CancellationToken cancellationToken)
     {
-        var user = await userManager.FindByEmailAsync(request.Email);
+        var user = await userRepository
+            .DBSet()
+            .Where(u => EF.Functions.ILike(u.Email, request.Email))
+            .FirstOrDefaultAsync(cancellationToken);
 
         if (user is null)
-            return new(UserErrors.NOT_FOUND);
+            return new(UserErrors.NOT_FOUND, HttpStatusCode.NotFound);
 
-        var passwordIsValid = await userManager.CheckPasswordAsync(user, request.Password);
-        if (!passwordIsValid)
-            return new(UserErrors.PASSWORD_INVALID);
 
-        var token = await GenerateJWT(user);
+        var signInResult = await signInManager.PasswordSignInAsync(user, request.Password, false, false);
 
-        var response = new UserLoginResponse
-        {
-            AccessToken = token,
-            ExpiresIn = 3600
-        };
+        if (!signInResult.Succeeded)
+            return GetErrorSignIn(signInResult);
 
-        return new(response);
+        var token = await tokenService.GenerateAccessToken(user);
+        var refreshToken = await tokenService.GenerateRefreshToken(user);
+
+        user.AddSession(refreshToken);
+
+        currentUser.SetUserId(user.Id);
+        currentUser.SetAccessToken(token);
+        currentUser.SetRefreshToken(refreshToken);
+
+        await CommitAsync(cancellationToken);
+
+        return new();
     }
 
-    private async Task<string> GenerateJWT(User user)
+    private static BaseResponse GetErrorSignIn(SignInResult signInResult)
     {
-        var claims = await GetClaims(user);
+        if (signInResult.IsLockedOut)
+            return new(UserErrors.LOCKED_OUT);
 
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(configuration["JWT:TOKEN"]!);
+        if (signInResult.IsNotAllowed)
+            return new(UserErrors.NOT_ALLOWED);
 
-        var tokenDescriptor = new SecurityTokenDescriptor
-        {
-            Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.UtcNow.AddHours(1),
-            SigningCredentials = new(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-        };
+        if (signInResult.RequiresTwoFactor)
+            return new(UserErrors.REQUIRES_TWO_FACTOR);
 
-        var token = tokenHandler.CreateToken(tokenDescriptor);
-        var tokenString = tokenHandler.WriteToken(token);
-
-        return tokenString;
-    }
-
-    private async Task<List<Claim>> GetClaims(User user)
-    {
-        var claimsUser = await GetClaimsUser(user.Id);
-        var claimsRoles = await GetClaimsRoles(user);
-
-        return [
-            new(UserClaimsTypes.USER_ID, user.Id.ToString()),
-            ..claimsUser,
-            ..claimsRoles
-            ];
-    }
-
-    private async Task<List<Claim>> GetClaimsUser(Guid userId)
-    {
-        return await userManager.Users
-            .Where(x => x.Id == userId)
-            .SelectMany(x => x.UserClaims)
-            .Select(x => x.ToClaim())
-            .ToListAsync();
-    }
-
-    private async Task<List<Claim>> GetClaimsRoles(User user)
-    {
-        return await userManager
-            .Users
-            .Where(x => x.Id == user.Id)
-            .SelectMany(x => x.UserRoles)
-            .Select(x => x.Role)
-            .SelectMany(x => x.RoleClaims)
-            .Select(x => x.ToClaim())
-            .ToListAsync();
+        return new(UserErrors.PASSWORD_INVALID);
     }
 }
