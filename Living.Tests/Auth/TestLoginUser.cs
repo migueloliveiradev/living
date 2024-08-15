@@ -5,8 +5,9 @@ using Living.Domain.Features.Users.Constants;
 using Living.Shared.Extensions;
 
 namespace Living.Tests.Auth;
-public class TestLoginUser(WebAPIFactory webAPI) : SetupWebAPI(webAPI)
+public class TestLoginUser(WebAPIFactory webAPIFactory) : SetupWebAPI(webAPIFactory)
 {
+    private readonly WebAPIFactory webAPI = webAPIFactory;
     [Fact]
     public async Task ShouldLoginUser()
     {

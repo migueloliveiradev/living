@@ -1,6 +1,4 @@
-﻿using Living.Tests.Setup.Factory;
-using Microsoft.Extensions.DependencyInjection;
-using System.Net.Http.Json;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace Living.Tests.Setup;
 
