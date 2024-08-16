@@ -1,6 +1,6 @@
-﻿using Living.Domain.Entities.Posts.Models;
+﻿using Living.Domain.Features.Posts.Models;
 
-namespace Living.Domain.Entities.Posts.Extensions;
+namespace Living.Domain.Features.Posts.Extensions;
 public static class PostQueryableExtensions
 {
     public static IQueryable<PostItem> ProjectToItem(this IQueryable<Post> posts)
@@ -20,7 +20,7 @@ public static class PostQueryableExtensions
                 Id = post.Author.Id,
                 Name = post.Author.Name,
                 Username = post.Author.UserName
-            }
+            },
         });
     }
 }

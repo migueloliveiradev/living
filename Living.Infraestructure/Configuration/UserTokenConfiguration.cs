@@ -1,7 +1,7 @@
-﻿using Living.Domain.Entities.Users;
+﻿using Living.Domain.Features.Users;
 
 namespace Living.Infraestructure.Configuration;
-internal class UserTokenConfiguration : IEntityTypeConfiguration<UserToken>
+internal sealed class UserTokenConfiguration : IEntityTypeConfiguration<UserToken>
 {
     public void Configure(EntityTypeBuilder<UserToken> builder)
     {

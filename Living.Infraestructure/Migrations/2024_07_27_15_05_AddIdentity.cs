@@ -1,5 +1,7 @@
 ﻿namespace Living.Infraestructure.Migrations;
 
+#pragma warning disable MA0051
+
 [Migration(2024_07_27_15_05, "AddIdentity")]
 public class AddIdentity : Migration
 {

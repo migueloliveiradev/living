@@ -1,7 +1,7 @@
-﻿using Living.Domain.Entities.Posts;
+﻿using Living.Domain.Features.Posts;
 
 namespace Living.Infraestructure.Configuration;
-internal class PostLikeConfiguration : IEntityTypeConfiguration<PostLike>
+internal sealed class PostLikeConfiguration : IEntityTypeConfiguration<PostLike>
 {
     public void Configure(EntityTypeBuilder<PostLike> builder)
     {

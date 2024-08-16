@@ -1,8 +1,6 @@
-﻿using Living.Domain.Entities.Users.Models;
-using Living.Domain.Features.Users;
-using Living.Domain.Features.Users.Models;
+﻿using Living.Domain.Features.Users.Models;
 
-namespace Living.Domain.Entities.Users.Extensions;
+namespace Living.Domain.Features.Users.Extensions;
 public static class UserQueryableExtensions
 {
     public static IQueryable<UserItem> ProjectToItem(this IQueryable<User> users)

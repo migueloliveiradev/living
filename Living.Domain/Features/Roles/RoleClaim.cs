@@ -2,7 +2,7 @@
 
 #pragma warning disable CS8765
 
-namespace Living.Domain.Entities.Roles;
+namespace Living.Domain.Features.Roles;
 public class RoleClaim : IdentityRoleClaim<Guid>
 {
     public new Guid Id { get; init; }

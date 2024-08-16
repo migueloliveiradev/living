@@ -1,7 +1,7 @@
-﻿using Living.Domain.Entities.Posts;
+﻿using Living.Domain.Features.Posts;
 
 namespace Living.Infraestructure.Configuration;
-internal class PostConfiguration : IEntityTypeConfiguration<Post>
+internal sealed class PostConfiguration : IEntityTypeConfiguration<Post>
 {
     public void Configure(EntityTypeBuilder<Post> builder)
     {

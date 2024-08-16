@@ -14,10 +14,10 @@ public static partial class StringExtensions
 
         var pascalCase = invalidCharsRgx.Replace(whiteSpace.Replace(@string, "_"), string.Empty)
             .Split(['_'], StringSplitOptions.RemoveEmptyEntries)
-            .Select(w => startsWithLowerCaseChar.Replace(w, m => m.Value.ToUpper()))
-            .Select(w => firstCharFollowedByUpperCasesOnly.Replace(w, m => m.Value.ToLower()))
-            .Select(w => lowerCaseNextToNumber.Replace(w, m => m.Value.ToUpper()))
-            .Select(w => upperCaseInside.Replace(w, m => m.Value.ToLower()));
+            .Select(w => startsWithLowerCaseChar.Replace(w, m => m.Value.ToUpperInvariant()))
+            .Select(w => firstCharFollowedByUpperCasesOnly.Replace(w, m => m.Value.ToLowerInvariant()))
+            .Select(w => lowerCaseNextToNumber.Replace(w, m => m.Value.ToUpperInvariant()))
+            .Select(w => upperCaseInside.Replace(w, m => m.Value.ToLowerInvariant()));
 
         return string.Concat(pascalCase);
     }

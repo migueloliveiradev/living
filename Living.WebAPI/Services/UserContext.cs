@@ -1,5 +1,5 @@
-﻿using Living.Domain.Entities.Users.Interfaces;
-using Living.Domain.Features.Users.Constants;
+﻿using Living.Domain.Features.Users.Constants;
+using Living.Domain.Features.Users.Interfaces;
 using Living.Infraestructure.Settings;
 using Living.WebAPI.Extensions;
 using Microsoft.Extensions.Options;
@@ -27,7 +27,7 @@ public class UserContext(IHttpContextAccessor httpContextAccessor, IOptions<JwtS
             HttpOnly = true,
             Secure = true,
             SameSite = SameSiteMode.Strict,
-            Expires = DateTime.UtcNow.AddMinutes(settings.AccessTokenExpireInMinutes)
+            Expires = DateTimeOffset.UtcNow.AddMinutes(settings.AccessTokenExpireInMinutes),
         };
         HttpContext.Response.Cookies.Append(UserCookies.ACCESS_TOKEN, accessToken, cookieOptions);
     }
@@ -39,7 +39,7 @@ public class UserContext(IHttpContextAccessor httpContextAccessor, IOptions<JwtS
             HttpOnly = true,
             Secure = true,
             SameSite = SameSiteMode.Strict,
-            Expires = DateTime.UtcNow.AddMinutes(settings.RefreshTokenExpireInMonth)
+            Expires = DateTimeOffset.UtcNow.AddMinutes(settings.RefreshTokenExpireInMonth),
         };
 
         HttpContext.Response.Cookies.Append(UserCookies.REFRESH_TOKEN, refreshToken, cookieOptions);
@@ -52,7 +52,7 @@ public class UserContext(IHttpContextAccessor httpContextAccessor, IOptions<JwtS
             HttpOnly = true,
             Secure = true,
             SameSite = SameSiteMode.Strict,
-            Expires = DateTime.UtcNow.AddMinutes(settings.AccessTokenExpireInMinutes)
+            Expires = DateTimeOffset.UtcNow.AddMinutes(settings.AccessTokenExpireInMinutes),
         };
 
         HttpContext.Response.Cookies.Append(UserCookies.USER_ID, userId.ToString(), cookieOptions);

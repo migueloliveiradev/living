@@ -1,7 +1,7 @@
 ﻿using Living.Domain.Features.Users;
 
 namespace Living.Infraestructure.Configuration;
-internal class UserSessionConfiguration : IEntityTypeConfiguration<UserSession>
+internal sealed class UserSessionConfiguration : IEntityTypeConfiguration<UserSession>
 {
     public void Configure(EntityTypeBuilder<UserSession> builder)
     {

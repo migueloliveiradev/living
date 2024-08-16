@@ -7,6 +7,8 @@ namespace Living.WebAPI.Controllers.Base;
 
 public class ControllerAPI : ControllerBase
 {
+    protected CancellationToken CancellationToken => HttpContext.RequestAborted;
+
     protected IActionResult CreateResponse(BaseResponse response, string uri = "")
     {
         return response.HttpStatusCode switch

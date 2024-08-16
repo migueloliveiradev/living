@@ -1,7 +1,7 @@
-﻿using Living.Domain.Entities.Users;
+﻿using Living.Domain.Features.Users;
 
 namespace Living.Infraestructure.Configuration;
-internal class UserClaimsConfiguration : IEntityTypeConfiguration<UserClaim>
+internal sealed class UserClaimsConfiguration : IEntityTypeConfiguration<UserClaim>
 {
     public void Configure(EntityTypeBuilder<UserClaim> builder)
     {

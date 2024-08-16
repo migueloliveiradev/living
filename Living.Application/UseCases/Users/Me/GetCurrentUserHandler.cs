@@ -1,6 +1,7 @@
-﻿using Living.Domain.Entities.Users.Constants;
-using Living.Domain.Entities.Users.Extensions;
-using Living.Domain.Entities.Users.Models;
+﻿using Living.Domain.Features.Users.Constants;
+using Living.Domain.Features.Users.Extensions;
+using Living.Domain.Features.Users.Interfaces;
+using Living.Domain.Features.Users.Models;
 
 namespace Living.Application.UseCases.Users.Me;
 public class GetCurrentUserHandler(IUserContext context, IUserRepository userRepository)

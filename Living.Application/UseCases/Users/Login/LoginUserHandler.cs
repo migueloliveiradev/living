@@ -1,5 +1,6 @@
-﻿using Living.Domain.Entities.Users.Constants;
-using Living.Domain.Features.Users;
+﻿using Living.Domain.Features.Users;
+using Living.Domain.Features.Users.Constants;
+using Living.Domain.Features.Users.Interfaces;
 using Living.Domain.Services;
 using Microsoft.AspNetCore.Identity;
 
@@ -21,8 +22,7 @@ public class LoginUserHandler(
         if (user is null)
             return new(UserErrors.NOT_FOUND, HttpStatusCode.NotFound);
 
-
-        var signInResult = await signInManager.PasswordSignInAsync(user, request.Password, false, false);
+        var signInResult = await signInManager.CheckPasswordSignInAsync(user, request.Password, lockoutOnFailure: false);
 
         if (!signInResult.Succeeded)
             return GetErrorSignIn(signInResult);

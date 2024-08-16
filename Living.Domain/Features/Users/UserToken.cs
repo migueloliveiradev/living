@@ -1,7 +1,6 @@
-﻿using Living.Domain.Features.Users;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
-namespace Living.Domain.Entities.Users;
+namespace Living.Domain.Features.Users;
 public class UserToken : IdentityUserToken<Guid>
 {
     public Guid Id { get; init; }

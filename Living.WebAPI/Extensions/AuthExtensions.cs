@@ -32,15 +32,17 @@ public static class AuthExtensions
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(settings.Secret)),
             };
             options.SaveToken = true;
-            options.Events = new();
-            options.Events.OnMessageReceived = context =>
+            options.Events = new()
             {
-                if (context.Request.Cookies.TryGetValue(UserCookies.ACCESS_TOKEN, out var token))
+                OnMessageReceived = context =>
                 {
-                    context.Token = token;
-                }
+                    if (context.Request.Cookies.TryGetValue(UserCookies.ACCESS_TOKEN, out var token))
+                    {
+                        context.Token = token;
+                    }
 
-                return Task.CompletedTask;
+                    return Task.CompletedTask;
+                }
             };
         })
         .AddCookie(options =>

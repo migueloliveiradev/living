@@ -1,7 +1,6 @@
 ﻿using Living.Application.UseCases.Users.Login;
-using Living.Domain.Entities.Users.Constants;
-using Living.Domain.Entities.Users.Models;
 using Living.Domain.Features.Users.Constants;
+using Living.Domain.Features.Users.Models;
 using Living.Shared.Extensions;
 
 namespace Living.Tests.Auth;

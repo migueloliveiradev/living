@@ -1,4 +1,4 @@
-﻿namespace Living.Domain.Entities.Users.Models;
+﻿namespace Living.Domain.Features.Users.Models;
 public class UserAuthorItem
 {
     public Guid Id { get; set; }

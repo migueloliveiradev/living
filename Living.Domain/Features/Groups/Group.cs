@@ -1,7 +1,7 @@
-﻿using Living.Domain.Entities.Posts;
+﻿using Living.Domain.Features.Posts;
 using Living.Domain.Features.Users;
 
-namespace Living.Domain.Entities.Groups;
+namespace Living.Domain.Features.Groups;
 public class Group : IEntity, ITimestamps
 {
     public Guid Id { get; init; }

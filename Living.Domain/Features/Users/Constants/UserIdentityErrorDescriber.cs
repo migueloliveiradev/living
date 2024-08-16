@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Living.Domain.Entities.Users.Constants;
+namespace Living.Domain.Features.Users.Constants;
 public class UserIdentityErrorDescriber : IdentityErrorDescriber
 {
     public override IdentityError DefaultError()

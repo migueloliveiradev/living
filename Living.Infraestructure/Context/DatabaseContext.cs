@@ -1,7 +1,6 @@
-﻿using Living.Domain.Entities.Groups;
-using Living.Domain.Entities.Posts;
-using Living.Domain.Entities.Roles;
-using Living.Domain.Entities.Users;
+﻿using Living.Domain.Features.Groups;
+using Living.Domain.Features.Posts;
+using Living.Domain.Features.Roles;
 using Living.Domain.Features.Users;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System.Reflection;

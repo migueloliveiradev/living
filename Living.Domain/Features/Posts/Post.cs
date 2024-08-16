@@ -1,9 +1,8 @@
-﻿using Living.Domain.Base.Interfaces;
-using Living.Domain.Entities.Groups;
+﻿using Living.Domain.Features.Groups;
 using Living.Domain.Features.Posts.Enums;
 using Living.Domain.Features.Users;
 
-namespace Living.Domain.Entities.Posts;
+namespace Living.Domain.Features.Posts;
 public class Post : IEntity, ITimestamps, ISoftDelete
 {
     public Guid Id { get; init; }

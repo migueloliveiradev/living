@@ -1,7 +1,10 @@
 ﻿using Living.Domain.Features.Users;
 
 namespace Living.Infraestructure.Configuration;
-internal class UserConfiguration : IEntityTypeConfiguration<User>
+
+#pragma warning disable MA0051
+
+internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {

@@ -1,7 +1,6 @@
-﻿using Living.Domain.Base.Interfaces;
-using Living.Domain.Features.Users;
+﻿using Living.Domain.Features.Users;
 
-namespace Living.Domain.Entities.Posts;
+namespace Living.Domain.Features.Posts;
 public class PostLike : IEntity, ITimestamps
 {
     public Guid Id { get; init; }

@@ -26,7 +26,7 @@ public static class Program
             await command();
     }
 
-    private readonly static Dictionary<string, Func<Task>> commands = new()
+    private readonly static Dictionary<string, Func<Task>> commands = new(StringComparer.OrdinalIgnoreCase)
     {
         ["New Migration"] = MigrationCommands.NewMigration,
         ["Up"] = MigrationCommands.Up,

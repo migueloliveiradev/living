@@ -7,7 +7,7 @@ public class EntityTests
 {
     private static readonly string[] NAMESPACES_EXCLUDE =
         [
-            "Microsoft.AspNetCore.Identity"
+            "Microsoft.AspNetCore.Identity",
         ];
 
     [Fact]
@@ -27,7 +27,7 @@ public class EntityTests
                 if (property.DeclaringType is null || property.DeclaringType.FullName is null)
                     return;
 
-                if (NAMESPACES_EXCLUDE.Any(p => property.DeclaringType.FullName.StartsWith(p)))
+                if (NAMESPACES_EXCLUDE.Any(p => property.DeclaringType.FullName.StartsWith(p, StringComparison.Ordinal)))
                     return;
 
                 property.IsGetInit()

@@ -9,7 +9,7 @@ public class CleanArchitectureTests
     public void Domain_NotShouldHaveDependencies()
     {
         var dependencies = ProjectsAssemblies.Domain.GetReferencedAssemblies()
-            .Where(x => x.FullName.StartsWith(ASSEMBLY_NAME_BASE));
+            .Where(x => x.FullName.StartsWith(ASSEMBLY_NAME_BASE, StringComparison.Ordinal));
 
         dependencies.Should().BeEmpty();
     }
@@ -18,7 +18,7 @@ public class CleanArchitectureTests
     public void Application_ShouldDependOnDomainAndShared()
     {
         var dependencies = ProjectsAssemblies.Application.GetReferencedAssemblies()
-            .Where(x => x.FullName.StartsWith(ASSEMBLY_NAME_BASE));
+            .Where(x => x.FullName.StartsWith(ASSEMBLY_NAME_BASE, StringComparison.Ordinal));
 
         dependencies.Should().HaveCount(2);
 
@@ -30,7 +30,7 @@ public class CleanArchitectureTests
     public void Infrastructure_ShouldDependOnDomain()
     {
         var dependencies = ProjectsAssemblies.Infrastructure.GetReferencedAssemblies()
-            .Where(x => x.FullName.StartsWith(ASSEMBLY_NAME_BASE));
+            .Where(x => x.FullName.StartsWith(ASSEMBLY_NAME_BASE, StringComparison.Ordinal));
 
         dependencies.Should().HaveCount(2);
 
@@ -42,7 +42,7 @@ public class CleanArchitectureTests
     public void Shared_NotShouldHaveDependencies()
     {
         var dependencies = ProjectsAssemblies.Shared.GetReferencedAssemblies()
-            .Where(x => x.FullName.StartsWith(ASSEMBLY_NAME_BASE));
+            .Where(x => x.FullName.StartsWith(ASSEMBLY_NAME_BASE, StringComparison.Ordinal));
 
         dependencies.Should().BeEmpty();
     }

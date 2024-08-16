@@ -1,7 +1,7 @@
-﻿using Living.Domain.Entities.Users.Models;
-using Living.Domain.Features.Posts.Enums;
+﻿using Living.Domain.Features.Posts.Enums;
+using Living.Domain.Features.Users.Models;
 
-namespace Living.Domain.Entities.Posts.Models;
+namespace Living.Domain.Features.Posts.Models;
 public class PostItem
 {
     public required Guid Id { get; init; }

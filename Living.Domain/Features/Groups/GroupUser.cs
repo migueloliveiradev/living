@@ -1,7 +1,6 @@
-﻿using Living.Domain.Base.Interfaces;
-using Living.Domain.Features.Users;
+﻿using Living.Domain.Features.Users;
 
-namespace Living.Domain.Entities.Groups;
+namespace Living.Domain.Features.Groups;
 public class GroupUser : IEntity, ITimestamps
 {
     public Guid Id { get; init; }

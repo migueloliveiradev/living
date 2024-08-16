@@ -1,7 +1,6 @@
-﻿using Living.Domain.Features.Users;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 
-namespace Living.Domain.Entities.Users.Interfaces;
+namespace Living.Domain.Features.Users.Interfaces;
 public interface IUserRepository : IBaseRepository<User>
 {
     Task<List<Claim>> GetClaims(Guid userId);

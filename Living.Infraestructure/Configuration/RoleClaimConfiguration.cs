@@ -1,7 +1,7 @@
-﻿using Living.Domain.Entities.Roles;
+﻿using Living.Domain.Features.Roles;
 
 namespace Living.Infraestructure.Configuration;
-internal class RoleClaimConfiguration : IEntityTypeConfiguration<RoleClaim>
+internal sealed class RoleClaimConfiguration : IEntityTypeConfiguration<RoleClaim>
 {
     public void Configure(EntityTypeBuilder<RoleClaim> builder)
     {

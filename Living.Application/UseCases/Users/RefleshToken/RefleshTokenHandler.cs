@@ -1,5 +1,5 @@
-﻿using Living.Domain.Entities.Users.Constants;
-using Living.Domain.Features.Users.Constants;
+﻿using Living.Domain.Features.Users.Constants;
+using Living.Domain.Features.Users.Interfaces;
 using Living.Domain.Services;
 using Living.Shared.Extensions;
 

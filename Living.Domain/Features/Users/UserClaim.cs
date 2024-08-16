@@ -1,9 +1,8 @@
-﻿using Living.Domain.Features.Users;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
 #pragma warning disable CS8765
 
-namespace Living.Domain.Entities.Users;
+namespace Living.Domain.Features.Users;
 public class UserClaim : IdentityUserClaim<Guid>
 {
     public new Guid Id { get; init; }

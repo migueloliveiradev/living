@@ -1,4 +1,4 @@
-﻿using Living.Domain.Entities.Users.Constants;
+﻿using Living.Domain.Features.Users.Constants;
 using Living.Shared.Extensions;
 using System.Security.Claims;
 

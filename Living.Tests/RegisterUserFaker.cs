@@ -1,9 +1,9 @@
 ﻿using Bogus;
 using Living.Application.UseCases.Users.Register;
-using Living.Domain.Entities.Users.Constants;
+using Living.Domain.Features.Users.Constants;
 
 namespace Living.Tests;
-internal class RegisterUserFaker : Faker<RegisterUserCommand>
+internal sealed class RegisterUserFaker : Faker<RegisterUserCommand>
 {
     internal static RegisterUserFaker Instance => new();
     internal RegisterUserFaker()
@@ -11,7 +11,7 @@ internal class RegisterUserFaker : Faker<RegisterUserCommand>
         RuleFor(x => x.Email, f => f.Person.Email);
         RuleFor(x => x.Password, f => Password());
         RuleFor(x => x.Name, f => f.Person.FullName);
-        RuleFor(x => x.Username, f => f.Random.String2(10, UserIdentity.AllowedUserNameCharacters));
+        RuleFor(x => x.Username, f => f.Random.String2(10, UserIdentity.ALLOWED_USER_NAME_CHARACTERS));
     }
 
     internal RegisterUserCommand GenerateUsernameInvalid()

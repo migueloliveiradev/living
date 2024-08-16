@@ -25,9 +25,9 @@ public class WebAPIFactory : IAsyncLifetime
             {
                 builder.ConfigureAppConfiguration((context, config) =>
                 {
-                    config.AddInMemoryCollection(new Dictionary<string, string?>
+                    config.AddInMemoryCollection(new Dictionary<string, string?>(StringComparer.OrdinalIgnoreCase)
                     {
-                        ["ConnectionStrings:PostgresConnection"] = PostgreSql.GetConnectionString()
+                        ["ConnectionStrings:PostgresConnection"] = PostgreSql.GetConnectionString(),
                     });
                 });
                 builder.UseEnvironment("Testing");

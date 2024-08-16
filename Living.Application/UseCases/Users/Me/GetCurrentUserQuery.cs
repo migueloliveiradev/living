@@ -1,4 +1,4 @@
-﻿using Living.Domain.Entities.Users.Models;
+﻿using Living.Domain.Features.Users.Models;
 
 namespace Living.Application.UseCases.Users.Me;
 public record GetCurrentUserQuery : IRequest<BaseResponse<UserItemDetails>>;

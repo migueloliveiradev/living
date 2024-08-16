@@ -1,5 +1,5 @@
-﻿using Living.Domain.Entities.Posts;
-using Living.Domain.Entities.Posts.Interface;
+﻿using Living.Domain.Features.Posts;
+using Living.Domain.Features.Posts.Interface;
 using Living.Infraestructure.Context;
 
 namespace Living.Infraestructure.Repositories;

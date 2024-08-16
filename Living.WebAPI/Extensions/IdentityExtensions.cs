@@ -1,6 +1,6 @@
-﻿using Living.Domain.Entities.Roles;
-using Living.Domain.Entities.Users.Constants;
+﻿using Living.Domain.Features.Roles;
 using Living.Domain.Features.Users;
+using Living.Domain.Features.Users.Constants;
 using Living.Infraestructure.Context;
 using Microsoft.AspNetCore.Identity;
 
@@ -17,7 +17,8 @@ public static class IdentityExtensions
         services.Configure<IdentityOptions>(options =>
         {
             options.User.RequireUniqueEmail = true;
-            options.User.AllowedUserNameCharacters = UserIdentity.AllowedUserNameCharacters;
+            options.User.AllowedUserNameCharacters = UserIdentity.ALLOWED_USER_NAME_CHARACTERS;
+            options.ClaimsIdentity.UserIdClaimType = UserClaimsTokens.USER_ID;
         });
 
         return services;

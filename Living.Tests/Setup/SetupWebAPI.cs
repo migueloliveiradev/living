@@ -3,6 +3,7 @@
 namespace Living.Tests.Setup;
 
 #pragma warning disable S101
+#pragma warning disable MA0048
 
 [CollectionDefinition("WebAPI")]
 public record WebAPIFactoryCollection : ICollectionFixture<WebAPIFactory>;

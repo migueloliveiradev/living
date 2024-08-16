@@ -1,4 +1,5 @@
 ﻿using Living.Domain.Features.Users;
+using Living.Domain.Features.Users.Interfaces;
 using Microsoft.AspNetCore.Identity;
 
 namespace Living.Application.UseCases.Users.Register;

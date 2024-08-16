@@ -1,5 +1,5 @@
-﻿using Living.Domain.Entities.Posts.Interface;
-using Living.Domain.Entities.Users.Interfaces;
+﻿using Living.Domain.Features.Posts.Interface;
+using Living.Domain.Features.Users.Interfaces;
 using Living.Domain.Services;
 using Living.Infraestructure.Repositories;
 using Living.Infraestructure.Services;

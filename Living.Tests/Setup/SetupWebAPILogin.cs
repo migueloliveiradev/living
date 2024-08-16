@@ -1,13 +1,14 @@
 ﻿using Living.Application.UseCases.Users.Login;
 using Living.Application.UseCases.Users.Register;
-using Living.Domain.Entities.Users.Constants;
-using Living.Domain.Entities.Users.Interfaces;
+using Living.Domain.Features.Users.Constants;
+using Living.Domain.Features.Users.Interfaces;
 using Living.Shared.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Living.Tests.Setup;
 
 #pragma warning disable S101
+#pragma warning disable MA0048
 
 public partial class SetupWebAPI
 {

@@ -1,7 +1,7 @@
-﻿using Living.Domain.Entities.Roles;
+﻿using Living.Domain.Features.Roles;
 
 namespace Living.Infraestructure.Configuration;
-internal class UserRolesConfiguration : IEntityTypeConfiguration<UserRole>
+internal sealed class UserRolesConfiguration : IEntityTypeConfiguration<UserRole>
 {
     public void Configure(EntityTypeBuilder<UserRole> builder)
     {

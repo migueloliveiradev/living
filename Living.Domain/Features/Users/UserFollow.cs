@@ -1,6 +1,4 @@
-﻿using Living.Domain.Features.Users;
-
-namespace Living.Domain.Entities.Users;
+﻿namespace Living.Domain.Features.Users;
 public class UserFollow : IEntity, ITimestamps
 {
     public Guid Id { get; init; }

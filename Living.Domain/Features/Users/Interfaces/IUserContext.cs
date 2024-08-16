@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Living.Domain.Entities.Users.Interfaces;
+namespace Living.Domain.Features.Users.Interfaces;
 public interface IUserContext
 {
     Guid UserId { get; }
