@@ -1,4 +1,4 @@
-﻿using Living.Domain.Entities.Users;
+﻿using Living.Domain.Features.Users;
 
 namespace Living.Application.UseCases.Users.Register;
 public class RegisterUserCommand : IRequest<BaseResponse<Guid>>

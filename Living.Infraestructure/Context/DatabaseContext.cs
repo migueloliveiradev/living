@@ -17,8 +17,8 @@ public class DatabaseContext(DbContextOptions options)
     public DbSet<Group> Groups => Set<Group>();
     public DbSet<GroupUser> GroupUsers => Set<GroupUser>();
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder builder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 }

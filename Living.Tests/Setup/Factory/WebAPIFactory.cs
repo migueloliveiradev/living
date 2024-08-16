@@ -2,10 +2,11 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
-using System.Net;
 using Testcontainers.PostgreSql;
 
 namespace Living.Tests.Setup.Factory;
+
+#pragma warning disable S101
 
 public class WebAPIFactory : IAsyncLifetime
 {
@@ -36,7 +37,7 @@ public class WebAPIFactory : IAsyncLifetime
 
     public IServiceProvider Services => Factory.Services;
 
-    public void AddCookies(List<Cookie> cookieCollection)
+    public void AddCookies(IEnumerable<Cookie> cookieCollection)
     {
         foreach (var cookie in cookieCollection)
         {

@@ -1,4 +1,4 @@
-﻿using Living.Domain.Entities.Users;
+﻿using Living.Domain.Features.Users;
 
 namespace Living.Domain.Services;
 public interface ITokenService

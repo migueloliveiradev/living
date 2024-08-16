@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Living.Domain.Features.Users;
+using Microsoft.AspNetCore.Identity;
 
 #pragma warning disable CS8765
 

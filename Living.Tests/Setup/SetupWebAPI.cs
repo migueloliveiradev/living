@@ -2,6 +2,8 @@
 
 namespace Living.Tests.Setup;
 
+#pragma warning disable S101
+
 [CollectionDefinition("WebAPI")]
 public record WebAPIFactoryCollection : ICollectionFixture<WebAPIFactory>;
 
@@ -26,7 +28,6 @@ public partial class SetupWebAPI(WebAPIFactory webAPI)
     protected async Task<T> GetAsync<T>(string path)
     {
         var response = await webAPI.HttpClient.GetAsync(path);
-        //var json = await response.Content.ReadAsStringAsync();
 
         var data = await response.Content.ReadFromJsonAsync<T>();
         return data!;

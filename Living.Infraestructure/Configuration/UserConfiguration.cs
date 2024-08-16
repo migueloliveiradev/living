@@ -1,4 +1,4 @@
-﻿using Living.Domain.Entities.Users;
+﻿using Living.Domain.Features.Users;
 
 namespace Living.Infraestructure.Configuration;
 internal class UserConfiguration : IEntityTypeConfiguration<User>

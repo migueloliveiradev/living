@@ -3,6 +3,8 @@ using System.Net;
 
 namespace Living.WebAPI.Controllers.Base;
 
+#pragma warning disable S101
+
 public class ControllerAPI : ControllerBase
 {
     protected IActionResult CreateResponse(BaseResponse response, string uri = "")

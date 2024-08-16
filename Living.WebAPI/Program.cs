@@ -2,7 +2,7 @@ using Living.Application.UseCases.Users.Login;
 using Living.WebAPI.Extensions;
 
 namespace Living.WebAPI;
-public class Program
+public abstract class Program
 {
     public static void Main(string[] args)
     {

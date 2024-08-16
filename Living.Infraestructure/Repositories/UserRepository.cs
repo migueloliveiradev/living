@@ -1,6 +1,6 @@
-﻿using Living.Domain.Entities.Users;
-using Living.Domain.Entities.Users.Constants;
+﻿using Living.Domain.Entities.Users.Constants;
 using Living.Domain.Entities.Users.Interfaces;
+using Living.Domain.Features.Users;
 using Living.Infraestructure.Context;
 using System.Security.Claims;
 

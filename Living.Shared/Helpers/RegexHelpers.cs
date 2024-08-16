@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 
 namespace Living.Shared.Helpers;
-public partial class RegexHelpers
+public static partial class RegexHelpers
 {
     [GeneratedRegex("[^_a-zA-Z0-9]")]
     public static partial Regex InvalidChars();

@@ -1,5 +1,5 @@
 ﻿namespace Living.Domain.Entities.Users.Constants;
-public class UserIdentity
+public static class UserIdentity
 {
     public const string AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ._1234567890";
 }

@@ -1,6 +1,6 @@
 ﻿using Living.Domain.Entities.Roles;
-using Living.Domain.Entities.Users;
 using Living.Domain.Entities.Users.Constants;
+using Living.Domain.Features.Users;
 using Living.Infraestructure.Context;
 using Microsoft.AspNetCore.Identity;
 

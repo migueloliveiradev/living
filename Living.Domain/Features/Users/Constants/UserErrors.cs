@@ -1,5 +1,5 @@
 ﻿namespace Living.Domain.Entities.Users.Constants;
-public class UserErrors
+public static class UserErrors
 {
     public static Notification NOT_FOUND => new("USER");
     public static Notification PASSWORD_INVALID => new("USER");

@@ -1,5 +1,5 @@
-﻿using Living.Domain.Entities.Users;
-using Living.Domain.Entities.Users.Interfaces;
+﻿using Living.Domain.Entities.Users.Interfaces;
+using Living.Domain.Features.Users;
 using Living.Domain.Services;
 using Living.Infraestructure.Settings;
 using Microsoft.Extensions.Options;

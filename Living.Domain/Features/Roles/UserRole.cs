@@ -1,4 +1,4 @@
-﻿using Living.Domain.Entities.Users;
+﻿using Living.Domain.Features.Users;
 using Microsoft.AspNetCore.Identity;
 
 namespace Living.Domain.Entities.Roles;

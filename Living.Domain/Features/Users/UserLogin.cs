@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Living.Domain.Entities.Users;
+namespace Living.Domain.Features.Users;
 public class UserLogin : IdentityUserLogin<Guid>
 {
     public Guid Id { get; init; }

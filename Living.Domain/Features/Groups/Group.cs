@@ -1,6 +1,5 @@
-﻿using Living.Domain.Base.Interfaces;
-using Living.Domain.Entities.Posts;
-using Living.Domain.Entities.Users;
+﻿using Living.Domain.Entities.Posts;
+using Living.Domain.Features.Users;
 
 namespace Living.Domain.Entities.Groups;
 public class Group : IEntity, ITimestamps

@@ -1,12 +1,12 @@
 ﻿using Living.Domain.Entities.Groups;
 using Living.Domain.Entities.Posts;
 using Living.Domain.Entities.Roles;
-using Living.Domain.Features.Users;
+using Living.Domain.Entities.Users;
 using Microsoft.AspNetCore.Identity;
 
 #pragma warning disable CS8765
 
-namespace Living.Domain.Entities.Users;
+namespace Living.Domain.Features.Users;
 public class User : IdentityUser<Guid>, IEntity, ITimestamps
 {
     public required string Name { get; set; }
@@ -43,14 +43,14 @@ public class User : IdentityUser<Guid>, IEntity, ITimestamps
 
     public void RemoveSession(string refreshToken)
     {
-        var session = UserSessions.FirstOrDefault(s => s.RefreshToken == refreshToken);
+        var session = UserSessions.Find(s => s.RefreshToken == refreshToken);
         if (session is not null)
             UserSessions.Remove(session);
     }
 
     public void UpdateSession(string currentRefleshToken, string newRefleshToken)
     {
-        var session = UserSessions.FirstOrDefault(s => s.RefreshToken == currentRefleshToken);
+        var session = UserSessions.Find(s => s.RefreshToken == currentRefleshToken);
         if (session is not null)
             session.Update(newRefleshToken);
     }

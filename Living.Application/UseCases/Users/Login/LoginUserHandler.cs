@@ -1,5 +1,5 @@
-﻿using Living.Domain.Entities.Users;
-using Living.Domain.Entities.Users.Constants;
+﻿using Living.Domain.Entities.Users.Constants;
+using Living.Domain.Features.Users;
 using Living.Domain.Services;
 using Microsoft.AspNetCore.Identity;
 

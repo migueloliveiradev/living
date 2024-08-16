@@ -1,5 +1,5 @@
 ﻿namespace Living.Tools.Templates;
-internal class ClassFilesTemplates
+internal static class ClassFilesTemplates
 {
     internal static string Migration(string version, string description)
     {

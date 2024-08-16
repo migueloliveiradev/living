@@ -1,5 +1,5 @@
 ﻿using Living.Domain.Base.Interfaces;
-using Living.Domain.Entities.Users;
+using Living.Domain.Features.Users;
 
 namespace Living.Domain.Entities.Posts;
 public class PostLike : IEntity, ITimestamps

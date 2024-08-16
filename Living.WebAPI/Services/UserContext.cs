@@ -8,6 +8,8 @@ using System.Security.Principal;
 
 namespace Living.WebAPI.Services;
 
+#pragma warning disable S3928
+
 public class UserContext(IHttpContextAccessor httpContextAccessor, IOptions<JwtSettings> options) : IUserContext
 {
     private readonly JwtSettings settings = options.Value;

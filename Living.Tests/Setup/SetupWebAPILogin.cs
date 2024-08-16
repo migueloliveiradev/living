@@ -6,6 +6,9 @@ using Living.Shared.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Living.Tests.Setup;
+
+#pragma warning disable S101
+
 public partial class SetupWebAPI
 {
     protected IUserRepository UserRepository => GetService<IUserRepository>();
@@ -41,7 +44,7 @@ public partial class SetupWebAPI
         return responseRegister.Data;
     }
 
-    private async Task<List<Cookie>> LoginWebAPIAsync(string email, string password)
+    private async Task<ICollection<Cookie>> LoginWebAPIAsync(string email, string password)
     {
         var command = new LoginUserCommand
         {

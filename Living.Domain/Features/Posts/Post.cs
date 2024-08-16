@@ -1,7 +1,7 @@
 ﻿using Living.Domain.Base.Interfaces;
 using Living.Domain.Entities.Groups;
-using Living.Domain.Entities.Users;
 using Living.Domain.Features.Posts.Enums;
+using Living.Domain.Features.Users;
 
 namespace Living.Domain.Entities.Posts;
 public class Post : IEntity, ITimestamps, ISoftDelete

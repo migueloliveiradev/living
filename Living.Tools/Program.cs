@@ -2,7 +2,9 @@
 
 namespace Living.Tools;
 
-public class Program
+#pragma warning disable S2190
+
+public static class Program
 {
     public static async Task Main()
     {

@@ -2,7 +2,7 @@
 using Living.Tools.Templates;
 
 namespace Living.Tools.Commands;
-internal class MigrationCommands
+internal static class MigrationCommands
 {
     internal static Task NewMigration()
     {

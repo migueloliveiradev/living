@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 
 namespace Living.Tests.Unit.Helpers;
-public class ProjectsAssemblies
+public static class ProjectsAssemblies
 {
     public static Assembly Domain => typeof(Domain.Base.BaseResponse).Assembly;
     public static Assembly Application => typeof(Application.UseCases.Users.Login.LoginUserCommand).Assembly;
