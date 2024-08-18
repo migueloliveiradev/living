@@ -1,5 +1,4 @@
-﻿using AutoFixture;
-using Living.Tests.Helpers;
+﻿using Living.Tests.Helpers;
 
 namespace Living.Tests.Setup;
 

@@ -1,5 +1,4 @@
 ﻿using Living.Domain.Features.Posts;
-using Living.Domain.Features.Users;
 
 namespace Living.Domain.Features.Groups;
 public class Group : IEntity, ITimestamps

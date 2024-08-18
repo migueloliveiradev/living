@@ -2,8 +2,7 @@
 using Living.Application.UseCases.Users.Register;
 using Living.Domain.Features.Users.Constants;
 using Living.Domain.Features.Users.Models;
-using Living.Shared.Extensions;
-using Living.Tests.Base;
+
 
 namespace Living.Tests.Auth;
 public class LoginUserTest(WebAPIFactory webAPIFactory) : SetupWebAPI(webAPIFactory)

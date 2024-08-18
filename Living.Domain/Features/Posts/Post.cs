@@ -1,6 +1,5 @@
 ﻿using Living.Domain.Features.Groups;
 using Living.Domain.Features.Posts.Enums;
-using Living.Domain.Features.Users;
 
 namespace Living.Domain.Features.Posts;
 public class Post : IEntity, ITimestamps, ISoftDelete

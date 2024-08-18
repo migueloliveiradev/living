@@ -1,6 +1,4 @@
-﻿using Living.Domain.Features.Users;
-
-namespace Living.Domain.Features.Posts;
+﻿namespace Living.Domain.Features.Posts;
 public class PostLike : IEntity, ITimestamps
 {
     public Guid Id { get; init; }

@@ -1,5 +1,4 @@
-﻿using AutoFixture;
-using Living.Tests.Base.Customizations;
+﻿using Living.Tests.Base.Customizations;
 
 namespace Living.Tests.Helpers;
 public static class FixtureHelper

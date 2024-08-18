@@ -1,5 +1,4 @@
-﻿using Living.Domain.Features.Users;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace Living.Domain.Features.Roles;
 public class UserRole : IdentityUserRole<Guid>

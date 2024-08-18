@@ -1,6 +1,4 @@
 ﻿using Living.Application.UseCases.Users.Register;
-using Living.Tests.Base;
-using Microsoft.EntityFrameworkCore;
 
 namespace Living.Tests.Auth;
 

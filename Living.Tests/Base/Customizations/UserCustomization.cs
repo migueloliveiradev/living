@@ -1,5 +1,4 @@
-﻿using AutoFixture;
-using Living.Application.UseCases.Users.Register;
+﻿using Living.Application.UseCases.Users.Register;
 using System.Net.Mail;
 
 namespace Living.Tests.Base.Customizations;

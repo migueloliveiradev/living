@@ -1,6 +1,5 @@
 ﻿using Living.Domain.Features.Users;
 using Living.Domain.Features.Users.Constants;
-using Living.Domain.Features.Users.Interfaces;
 using Living.Shared.Extensions;
 using Microsoft.AspNetCore.Identity;
 

@@ -1,6 +1,4 @@
-﻿using Living.Domain.Features.Users;
-
-namespace Living.Domain.Services;
+﻿namespace Living.Domain.Services;
 public interface ITokenService
 {
     Task<string> GenerateAccessToken(User user);

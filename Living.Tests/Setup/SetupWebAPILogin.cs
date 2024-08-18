@@ -1,10 +1,7 @@
-﻿using AutoFixture;
-using Living.Application.UseCases.Users.Login;
+﻿using Living.Application.UseCases.Users.Login;
 using Living.Application.UseCases.Users.Register;
 using Living.Domain.Features.Users.Constants;
 using Living.Domain.Features.Users.Interfaces;
-using Living.Shared.Extensions;
-using Microsoft.EntityFrameworkCore;
 
 namespace Living.Tests.Setup;
 

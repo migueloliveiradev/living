@@ -1,5 +1,4 @@
-﻿using AutoFixture.Xunit2;
-using Living.Tests.Helpers;
+﻿using Living.Tests.Helpers;
 
 namespace Living.Tests.Base;
 
