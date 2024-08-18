@@ -1,4 +1,5 @@
 using Living.Application.UseCases.Users.Login;
+using Living.WebAPI.ExceptionsHandler;
 using Living.WebAPI.Extensions;
 
 namespace Living.WebAPI;
@@ -28,6 +29,8 @@ public abstract class Program
         builder.Services.ConfigureAuthentication();
         builder.Services.AddApplication();
 
+        builder.Services.AddExceptionHandler<ApplicationExceptionHandler>();
+
         builder.Services.AddCors(options => options.AddDefaultPolicy(
         builder => builder.AllowAnyOrigin()
                 .AllowAnyHeader()
@@ -47,6 +50,7 @@ public abstract class Program
 
         app.UseCors();
 
+        app.UseExceptionHandler();
         app.UseExceptionHandler();
 
         app.UseHttpsRedirection();
