@@ -12,6 +12,9 @@ public class WebAPIFactory : IAsyncLifetime
 {
     private readonly PostgreSqlContainer PostgreSql = new PostgreSqlBuilder()
         .WithImage("postgres:16.3")
+        .WithDatabase("Living")
+        .WithUsername(Guid.NewGuid().ToString())
+        .WithPassword(Guid.NewGuid().ToString())
         .Build();
 
     private readonly WebApplicationFactory<Program> Factory;

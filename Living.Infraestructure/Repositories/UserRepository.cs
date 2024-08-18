@@ -8,20 +8,6 @@ public class UserRepository(DatabaseContext context) : BaseRepository<User>(cont
 {
     public IQueryable<Claim> GetClaims(Guid userId)
     {
-        return GetClaimsUser(userId)
-            .Union(GetClaimsUserRoles(userId));
-    }
-
-    public IQueryable<Claim> GetClaimsUser(Guid userId)
-    {
-        return Query()
-            .Where(x => x.Id == userId)
-            .SelectMany(x => x.UserClaims)
-            .Select(x => x.ToClaim());
-    }
-
-    public IQueryable<Claim> GetClaimsUserRoles(Guid userId)
-    {
         return Query()
             .Where(x => x.Id == userId)
             .SelectMany(x => x.UserRoles)

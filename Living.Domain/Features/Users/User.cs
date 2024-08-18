@@ -48,6 +48,11 @@ public class User : IdentityUser<Guid>, IEntity, ITimestamps, IValidit
             UserSessions.Remove(session);
     }
 
+    public bool HasSession(string refreshToken)
+    {
+        return UserSessions.Exists(s => s.RefreshToken == refreshToken);
+    }
+
     public void UpdateSession(string currentRefleshToken, string newRefleshToken)
     {
         var session = UserSessions.Find(s => s.RefreshToken == currentRefleshToken);

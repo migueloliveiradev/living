@@ -1,7 +1,6 @@
 ﻿using Living.Application.UseCases.Users.Login;
 using Living.Application.UseCases.Users.Register;
 using Living.Domain.Features.Users.Constants;
-using Living.Domain.Features.Users.Interfaces;
 
 namespace Living.Tests.Setup;
 
@@ -10,9 +9,7 @@ namespace Living.Tests.Setup;
 
 public partial class SetupWebAPI
 {
-    protected IUserRepository UserRepository => GetService<IUserRepository>();
-
-    protected async Task LoginAsync(string? permission = null)
+    protected async Task<Guid> LoginAsync(string? permission = null)
     {
         var registerUserCommand = Fixture.Create<RegisterUserCommand>();
         var userId = await RegisterAsync(registerUserCommand);
@@ -30,7 +27,9 @@ public partial class SetupWebAPI
 
         await UserRepository.CommitAsync();
 
-        webAPI.AddCookies(cookies);
+        AddCookies(cookies);
+
+        return userId;
     }
 
     private async Task<Guid> RegisterAsync(RegisterUserCommand registerUserCommand)
@@ -52,6 +51,8 @@ public partial class SetupWebAPI
         };
 
         var responseLogin = await Http.PostAsJsonAsync("/api/auth/login", command);
+
+        responseLogin.StatusCode.Should().Be(HttpStatusCode.OK);
 
         return responseLogin.GetCookies();
     }

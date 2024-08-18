@@ -1,6 +1,6 @@
 ﻿using Living.Application.UseCases.Users.Register;
 
-namespace Living.Tests.Auth;
+namespace Living.Tests.UseCases.User;
 
 public class RegisterUserTests(WebAPIFactory webAPI) : SetupWebAPI(webAPI)
 {

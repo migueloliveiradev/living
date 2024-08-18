@@ -12,6 +12,7 @@ public record WebAPIFactoryCollection : ICollectionFixture<WebAPIFactory>;
 public partial class SetupWebAPI(WebAPIFactory webAPI) : TestBase
 {
     protected HttpClient Http => webAPI.HttpClient;
+    protected IReadOnlyCollection<Cookie> GetCookies() => new List<Cookie>(Http.GetCookies());
     protected void AddCookies(IEnumerable<Cookie> cookies) => webAPI.AddCookies(cookies);
 
     protected T GetService<T>()

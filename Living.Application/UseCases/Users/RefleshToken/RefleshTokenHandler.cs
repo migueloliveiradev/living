@@ -26,6 +26,9 @@ public class RefleshTokenHandler(
         if (user is null)
             return new(UserErrors.NOT_FOUND);
 
+        if (!user.HasSession(currentRefreshToken))
+            return new(UserErrors.INVALID_REFRESH_TOKEN);
+
         var token = await tokenService.GenerateAccessToken(user);
         var refreshToken = await tokenService.GenerateRefreshToken(user);
 

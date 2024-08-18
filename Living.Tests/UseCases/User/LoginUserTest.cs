@@ -4,7 +4,7 @@ using Living.Domain.Features.Users.Constants;
 using Living.Domain.Features.Users.Models;
 
 
-namespace Living.Tests.Auth;
+namespace Living.Tests.UseCases.User;
 public class LoginUserTest(WebAPIFactory webAPIFactory) : SetupWebAPI(webAPIFactory)
 {
     [Theory, LivingAutoData]

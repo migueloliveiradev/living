@@ -43,7 +43,7 @@ public class UserContext(
             HttpOnly = true,
             Secure = true,
             SameSite = SameSiteMode.Strict,
-            Expires = DateTimeOffset.UtcNow.AddMinutes(settings.RefreshTokenExpireInMonth),
+            Expires = DateTimeOffset.UtcNow.AddMonths(settings.RefreshTokenExpireInMonth),
         };
 
         HttpContext.Response.Cookies.Append(UserCookies.REFRESH_TOKEN, refreshToken, cookieOptions);
@@ -56,7 +56,7 @@ public class UserContext(
             HttpOnly = true,
             Secure = true,
             SameSite = SameSiteMode.Strict,
-            Expires = DateTimeOffset.UtcNow.AddMinutes(settings.AccessTokenExpireInMinutes),
+            Expires = DateTimeOffset.UtcNow.AddMonths(settings.RefreshTokenExpireInMonth),
         };
 
         HttpContext.Response.Cookies.Append(UserCookies.USER_ID, userId.ToString(), cookieOptions);

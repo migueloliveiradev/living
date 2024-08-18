@@ -1,4 +1,5 @@
 ﻿using Living.Domain.Features.Users;
+using Living.Domain.Features.Users.Constants;
 using Living.Domain.Features.Users.Interfaces;
 using Living.Domain.Services;
 using Living.Infraestructure.Settings;
@@ -16,6 +17,7 @@ public class TokenService(IOptions<JwtSettings> options, IUserRepository userRep
     public async Task<string> GenerateAccessToken(User user)
     {
         var claims = await userRepository.GetClaims(user.Id).ToListAsync();
+        claims.Add(new Claim(UserClaimsTokens.USER_ID, user.Id.ToString()));
 
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(configuration.Secret);
