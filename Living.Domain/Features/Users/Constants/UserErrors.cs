@@ -20,4 +20,7 @@ public static class UserErrors
     public static Notification INVALID_EMAIL => new("USER");
 
     public static Notification EMAIL_LENGTH_INVALID => new("USER");
+
+
+    public static Notification NOT_AUTHORIZED => new("USER");
 }

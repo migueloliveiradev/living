@@ -15,7 +15,7 @@ public class TokenService(IOptions<JwtSettings> options, IUserRepository userRep
 
     public async Task<string> GenerateAccessToken(User user)
     {
-        var claims = await userRepository.GetClaims(user.Id);
+        var claims = await userRepository.GetClaims(user.Id).ToListAsync();
 
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(configuration.Secret);

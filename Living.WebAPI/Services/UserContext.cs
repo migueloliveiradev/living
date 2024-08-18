@@ -2,6 +2,7 @@
 using Living.Domain.Features.Users.Interfaces;
 using Living.Infraestructure.Settings;
 using Living.WebAPI.Extensions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Diagnostics.CodeAnalysis;
 using System.Security.Principal;
@@ -10,7 +11,10 @@ namespace Living.WebAPI.Services;
 
 #pragma warning disable S3928
 
-public class UserContext(IHttpContextAccessor httpContextAccessor, IOptions<JwtSettings> options) : IUserContext
+public class UserContext(
+    IHttpContextAccessor httpContextAccessor,
+    IUserRepository userRepository,
+    IOptions<JwtSettings> options) : IUserContext
 {
     private readonly JwtSettings settings = options.Value;
     private HttpContext HttpContext => httpContextAccessor.HttpContext ?? throw new ArgumentNullException(nameof(httpContextAccessor));
@@ -61,5 +65,22 @@ public class UserContext(IHttpContextAccessor httpContextAccessor, IOptions<JwtS
     public bool TryGetCookie(string key, [NotNullWhen(true)] out string? value)
     {
         return HttpContext.Request.Cookies.TryGetValue(key, out value);
+    }
+
+    public async Task<bool> HasPermission(string permission)
+    {
+        return await userRepository
+             .GetClaims(UserId)
+             .Where(x => x.Type == UserClaimsTokens.PERMISSION)
+             .AnyAsync(x => x.Value == permission, HttpContext.RequestAborted);
+    }
+
+    public Task<List<string>> GetPermissions()
+    {
+        return userRepository
+            .GetClaims(UserId)
+            .Where(x => x.Type == UserClaimsTokens.PERMISSION)
+            .Select(x => x.Value)
+            .ToListAsync(HttpContext.RequestAborted);
     }
 }
