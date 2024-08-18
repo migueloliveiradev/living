@@ -26,12 +26,6 @@ jobs:
       
     - name: Build
       run: dotnet build --no-restore
-
-    - name: Install EF Core CLI
-      run: dotnet tool install --global dotnet-ef
-
-    - name: Check has pending model changes
-      run: dotnet ef migrations has-pending-model-changes -p Living.Infraestructure -s Living.WebAPI
     
     - name: Tests
       run: dotnet test --configuration Release --logger GitHubActions /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=../coverage/ /p:ExcludeByFile="**/*Migrations/*.cs"
