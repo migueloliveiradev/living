@@ -1,4 +1,5 @@
 ﻿using Living.Shared.Helpers;
+using System.ComponentModel.DataAnnotations;
 
 namespace Living.Shared.Extensions;
 public static partial class StringExtensions
@@ -30,5 +31,10 @@ public static partial class StringExtensions
     public static bool IsGuid(this string @string)
     {
         return Guid.TryParse(@string, out _);
+    }
+
+    public static bool IsEmail(this string @string)
+    {
+        return new EmailAddressAttribute().IsValid(@string);
     }
 }

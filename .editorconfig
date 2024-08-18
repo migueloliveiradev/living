@@ -7,8 +7,8 @@ dotnet_diagnostic.MA0004.severity = none
 dotnet_diagnostic.IDE0041.severity = warning
 dotnet_diagnostic.MA0015.severity = none
 dotnet_diagnostic.MA0007.severity = none
-dotnet_diagnostic.MA0048.excluded_symbol_names = *Migrations
 csharp_space_around_binary_operators = before_and_after
+dotnet_diagnostic.MA0048.excluded_symbol_names = *Migrations
 
 [*.{cs,vb}]
 end_of_line = crlf

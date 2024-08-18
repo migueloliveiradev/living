@@ -7,7 +7,7 @@ public class UserSession(Guid userId, string refreshToken) : IEntity, ITimestamp
     public DateTime CreatedAt { get; }
     public DateTime LastUpdatedAt { get; }
 
-    public User User { get; set; }
+    public User User { get; init; }
 
 
     public void Update(string refleshToken)

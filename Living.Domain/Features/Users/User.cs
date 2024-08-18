@@ -1,12 +1,13 @@
 ﻿using Living.Domain.Features.Groups;
 using Living.Domain.Features.Posts;
 using Living.Domain.Features.Roles;
+using Living.Domain.Features.Users.Constants;
 using Microsoft.AspNetCore.Identity;
 
 #pragma warning disable CS8765
 
 namespace Living.Domain.Features.Users;
-public class User : IdentityUser<Guid>, IEntity, ITimestamps
+public class User : IdentityUser<Guid>, IEntity, ITimestamps, IValidit
 {
     public required string Name { get; set; }
     public override required string UserName { get; set; }
@@ -62,5 +63,26 @@ public class User : IdentityUser<Guid>, IEntity, ITimestamps
             ClaimType = type,
             ClaimValue = value
         });
+    }
+
+    public IEnumerable<Notification> IsValid()
+    {
+        if (string.IsNullOrWhiteSpace(Name))
+            yield return UserErrors.NAME_IS_REQUIRED;
+
+        if (Name.Length < 3 || Name.Length > 100)
+            yield return UserErrors.NAME_LENGTH_INVALID;
+
+        if (string.IsNullOrWhiteSpace(UserName))
+            yield return UserErrors.USERNAME_IS_REQUIRED;
+
+        if (UserName.Length < 4 || UserName.Length > 20)
+            yield return UserErrors.USERNAME_LENGTH_INVALID;
+
+        if (string.IsNullOrWhiteSpace(Email))
+            yield return UserErrors.EMAIL_IS_REQUIRED;
+
+        if (Email.Length < 3 || Email.Length > 320)
+            yield return UserErrors.EMAIL_LENGTH_INVALID;
     }
 }

@@ -1,4 +1,5 @@
-﻿using Living.Application.UseCases.Users.Login;
+﻿using AutoFixture;
+using Living.Application.UseCases.Users.Login;
 using Living.Application.UseCases.Users.Register;
 using Living.Domain.Features.Users.Constants;
 using Living.Domain.Features.Users.Interfaces;
@@ -16,7 +17,7 @@ public partial class SetupWebAPI
 
     protected async Task LoginAsync(string? permission = null)
     {
-        var registerUserCommand = RegisterUserFaker.Instance.Generate();
+        var registerUserCommand = Fixture.Create<RegisterUserCommand>();
         var userId = await RegisterAsync(registerUserCommand);
 
         var cookies = await LoginWebAPIAsync(registerUserCommand.Email, registerUserCommand.Password);
@@ -53,7 +54,7 @@ public partial class SetupWebAPI
             Password = password,
         };
 
-        var responseLogin = await Client.PostAsJsonAsync("/api/auth/login", command);
+        var responseLogin = await Http.PostAsJsonAsync("/api/auth/login", command);
 
         return responseLogin.GetCookies();
     }

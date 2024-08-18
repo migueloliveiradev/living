@@ -10,4 +10,14 @@ public static class UserErrors
     public static Notification REQUIRES_TWO_FACTOR => new("USER");
     public static Notification INVALID_REFRESH_TOKEN => new("USER");
     public static Notification INVALID_USER_ID => new("USER");
+
+    public static Notification NAME_IS_REQUIRED => new("USER");
+    public static Notification NAME_LENGTH_INVALID => new("USER");
+    public static Notification USERNAME_IS_REQUIRED => new("USER");
+    public static Notification USERNAME_LENGTH_INVALID => new("USER");
+
+    public static Notification EMAIL_IS_REQUIRED => new("USER");
+    public static Notification INVALID_EMAIL => new("USER");
+
+    public static Notification EMAIL_LENGTH_INVALID => new("USER");
 }

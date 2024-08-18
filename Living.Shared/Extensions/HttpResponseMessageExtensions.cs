@@ -10,9 +10,7 @@ public static class HttpResponseMessageExtensions
         var cookiesContainer = new CookieContainer();
 
         foreach (var cookie in cookies)
-        {
             cookiesContainer.SetCookies(response.RequestMessage!.RequestUri!, cookie);
-        }
 
         return cookiesContainer.GetAllCookies();
     }

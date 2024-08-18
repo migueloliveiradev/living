@@ -9,9 +9,11 @@ namespace Living.Tests.Setup;
 public record WebAPIFactoryCollection : ICollectionFixture<WebAPIFactory>;
 
 [Collection("WebAPI")]
-public partial class SetupWebAPI(WebAPIFactory webAPI)
+public partial class SetupWebAPI(WebAPIFactory webAPI) : TestBase
 {
-    protected HttpClient Client => webAPI.HttpClient;
+    protected HttpClient Http => webAPI.HttpClient;
+    protected void AddCookies(IEnumerable<Cookie> cookies) => webAPI.AddCookies(cookies);
+
     protected T GetService<T>()
         where T : notnull
     {
