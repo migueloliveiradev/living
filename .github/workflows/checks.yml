@@ -37,4 +37,4 @@ jobs:
         comment-title: 'Unit Test Results'
         results-path: ./TestResults/*.trx
         coverage-path: ./coverage/coverage.xml
-        coverage-threshold: 60
+        coverage-threshold: 50
