@@ -28,9 +28,6 @@ jobs:
       run: dotnet build --no-restore
     
     - name: Tests
-      run: dotnet test --configuration Release --logger GitHubActions /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=../coverage/ /p:ExcludeByFile="**/*Migrations/*.cs"
-
-    - name: Tests
       run: dotnet test --configuration Release --logger GitHubActions --logger trx /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=../coverage/ /p:ExcludeByFile="**/*Migrations/*.cs"
 
     - name: Tests Reporter 
