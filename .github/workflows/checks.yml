@@ -1,6 +1,6 @@
 # Workflow responsible for validating the project's build, tests and code coverage when creating a pull request
 
-name: 'Checks'
+name: "Checks"
 
 on:
   pull_request:
@@ -14,27 +14,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.x
-      
-    - name: Restore dependencies
-      run: dotnet restore
-      
-    - name: Build
-      run: dotnet build --no-restore
-    
-    - name: Tests
-      run: dotnet test --configuration Release --logger GitHubActions --logger trx /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=../coverage/ /p:ExcludeByFile="**/*Migrations/*.cs"
+      - uses: actions/checkout@v4
 
-    - name: Tests Reporter 
-      uses: bibipkins/dotnet-test-reporter@v1.4.0
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        comment-title: 'Unit Test Results'
-        results-path: ./TestResults/*.trx
-        coverage-path: ./coverage/coverage.xml
-        coverage-threshold: 50
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore
+
+      - name: Tests
+        run: dotnet test --configuration Release --logger GitHubActions --logger trx /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=../coverage/ /p:ExcludeByFile="**/*Migrations/*.cs"
+
+      - name: Tests Reporter
+        uses: bibipkins/dotnet-test-reporter@v1.4.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          comment-title: "Unit Test Results"
+          results-path: ./**/TestResults/*.trx
+          coverage-path: ./coverage/coverage.xml
+          coverage-threshold: 50
