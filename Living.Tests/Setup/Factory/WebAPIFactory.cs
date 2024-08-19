@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
-using Microsoft.Extensions.Configuration;
 using Testcontainers.PostgreSql;
 
 namespace Living.Tests.Setup.Factory;
@@ -16,7 +15,6 @@ public class WebAPIFactory : IAsyncLifetime
         .WithDatabase("Living")
         .WithUsername(Guid.NewGuid().ToString())
         .WithPassword(Guid.NewGuid().ToString())
-        .WithHostname("host.docker.internal")
         .Build();
 
     private readonly WebApplicationFactory<Program> Factory;
@@ -28,13 +26,7 @@ public class WebAPIFactory : IAsyncLifetime
         Factory = new WebApplicationFactory<Program>()
             .WithWebHostBuilder(builder =>
             {
-                builder.ConfigureAppConfiguration((context, config) =>
-                {
-                    config.AddInMemoryCollection(new Dictionary<string, string?>(StringComparer.OrdinalIgnoreCase)
-                    {
-                        ["ConnectionStrings:PostgresConnection"] = PostgreSql.GetConnectionString(),
-                    });
-                });
+                builder.UseSetting("ConnectionStrings:PostgresConnection", PostgreSql.GetConnectionString());
                 builder.UseEnvironment("Testing");
                 builder.UseTestServer();
             });
