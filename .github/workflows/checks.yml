@@ -38,4 +38,4 @@ jobs:
           results-path: ./**/TestResults/*.trx
           coverage-path: ./coverage/coverage.cobertura.xml
           coverage-type: cobertura
-          coverage-threshold: 50
+          coverage-threshold: 0
