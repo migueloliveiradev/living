@@ -7,20 +7,24 @@ namespace Living.Domain.Base;
 public class BaseResponse<T> : BaseResponse
 {
     [JsonConstructor]
-    public BaseResponse(T data)
+    public BaseResponse(T data, HttpStatusCode httpStatusCode = HttpStatusCode.OK)
     {
         Data = data;
+        HttpStatusCode = httpStatusCode;
     }
 
-    public BaseResponse(Notification notification) : base(notification)
+    public BaseResponse(Notification notification, HttpStatusCode httpStatusCode = HttpStatusCode.UnprocessableEntity)
+        : base(notification, httpStatusCode)
     {
     }
 
-    public BaseResponse(IEnumerable<Notification> notifications) : base(notifications)
+    public BaseResponse(IEnumerable<Notification> notifications, HttpStatusCode httpStatusCode = HttpStatusCode.UnprocessableEntity)
+        : base(notifications, httpStatusCode)
     {
     }
 
-    public BaseResponse(IEnumerable<IdentityError> errors) : base(errors)
+    public BaseResponse(IEnumerable<IdentityError> errors, HttpStatusCode httpStatusCode = HttpStatusCode.UnprocessableEntity)
+        : base(errors, httpStatusCode)
     {
     }
 
@@ -33,13 +37,13 @@ public class BaseResponse
     {
     }
 
-    public BaseResponse(Notification notification, HttpStatusCode httpStatusCode = HttpStatusCode.BadRequest)
+    public BaseResponse(Notification notification, HttpStatusCode httpStatusCode = HttpStatusCode.UnprocessableEntity)
     {
         Notifications.Add(notification.Key, [notification.Code]);
         HttpStatusCode = httpStatusCode;
     }
 
-    public BaseResponse(IEnumerable<Notification> notifications, HttpStatusCode httpStatusCode = HttpStatusCode.BadRequest)
+    public BaseResponse(IEnumerable<Notification> notifications, HttpStatusCode httpStatusCode = HttpStatusCode.UnprocessableEntity)
     {
         foreach (var notification in notifications)
         {
@@ -50,7 +54,7 @@ public class BaseResponse
         HttpStatusCode = httpStatusCode;
     }
 
-    public BaseResponse(IEnumerable<IdentityError> errors, HttpStatusCode httpStatusCode = HttpStatusCode.BadRequest)
+    public BaseResponse(IEnumerable<IdentityError> errors, HttpStatusCode httpStatusCode = HttpStatusCode.UnprocessableEntity)
     {
         foreach (var error in errors)
         {
