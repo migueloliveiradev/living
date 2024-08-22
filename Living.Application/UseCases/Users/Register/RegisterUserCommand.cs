@@ -7,6 +7,8 @@ public class RegisterUserCommand : IRequest<BaseResponse<Guid>>
     public string Username { get; set; }
     public string Email { get; set; }
     public string Password { get; set; }
+    public string Bio { get; set; }
+    public DateOnly Birthday { get; set; }
 
     public User ToUser()
     {
@@ -14,7 +16,9 @@ public class RegisterUserCommand : IRequest<BaseResponse<Guid>>
         {
             Name = Name,
             UserName = Username,
-            Email = Email
+            Email = Email,
+            Bio = Bio,
+            Birthday = Birthday
         };
     }
 }
