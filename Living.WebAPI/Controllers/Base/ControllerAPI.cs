@@ -17,6 +17,7 @@ public class ControllerAPI : ControllerBase
             HttpStatusCode.Created => Created(uri, response),
             HttpStatusCode.NoContent => NoContent(),
             HttpStatusCode.BadRequest => BadRequest(response),
+            HttpStatusCode.UnprocessableEntity => UnprocessableEntity(response),
             HttpStatusCode.NotFound => NotFound(response),
             HttpStatusCode.Unauthorized => Unauthorized(response),
             HttpStatusCode.Forbidden => Forbid(),

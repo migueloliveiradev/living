@@ -11,9 +11,13 @@ public record WebAPIFactoryCollection : ICollectionFixture<WebAPIFactory>;
 [Collection("WebAPI")]
 public partial class SetupWebAPI(WebAPIFactory webAPI) : TestBase
 {
-    protected HttpClient Http => webAPI.HttpClient;
+    protected HttpClient Http { get; } = webAPI.CreateHttpClient();
     protected IReadOnlyCollection<Cookie> GetCookies() => new List<Cookie>(Http.GetCookies());
-    protected void AddCookies(IEnumerable<Cookie> cookies) => webAPI.AddCookies(cookies);
+    protected void AddCookies(IEnumerable<Cookie> cookies)
+    {
+        foreach (var cookie in cookies)
+            Http.DefaultRequestHeaders.Add("Cookie", cookie.ToString());
+    }
 
     protected T GetService<T>()
         where T : notnull
@@ -24,14 +28,14 @@ public partial class SetupWebAPI(WebAPIFactory webAPI) : TestBase
 
     protected async Task<T> PostAsync<T>(string path, object? body = null)
     {
-        var response = await webAPI.HttpClient.PostAsJsonAsync(path, body);
+        var response = await Http.PostAsJsonAsync(path, body);
         var data = await response.Content.ReadFromJsonAsync<T>();
         return data!;
     }
 
     protected async Task<T> GetAsync<T>(string path)
     {
-        var response = await webAPI.HttpClient.GetAsync(path);
+        var response = await Http.GetAsync(path);
 
         var data = await response.Content.ReadFromJsonAsync<T>();
         return data!;

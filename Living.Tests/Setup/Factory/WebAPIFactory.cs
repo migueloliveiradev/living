@@ -19,7 +19,7 @@ public class WebAPIFactory : IAsyncLifetime
 
     private readonly WebApplicationFactory<Program> Factory;
 
-    public HttpClient HttpClient { get; private set; }
+    public HttpClient CreateHttpClient() => Factory.Server.CreateClient();
 
     public WebAPIFactory()
     {
@@ -35,19 +35,9 @@ public class WebAPIFactory : IAsyncLifetime
 
     public IServiceProvider Services => Factory.Services;
 
-    public void AddCookies(IEnumerable<Cookie> cookieCollection)
-    {
-        foreach (var cookie in cookieCollection)
-        {
-            HttpClient.DefaultRequestHeaders.Add("Cookie", cookie.ToString());
-        }
-    }
-
     public async Task InitializeAsync()
     {
         await PostgreSql.StartAsync();
-
-        HttpClient = Factory.Server.CreateClient();
     }
 
     public async Task DisposeAsync()

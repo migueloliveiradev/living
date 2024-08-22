@@ -2,6 +2,7 @@
 using Living.Application.UseCases.Users.Register;
 using Living.Domain.Features.Users.Constants;
 using Living.Domain.Features.Users.Models;
+using Living.Tests.Extensions;
 
 
 namespace Living.Tests.UseCases.User;
@@ -63,10 +64,8 @@ public class LoginUserTest(WebAPIFactory webAPIFactory) : SetupWebAPI(webAPIFact
 
         response.HttpStatusCode.Should().Be(HttpStatusCode.NotFound);
 
-        response.Notifications.Keys.Should().HaveCount(1);
-        response.Notifications.Should().ContainKey("USER");
-        response.Notifications["USER"].Should().HaveCount(1);
-        response.Notifications["USER"].Should().Contain(UserErrors.NOT_FOUND.Code);
+        response.Notifications.Should().HaveCount(1);
+        response.Notifications.Should().ContainNotification(UserErrors.NOT_FOUND);
     }
 
     [Theory, LivingAutoData]
@@ -81,10 +80,30 @@ public class LoginUserTest(WebAPIFactory webAPIFactory) : SetupWebAPI(webAPIFact
             Password = password,
         });
 
-        response.HttpStatusCode.Should().Be(HttpStatusCode.BadRequest);
-        response.Notifications.Keys.Should().HaveCount(1);
-        response.Notifications.Should().ContainKey("USER");
-        response.Notifications["USER"].Should().HaveCount(1);
-        response.Notifications["USER"].Should().Contain(UserErrors.PASSWORD_INVALID.Code);
+        response.HttpStatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
+        response.Notifications.Should().HaveCount(1);
+        response.Notifications.Should().ContainNotification(UserErrors.PASSWORD_INVALID);
+    }
+
+    [Theory, LivingAutoData]
+    public async Task LoginUser_ShouldNotLoginWhenUserIsLockedOut(RegisterUserCommand command)
+    {
+        var responseRegister = await PostAsync<BaseResponse<Guid>>("/api/auth/register", command);
+
+        await UserRepository
+            .DBSet()
+            .Where(p => p.Id == responseRegister.Data)
+            .ExecuteUpdateAsync(p => p.SetProperty(x => x.LockoutEnd, DateTimeOffset.UtcNow.AddDays(1))
+                .SetProperty(p => p.LockoutEnabled, true));
+
+        var response = await PostAsync<BaseResponse>("/api/auth/login", new LoginUserCommand
+        {
+            Email = command.Email,
+            Password = command.Password,
+        });
+
+        response.HttpStatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
+        response.Notifications.Should().HaveCount(1);
+        response.Notifications.Should().ContainNotification(UserErrors.LOCKED_OUT);
     }
 }
