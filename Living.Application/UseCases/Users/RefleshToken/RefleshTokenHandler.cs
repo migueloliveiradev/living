@@ -17,6 +17,9 @@ public class RefleshTokenHandler(
         if (!context.TryGetCookie(UserCookies.USER_ID, out var userId))
             return new(UserErrors.INVALID_USER_ID);
 
+        if (!userId.IsGuid())
+            return new(UserErrors.INVALID_USER_ID);
+
         var user = await userRepository
             .DBSet()
             .Where(u => u.Id == userId.ToGuid())
