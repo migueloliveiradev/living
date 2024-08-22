@@ -2,14 +2,14 @@
 using Living.Domain.Services;
 using Living.Shared.Extensions;
 
-namespace Living.Application.UseCases.Users.RefleshToken;
-public class RefleshTokenHandler(
+namespace Living.Application.UseCases.Users.RefreshToken;
+public class RefreshTokenHandler(
     IUserContext context,
     ITokenService tokenService,
     IUserRepository userRepository,
-    IUnitOfWork unitOfWork) : Handler(unitOfWork), IRequestHandler<RefleshTokenCommand, BaseResponse>
+    IUnitOfWork unitOfWork) : Handler(unitOfWork), IRequestHandler<RefreshTokenCommand, BaseResponse>
 {
-    public async Task<BaseResponse> Handle(RefleshTokenCommand request, CancellationToken cancellationToken)
+    public async Task<BaseResponse> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
     {
         if (!context.TryGetCookie(UserCookies.REFRESH_TOKEN, out var currentRefreshToken))
             return new(UserErrors.INVALID_REFRESH_TOKEN);

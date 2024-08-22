@@ -2,10 +2,10 @@
 using Living.Tests.Extensions;
 
 namespace Living.Tests.UseCases.User;
-public class RefleshTokenTests(WebAPIFactory webAPIFactory) : SetupWebAPI(webAPIFactory)
+public class RefreshTokenTests(WebAPIFactory webAPIFactory) : SetupWebAPI(webAPIFactory)
 {
     [Fact]
-    public async Task RefleshToken_ShouldReflesh()
+    public async Task RefreshToken_ShouldRefresh()
     {
         var userId = await LoginAsync();
 
@@ -22,7 +22,7 @@ public class RefleshTokenTests(WebAPIFactory webAPIFactory) : SetupWebAPI(webAPI
         user.UserSessions.Should().HaveCount(1);
         user.UserSessions.Should().Contain(p => p.RefreshToken == refreshToken.Value);
 
-        var response = await Http.PostAsync("/api/auth/reflesh-token", new StringContent(""));
+        var response = await Http.PostAsync("/api/auth/refresh-token", new StringContent(""));
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
         var cookies2 = response.GetCookies();
@@ -41,9 +41,9 @@ public class RefleshTokenTests(WebAPIFactory webAPIFactory) : SetupWebAPI(webAPI
     }
 
     [Fact]
-    public async Task RefleshToken_ShouldValidateInvalidRefleshToken()
+    public async Task RefreshToken_ShouldValidateInvalidRefreshToken()
     {
-        var response = await Http.PostAsync("/api/auth/reflesh-token", new StringContent(""));
+        var response = await Http.PostAsync("/api/auth/refresh-token", new StringContent(""));
         response.StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
         response.GetCookies().Should().BeEmpty();
 
@@ -56,7 +56,7 @@ public class RefleshTokenTests(WebAPIFactory webAPIFactory) : SetupWebAPI(webAPI
     [Theory]
     [InlineAutoData("")]
     [InlineAutoData("invalid")]
-    public async Task RefleshToken_ShouldValidateInvalidUserId(string userId, string refreshToken)
+    public async Task RefreshToken_ShouldValidateInvalidUserId(string userId, string refreshToken)
     {
         AddCookies(
             [
@@ -64,7 +64,7 @@ public class RefleshTokenTests(WebAPIFactory webAPIFactory) : SetupWebAPI(webAPI
                 new(UserCookies.USER_ID, userId)
             ]);
 
-        var response = await Http.PostAsync("/api/auth/reflesh-token", new StringContent(""));
+        var response = await Http.PostAsync("/api/auth/refresh-token", new StringContent(""));
         response.StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
         response.GetCookies().Should().BeEmpty();
 
@@ -75,7 +75,7 @@ public class RefleshTokenTests(WebAPIFactory webAPIFactory) : SetupWebAPI(webAPI
     }
 
     [Theory, AutoData]
-    public async Task RefleshToken_ShouldValidateNotFoundUser(string refreshToken, Guid userId)
+    public async Task RefreshToken_ShouldValidateNotFoundUser(string refreshToken, Guid userId)
     {
         AddCookies(
             [
@@ -83,7 +83,7 @@ public class RefleshTokenTests(WebAPIFactory webAPIFactory) : SetupWebAPI(webAPI
                 new(UserCookies.USER_ID, userId.ToString())
             ]);
 
-        var response = await Http.PostAsync("/api/auth/reflesh-token", new StringContent(""));
+        var response = await Http.PostAsync("/api/auth/refresh-token", new StringContent(""));
         response.StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
         response.GetCookies().Should().BeEmpty();
 
@@ -108,7 +108,7 @@ public class RefleshTokenTests(WebAPIFactory webAPIFactory) : SetupWebAPI(webAPI
 
         AddCookies([new(UserCookies.REFRESH_TOKEN, refreshToken)]);
 
-        var response = await Http.PostAsync("/api/auth/reflesh-token", new StringContent(""));
+        var response = await Http.PostAsync("/api/auth/refresh-token", new StringContent(""));
         response.StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
         response.GetCookies().Should().BeEmpty();
 

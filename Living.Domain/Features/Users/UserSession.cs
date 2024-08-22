@@ -10,8 +10,8 @@ public class UserSession(Guid userId, string refreshToken) : IEntity, ITimestamp
     public User User { get; init; }
 
 
-    public void Update(string refleshToken)
+    public void Update(string refreshToken)
     {
-        RefreshToken = refleshToken;
+        RefreshToken = refreshToken;
     }
 }

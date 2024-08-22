@@ -1,6 +1,6 @@
 ﻿using Living.Application.UseCases.Users.Login;
 using Living.Application.UseCases.Users.Me;
-using Living.Application.UseCases.Users.RefleshToken;
+using Living.Application.UseCases.Users.RefreshToken;
 using Living.Application.UseCases.Users.Register;
 using Microsoft.AspNetCore.Authorization;
 
@@ -21,10 +21,10 @@ public class AuthController(IMediator mediator) : ControllerAPI
         return CreateResponse(await mediator.Send(command, CancellationToken));
     }
 
-    [HttpPost("reflesh-token")]
-    public async Task<IActionResult> RefleshToken()
+    [HttpPost("refresh-token")]
+    public async Task<IActionResult> RefreshToken()
     {
-        return CreateResponse(await mediator.Send(new RefleshTokenCommand(), CancellationToken));
+        return CreateResponse(await mediator.Send(new RefreshTokenCommand(), CancellationToken));
     }
 
     [HttpGet("me")]

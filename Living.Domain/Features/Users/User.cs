@@ -53,11 +53,11 @@ public class User : IdentityUser<Guid>, IEntity, ITimestamps, IValidit
         return UserSessions.Exists(s => s.RefreshToken == refreshToken);
     }
 
-    public void UpdateSession(string currentRefleshToken, string newRefleshToken)
+    public void UpdateSession(string currentRefreshToken, string newRefreshToken)
     {
-        var session = UserSessions.Find(s => s.RefreshToken == currentRefleshToken);
+        var session = UserSessions.Find(s => s.RefreshToken == currentRefreshToken);
         if (session is not null)
-            session.Update(newRefleshToken);
+            session.Update(newRefreshToken);
     }
 
     public void AddClaim(string type, string value)
