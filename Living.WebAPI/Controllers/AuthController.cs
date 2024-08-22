@@ -2,7 +2,6 @@
 using Living.Application.UseCases.Users.Me;
 using Living.Application.UseCases.Users.RefreshToken;
 using Living.Application.UseCases.Users.Register;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Living.WebAPI.Controllers;
 [Route("api/auth")]
