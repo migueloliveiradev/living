@@ -20,7 +20,7 @@ public static class UserQueryableExtensions
             Id = user.Id,
             Name = user.Name,
             Username = user.UserName,
-            Bio = "",
+            Bio = user.Bio,
             Birthday = user.Birthday,
             CreatedAt = user.CreatedAt,
             FollowersCount = 0,

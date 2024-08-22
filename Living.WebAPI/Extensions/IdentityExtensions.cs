@@ -2,6 +2,7 @@
 using Living.Domain.Features.Users;
 using Living.Domain.Features.Users.Constants;
 using Living.Infraestructure.Context;
+using Living.Infraestructure.Identity;
 using Microsoft.AspNetCore.Identity;
 
 namespace Living.WebAPI.Extensions;
@@ -12,7 +13,8 @@ public static class IdentityExtensions
     {
         services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<DatabaseContext>()
-                .AddErrorDescriber<UserIdentityErrorDescriber>();
+                .AddErrorDescriber<UserIdentityErrorDescriber>()
+                .AddUserManager<LivingUserManager>();
 
         services.Configure<IdentityOptions>(options =>
         {

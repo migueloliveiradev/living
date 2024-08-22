@@ -21,5 +21,7 @@ public class RegisterUserTests(WebAPIFactory webAPI) : SetupWebAPI(webAPI)
         user.Email.Should().Be(command.Email);
         user.Name.Should().Be(command.Name);
         user.UserName.Should().Be(command.Username);
+        user.Bio.Should().Be(command.Bio);
+        user.Birthday.Should().Be(command.Birthday);
     }
 }

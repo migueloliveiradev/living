@@ -4,10 +4,7 @@ using Living.Shared.Extensions;
 using Microsoft.AspNetCore.Identity;
 
 namespace Living.Application.UseCases.Users.Register;
-public class RegisterUserHandler(
-    IUserRepository userRepository,
-    UserManager<User> userManager,
-    IUnitOfWork unitOfWork)
+public class RegisterUserHandler(UserManager<User> userManager, IUnitOfWork unitOfWork)
     : Handler(unitOfWork), IRequestHandler<RegisterUserCommand, BaseResponse<Guid>>
 {
     public async Task<BaseResponse<Guid>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
@@ -21,21 +18,10 @@ public class RegisterUserHandler(
         if (!user.Email.IsEmail())
             return new(UserErrors.INVALID_EMAIL);
 
-        if (await EmailInUseAsync(user.Email))
-            return new(UserErrors.EMAIL_ALREADY_IN_USE);
-
-        userRepository.Insert(user);
-
-        user.PasswordHash = userManager.PasswordHasher.HashPassword(user, request.Password);
-        user.SecurityStamp = Guid.NewGuid().ToString();
-
-        await CommitAsync(cancellationToken);
+        var result = await userManager.CreateAsync(user, request.Password);
+        if (!result.Succeeded)
+            return new(result.Errors);
 
         return new(user.Id);
-    }
-
-    private async Task<bool> EmailInUseAsync(string email)
-    {
-        return await userRepository.ExistsAsync(x => EF.Functions.ILike(x.Email, email));
     }
 }
