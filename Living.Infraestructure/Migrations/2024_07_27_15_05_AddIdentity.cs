@@ -19,7 +19,7 @@ public class AddIdentity : Migration
             .WithColumn("PhoneNumber").AsString().Nullable()
             .WithColumn("PhoneNumberConfirmed").AsBoolean()
             .WithColumn("TwoFactorEnabled").AsBoolean()
-            .WithColumn("LockoutEnd").AsDateTime().Nullable()
+            .WithColumn("LockoutEnd").AsDateTimeOffset().Nullable()
             .WithColumn("LockoutEnabled").AsBoolean()
             .WithColumn("AccessFailedCount").AsInt32();
 
