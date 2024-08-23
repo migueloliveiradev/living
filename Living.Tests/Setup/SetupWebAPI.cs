@@ -29,6 +29,7 @@ public partial class SetupWebAPI(WebAPIFactory webAPI) : TestBase
     protected async Task<T> PostAsync<T>(string path, object? body = null)
     {
         var response = await Http.PostAsJsonAsync(path, body);
+
         var data = await response.Content.ReadFromJsonAsync<T>();
         return data!;
     }

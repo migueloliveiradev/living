@@ -46,7 +46,7 @@ public partial class SetupWebAPI
     {
         var command = new LoginUserCommand
         {
-            Email = email,
+            EmailOrUsername = email,
             Password = password,
         };
 

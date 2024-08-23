@@ -54,12 +54,12 @@ public class BaseResponse
         HttpStatusCode = httpStatusCode;
     }
 
-    public BaseResponse(IEnumerable<IdentityError> errors, HttpStatusCode httpStatusCode = HttpStatusCode.UnprocessableEntity)
+    public BaseResponse(IEnumerable<IdentityError> notifications, HttpStatusCode httpStatusCode = HttpStatusCode.UnprocessableEntity)
     {
-        foreach (var error in errors)
+        foreach (Notification notification in notifications)
         {
-            Notifications.TryAdd("IDENTITY", []);
-            Notifications["IDENTITY"] = [.. Notifications["IDENTITY"], error.Code];
+            Notifications.TryAdd(notification.Key, []);
+            Notifications[notification.Key] = [.. Notifications[notification.Key], notification.Code];
         }
 
         HttpStatusCode = httpStatusCode;

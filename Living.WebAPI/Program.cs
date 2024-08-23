@@ -13,7 +13,7 @@ public abstract class Program
 
         builder.Services.AddDatabase();
 
-        builder.Services.AddControllers();
+        builder.Services.AddControllers().ConfigureInvalidModelStateResponse();
 
         builder.Services.ConfigureIdentity();
 

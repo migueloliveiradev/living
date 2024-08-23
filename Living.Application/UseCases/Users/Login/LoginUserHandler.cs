@@ -15,7 +15,7 @@ public class LoginUserHandler(
     {
         var user = await userRepository
             .DBSet()
-            .Where(u => EF.Functions.ILike(u.Email, request.Email))
+            .Where(u => EF.Functions.ILike(u.Email, request.EmailOrUsername) || EF.Functions.ILike(u.UserName, request.EmailOrUsername))
             .FirstOrDefaultAsync(cancellationToken);
 
         if (user is null)

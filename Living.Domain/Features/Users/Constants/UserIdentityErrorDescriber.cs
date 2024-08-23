@@ -4,47 +4,47 @@ namespace Living.Domain.Features.Users.Constants;
 public class UserIdentityErrorDescriber : IdentityErrorDescriber
 {
     public override IdentityError DefaultError()
-        => new() { Code = "DEFAULT_ERROR", Description = $"Um erro desconhecido ocorreu." };
+        => UserErrors.DEFAULT_ERROR;
     public override IdentityError ConcurrencyFailure()
-        => new() { Code = "CONCURRENCY_FAILURE", Description = "Falha de concorrência otimista, o objeto foi modificado." };
+        => UserErrors.CONCURRENCY_FAILURE;
     public override IdentityError PasswordMismatch()
-        => new() { Code = "PASSWORD_MISMATCH", Description = "Senha incorreta." };
+        => UserErrors.PASSWORD_MISMATCH;
     public override IdentityError InvalidToken()
-        => new() { Code = "INVALID_TOKEN", Description = "Token inválido." };
+        => UserErrors.INVALID_TOKEN;
     public override IdentityError LoginAlreadyAssociated()
-        => new() { Code = "LOGIN_ALREADY_ASSOCIATED", Description = "Já existe um usuário com este login." };
+        => UserErrors.LOGIN_ALREADY_ASSOCIATED;
     public override IdentityError InvalidUserName(string? userName)
-        => new() { Code = "INVALID_USERNAME", Description = $"Login '{userName}' é inválido, pode conter apenas letras ou dígitos." };
+        => UserErrors.INVALID_USERNAME;
     public override IdentityError InvalidEmail(string? email)
-        => new() { Code = "INVALID_EMAIL", Description = $"Email '{email}' é inválido." };
+        => UserErrors.INVALID_EMAIL;
     public override IdentityError DuplicateUserName(string userName)
-        => new() { Code = "DUPLICATE_USERNAME", Description = $"Login '{userName}' já está sendo utilizado." };
+        => UserErrors.USERNAME_ALREADY_IN_USE;
     public override IdentityError DuplicateEmail(string email)
-        => new() { Code = "DUPLICATE_EMAIL", Description = $"Email '{email}' já está sendo utilizado." };
+        => UserErrors.EMAIL_ALREADY_IN_USE;
     public override IdentityError InvalidRoleName(string? role)
-        => new() { Code = "INVALID_ROLE_NAME", Description = $"A permissão '{role}' é inválida." };
+        => UserErrors.INVALID_ROLE_NAME;
     public override IdentityError DuplicateRoleName(string role)
-        => new() { Code = "DUPLICATE_ROLE_NAME", Description = $"A permissão '{role}' já está sendo utilizada." };
+        => UserErrors.DUPLICATE_ROLE_NAME;
     public override IdentityError UserAlreadyHasPassword()
-        => new() { Code = "USER_ALREADY_HAS_PASSWORD", Description = "Usuário já possui uma senha definida." };
+        => UserErrors.USER_ALREADY_HAS_PASSWORD;
     public override IdentityError UserLockoutNotEnabled()
-        => new() { Code = "USER_LOCKOUT_NOT_ENABLED", Description = "Lockout não está habilitado para este usuário." };
+        => UserErrors.USER_LOCKOUT_NOT_ENABLED;
     public override IdentityError UserAlreadyInRole(string role)
-        => new() { Code = "USER_ALREADY_ROLE", Description = $"Usuário já possui a permissão '{role}'." };
+        => UserErrors.USER_ALREADY_ROLE;
     public override IdentityError UserNotInRole(string role)
-        => new() { Code = "USER_NOT_IN_ROLE", Description = $"Usuário não tem a permissão '{role}'." };
+        => UserErrors.USER_NOT_IN_ROLE;
     public override IdentityError PasswordTooShort(int length)
-        => new() { Code = "PASSWORD_TOO_SHORT", Description = $"Senhas devem conter ao menos {length} caracteres." };
+        => UserErrors.PASSWORD_TOO_SHORT;
     public override IdentityError PasswordRequiresNonAlphanumeric()
-        => new() { Code = "PASSWORD_REQUIRES_NON_ALPHANUMERIC", Description = "Senhas devem conter ao menos um caracter não alfanumérico." };
+        => UserErrors.PASSWORD_REQUIRES_NON_ALPHANUMERIC;
     public override IdentityError PasswordRequiresDigit()
-        => new() { Code = "PASSWORD_REQUIRES_DIGIT", Description = "Senhas devem conter ao menos um digito ('0'-'9')." };
+        => UserErrors.PASSWORD_REQUIRES_DIGIT;
     public override IdentityError PasswordRequiresLower()
-        => new() { Code = "PASSWORD_REQUIRES_LOWER", Description = "Senhas devem conter ao menos um caracter em caixa baixa ('a'-'z')." };
+        => UserErrors.PASSWORD_REQUIRES_LOWER;
     public override IdentityError PasswordRequiresUpper()
-        => new() { Code = "PASSWORD_REQUIRES_UPPER", Description = "Senhas devem conter ao menos um caracter em caixa alta ('A'-'Z')." };
+        => UserErrors.PASSWORD_REQUIRES_UPPER;
     public override IdentityError PasswordRequiresUniqueChars(int uniqueChars)
-        => new() { Code = "PASSWORD_REQUIRES_UNIQUE_CHARS", Description = $"Senhas devem conter ao menos {uniqueChars} caracteres únicos." };
+        => UserErrors.PASSWORD_REQUIRES_UNIQUE_CHARS;
     public override IdentityError RecoveryCodeRedemptionFailed()
-        => new() { Code = "RECOVERY_CODE_REDEMPTION_FAILED", Description = "Falha ao resgatar o código de recuperação." };
+        => UserErrors.RECOVERY_CODE_REDEMPTION_FAILED;
 }
