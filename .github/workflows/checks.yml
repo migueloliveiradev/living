@@ -31,11 +31,9 @@ jobs:
         run: dotnet test --configuration Release --logger GitHubActions --logger trx /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=../coverage/ /p:ExcludeByFile="**/*Migrations/*.cs" /p:ExcludeByFile="**/*.g.cs"
 
       - name: Tests Reporter
-        uses: bibipkins/dotnet-test-reporter@v1.4.0
+        uses: codecov/codecov-action@v4
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          comment-title: "Test Results"
-          results-path: ./**/TestResults/*.trx
-          coverage-path: ./coverage/coverage.cobertura.xml
-          coverage-type: cobertura
-          coverage-threshold: 0
+          fail_ci_if_error: true
+          files: ./coverage/coverage.cobertura.xml
+          token: ${{ secrets.CODECOV_TOKEN }}
+          verbose: true
