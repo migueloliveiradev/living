@@ -19,7 +19,7 @@ public class LoginUserHandler(
             .FirstOrDefaultAsync(cancellationToken);
 
         if (user is null)
-            return new(UserErrors.NOT_FOUND, HttpStatusCode.NotFound);
+            return new(UserErrors.INVALID_LOGIN);
 
         var signInResult = await signInManager.CheckPasswordSignInAsync(user, request.Password, lockoutOnFailure: false);
 
@@ -51,6 +51,6 @@ public class LoginUserHandler(
         if (signInResult.RequiresTwoFactor)
             return new(UserErrors.REQUIRES_TWO_FACTOR);
 
-        return new(UserErrors.PASSWORD_INVALID);
+        return new(UserErrors.INVALID_LOGIN);
     }
 }

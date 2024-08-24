@@ -14,7 +14,7 @@ public static class UserErrors
     public static Notification USERNAME_LENGTH_INVALID => new("USERNAME");
 
     public static Notification NOT_FOUND => new("USER");
-    public static Notification PASSWORD_INVALID => new("PASSWORD");
+    public static Notification INVALID_LOGIN => new("PASSWORD");
     public static Notification LOCKED_OUT => new("USER");
     public static Notification NOT_ALLOWED => new("USER");
     public static Notification REQUIRES_TWO_FACTOR => new("USER");

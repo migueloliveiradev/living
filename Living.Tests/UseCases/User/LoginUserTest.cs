@@ -109,10 +109,10 @@ public class LoginUserTest(WebAPIFactory webAPIFactory) : SetupWebAPI(webAPIFact
     {
         var response = await PostAsync<BaseResponse>("/api/auth/login", command);
 
-        response.HttpStatusCode.Should().Be(HttpStatusCode.NotFound);
+        response.HttpStatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
 
         response.Notifications.Should().HaveCount(1);
-        response.Notifications.Should().ContainNotification(UserErrors.NOT_FOUND);
+        response.Notifications.Should().ContainNotification(UserErrors.INVALID_LOGIN);
     }
 
     [Theory, LivingAutoData]
@@ -129,7 +129,7 @@ public class LoginUserTest(WebAPIFactory webAPIFactory) : SetupWebAPI(webAPIFact
 
         response.HttpStatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
         response.Notifications.Should().HaveCount(1);
-        response.Notifications.Should().ContainNotification(UserErrors.PASSWORD_INVALID);
+        response.Notifications.Should().ContainNotification(UserErrors.INVALID_LOGIN);
     }
 
     [Theory, LivingAutoData]
