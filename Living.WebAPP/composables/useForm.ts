@@ -16,7 +16,7 @@ export default function useForm<TInput, TResponse = unknown>(
 
   async function submit() {
     const { data: responseData, errors: responseErros } =
-      await useApi<TResponse>(path, method, form.value as object);
+      await useApi<TResponse>(method, path, form.value as object);
 
     errors.value = responseErros.value;
     data.value = responseData.value;

@@ -1,6 +1,6 @@
 export type HTTPMethod = "GET" | "PATCH" | "POST" | "PUT" | "DELETE";
 
-export interface BaseResponse<T extends unknown> {
+export interface BaseResponse<T = unknown> {
   hasNotifications: boolean;
   notifications: Notification;
   data: T;
@@ -11,8 +11,8 @@ export interface Notification {
 }
 
 export default async function useApi<TResponse = unknown>(
-  path: string,
   method: HTTPMethod,
+  path: string,
   body?: object | string | FormData | null
 ) {
   const { data } = await useFetch<BaseResponse<TResponse>>(path, {
