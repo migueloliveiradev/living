@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Notification } from '~/composables/useForm';
+import type { Notification } from '~/composables/useApi';
 
 const props = defineProps<{
     errors: Notification;
@@ -14,7 +14,7 @@ const { t } = useI18n({
 <template>
     <div v-if="errors" class="mt-2">
         <div v-for="(codes, key) in errors">
-            <div v-if="keys.includes(key as string)">
+            <div v-if="keys.includes(key as unknown as string)">
                 <div v-for="code in codes">
                     <div class="text-red-500">{{ t(`${key}.${code}`) }}</div>
                 </div>

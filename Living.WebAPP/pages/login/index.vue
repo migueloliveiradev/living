@@ -5,10 +5,7 @@ interface IUserLogin {
     password: string;
 }
 
-const { form, errors, submit, data } = useForm<IUserLogin>({
-    email: '',
-    password: '',
-}, 'POST', 'api/auth/login');
+const { form, errors, submit } = useForm<IUserLogin>({}, 'POST', 'api/auth/login');
 
 </script>
 <template>

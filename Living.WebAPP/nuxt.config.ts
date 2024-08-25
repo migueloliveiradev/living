@@ -1,13 +1,17 @@
+import Aura from "@primevue/themes/aura";
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: false },
-  modules: ["nuxt-primevue", "@nuxtjs/i18n"],
+  modules: ["@primevue/nuxt-module", "@nuxtjs/i18n"],
+
   components: [
     {
       path: "~/components",
       pathPrefix: false,
     },
   ],
+
   i18n: {
     detectBrowserLanguage: {
       useCookie: true,
@@ -25,10 +29,19 @@ export default defineNuxtConfig({
       },
     ],
   },
-  primevue: {},
+
+  primevue: {
+    options: {
+      theme: {
+        preset: Aura,
+      },
+    },
+  },
+
   css: [
-    "primevue/resources/themes/aura-dark-green/theme.css",
     "primeicons/primeicons.css",
     "/node_modules/primeflex/primeflex.css",
   ],
+
+  compatibilityDate: "2024-08-25",
 });
