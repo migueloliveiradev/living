@@ -5,7 +5,7 @@ export default createConfigForNuxt({
     rules: {
         "vue/max-attributes-per-line": ["error", {
             "singleline": {
-                "max": 2
+                "max": 4
             },
             "multiline": {
                 "max": 1

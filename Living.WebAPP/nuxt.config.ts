@@ -5,6 +5,16 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   modules: ["@primevue/nuxt-module", "@nuxtjs/i18n"],
 
+  devServer: {
+    port: 8080,
+  },
+
+  runtimeConfig: {
+    public: {
+      API_URL: "https://localhost:7129",
+    },
+  },
+
   components: [
     {
       path: "~/components",
@@ -18,6 +28,9 @@ export default defineNuxtConfig({
       cookieKey: "i18n_redirected",
       redirectOn: "root",
     },
+    customRoutes: "config",
+    defaultLocale: "pt-br",
+    strategy: "no_prefix",
     locales: [
       {
         code: "en",
@@ -38,10 +51,7 @@ export default defineNuxtConfig({
     },
   },
 
-  css: [
-    "primeicons/primeicons.css",
-    "/node_modules/primeflex/primeflex.css",
-  ],
+  css: ["primeicons/primeicons.css", "/node_modules/primeflex/primeflex.css"],
 
   compatibilityDate: "2024-08-25",
 });

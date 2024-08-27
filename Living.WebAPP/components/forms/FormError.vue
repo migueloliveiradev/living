@@ -30,7 +30,8 @@ const { t } = useI18n({
             "IS_EMAIL": "Email inválido"
         },
         "PASSWORD": {
-            "IS_REQUIRED": "Senha é obrigatória"
+            "IS_REQUIRED": "Senha é obrigatória",
+            "INVALID_LOGIN": "Email ou senha inválidos"
         }
     },
     "en": {
@@ -42,7 +43,8 @@ const { t } = useI18n({
             "IS_EMAIL": "Invalid email"
         },
         "PASSWORD": {
-            "IS_REQUIRED": "Password is required"
+            "IS_REQUIRED": "Password is required",
+            "INVALID_LOGIN": "Invalid email or password"
         }
     }
 }</i18n>

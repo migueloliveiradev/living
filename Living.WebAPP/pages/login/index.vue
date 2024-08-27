@@ -1,11 +1,6 @@
 <script setup lang="ts">
 
-interface IUserLogin {
-    email: string;
-    password: string;
-}
-
-const { form, errors, submit } = useForm<IUserLogin>({}, 'POST', 'api/auth/login');
+const { form, errors, submit } = useForm('/api/auth/login', "post");
 
 </script>
 <template>
@@ -18,7 +13,7 @@ const { form, errors, submit } = useForm<IUserLogin>({}, 'POST', 'api/auth/login
                     <InputGroupAddon>
                         <i class="pi pi-user" />
                     </InputGroupAddon>
-                    <InputText v-model="form.email" placeholder="Email" />
+                    <InputText v-model="form.emailOrUsername" placeholder="Email" />
                 </InputGroup>
                 <FormError :errors="errors" :keys="['USER', 'EMAIL']" />
                 <InputGroup class="mt-5">
