@@ -1,6 +1,7 @@
 using Living.Application.UseCases.Users.Login;
 using Living.WebAPI.ExceptionsHandler;
 using Living.WebAPI.Extensions;
+using System.Text.Json.Serialization;
 
 namespace Living.WebAPI;
 public abstract class Program
@@ -9,13 +10,15 @@ public abstract class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.Services.ConfigureAllOptions(builder.Configuration);
+        builder.Services.AddOptionsConfiguration(builder.Configuration);
 
         builder.Services.AddDatabase();
 
-        builder.Services.AddControllers().ConfigureInvalidModelStateResponse();
+        builder.Services.AddControllers()
+            .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()))
+            .AddInvalidModelStateConfiguration();
 
-        builder.Services.ConfigureIdentity();
+        builder.Services.AddIdentityConfiguration();
 
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
@@ -26,13 +29,13 @@ public abstract class Program
             configuration.RegisterServicesFromAssemblyContaining(typeof(LoginUserCommand));
         });
 
-        builder.Services.ConfigureAuthentication();
+        builder.Services.AddAuthenticationConfiguration();
         builder.Services.AddApplication();
 
         builder.Services.AddExceptionHandler<ApplicationExceptionHandler>();
 
         builder.Services.AddCors(options => options.AddDefaultPolicy(
-        builder => builder.AllowAnyOrigin()
+            cors => cors.AllowAnyOrigin()
                 .AllowAnyHeader()
                 .AllowAnyMethod()));
 
@@ -44,7 +47,7 @@ public abstract class Program
             app.UseSwaggerUI();
         }
 
-        app.MigrateDatabase();
+        app.UseDatabase();
 
         app.UseAuthentication();
 

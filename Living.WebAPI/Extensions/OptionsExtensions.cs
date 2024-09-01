@@ -4,7 +4,7 @@ namespace Living.WebAPI.Extensions;
 
 public static class OptionsExtensions
 {
-    public static IServiceCollection ConfigureAllOptions(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddOptionsConfiguration(this IServiceCollection services, IConfiguration configuration)
     {
         services.ConfigureOptions<JwtSettings>(configuration);
         services.ConfigureOptions<ConnectionStrings>(configuration);

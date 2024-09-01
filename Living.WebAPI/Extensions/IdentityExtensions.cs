@@ -9,7 +9,7 @@ namespace Living.WebAPI.Extensions;
 
 public static class IdentityExtensions
 {
-    public static IServiceCollection ConfigureIdentity(this IServiceCollection services)
+    public static IServiceCollection AddIdentityConfiguration(this IServiceCollection services)
     {
         services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<DatabaseContext>()

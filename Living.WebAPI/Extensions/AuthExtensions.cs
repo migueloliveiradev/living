@@ -9,7 +9,7 @@ namespace Living.WebAPI.Extensions;
 
 public static class AuthExtensions
 {
-    public static void ConfigureAuthentication(this IServiceCollection services)
+    public static void AddAuthenticationConfiguration(this IServiceCollection services)
     {
         using var serviceProvider = services.BuildServiceProvider();
         var settings = serviceProvider.GetRequiredService<IOptions<JwtSettings>>().Value;
@@ -39,6 +39,15 @@ public static class AuthExtensions
                     if (context.Request.Cookies.TryGetValue(UserCookies.ACCESS_TOKEN, out var token))
                     {
                         context.Token = token;
+                    }
+
+                    return Task.CompletedTask;
+                },
+                OnAuthenticationFailed = context =>
+                {
+                    if (context.Exception is SecurityTokenExpiredException)
+                    {
+                        context.Response.Headers.Append("Token-Expired", "true");
                     }
 
                     return Task.CompletedTask;
