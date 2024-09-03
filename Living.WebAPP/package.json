@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "export NODE_TLS_REJECT_UNAUTHORIZED=0 && nuxt dev",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "openapi": "NODE_TLS_REJECT_UNAUTHORIZED=0 openapi-typescript https://localhost:7129/swagger/v1/swagger.json  --enum -o ./api/schema.d.ts",

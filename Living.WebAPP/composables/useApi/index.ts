@@ -27,5 +27,6 @@ export async function useApi<
     body: JSON.stringify(options.body),
     ignoreResponseError: true,
     credentials: "include",
+    $fetch: useRequestFetch(),
   });
 }

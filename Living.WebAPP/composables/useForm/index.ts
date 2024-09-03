@@ -14,7 +14,12 @@ export function useForm<
   Method extends keyof Methods,
   TRequest = ExtractRequest<Methods[Method]>,
   TResponse = ExtractResponse<Methods[Method]>
->(path: ReqT, method: Method, defaultForm?: Partial<TRequest>) {
+>(
+  path: ReqT,
+  method: Method,
+  defaultForm?: Partial<TRequest>,
+  onSuccess?: (response: ExtractData<TResponse>) => void
+) {
   const form = ref<Partial<TRequest>>(defaultForm || {});
   const response = ref<ExtractData<TResponse>>();
   const errors = ref<Notification>({});
@@ -25,10 +30,16 @@ export function useForm<
       body: form.value as TRequest,
     });
 
+    if (!data.value) return;
+
     const result = data.value as ExtractBaseResponse<TResponse>;
 
     response.value = result.data as ExtractData<TResponse>;
     errors.value = result.notifications as Notification;
+
+    if (!result.hasNotifications && onSuccess) {
+      onSuccess(response.value);
+    }
   }
 
   return {

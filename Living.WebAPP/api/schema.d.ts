@@ -113,7 +113,11 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "text/plain": components["schemas"]["BaseResponse"];
+                        "application/json": components["schemas"]["BaseResponse"];
+                        "text/json": components["schemas"]["BaseResponse"];
+                    };
                 };
             };
         };
@@ -144,12 +148,30 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "text/plain": components["schemas"]["UserItemDetailsBaseResponse"];
+                        "application/json": components["schemas"]["UserItemDetailsBaseResponse"];
+                        "text/json": components["schemas"]["UserItemDetailsBaseResponse"];
+                    };
                 };
             };
         };
         put?: never;
-        post: {
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/contents/notifications": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
             parameters: {
                 query?: never;
                 header?: never;
@@ -163,10 +185,16 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "text/plain": components["schemas"]["NotificationDictionary"];
+                        "application/json": components["schemas"]["NotificationDictionary"];
+                        "text/json": components["schemas"]["NotificationDictionary"];
+                    };
                 };
             };
         };
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -227,6 +255,11 @@ export interface components {
             content?: string | null;
             access?: components["schemas"]["PostAccess"];
         };
+        EMAIL: {
+            readonly emaiL_ALREADY_IN_USE?: string | null;
+            readonly emaiL_IS_REQUIRED?: string | null;
+            readonly invaliD_EMAIL?: string | null;
+        };
         GuidBaseResponse: {
             readonly hasNotifications?: boolean;
             notifications?: {
@@ -242,8 +275,33 @@ export interface components {
             emailOrUsername?: string | null;
             password?: string | null;
         };
+        NAME: {
+            readonly namE_IS_REQUIRED?: string | null;
+            readonly namE_LENGTH_INVALID?: string | null;
+        };
+        NotificationDictionary: {
+            readonly name?: components["schemas"]["NAME"][] | null;
+            readonly email?: components["schemas"]["EMAIL"][] | null;
+            readonly user?: components["schemas"]["USER"][] | null;
+            readonly username?: components["schemas"]["USERNAME"][] | null;
+            readonly password?: components["schemas"]["PASSWORD"][] | null;
+            readonly role?: components["schemas"]["ROLE"][] | null;
+        };
+        PASSWORD: {
+            readonly invaliD_LOGIN?: string | null;
+            readonly passworD_TOO_SHORT?: string | null;
+            readonly passworD_REQUIRES_NON_ALPHANUMERIC?: string | null;
+            readonly passworD_REQUIRES_DIGIT?: string | null;
+            readonly passworD_REQUIRES_LOWER?: string | null;
+            readonly passworD_REQUIRES_UPPER?: string | null;
+            readonly passworD_REQUIRES_UNIQUE_CHARS?: string | null;
+        };
         /** @enum {string} */
         PostAccess: PostAccess;
+        ROLE: {
+            readonly invaliD_ROLE_NAME?: string | null;
+            readonly duplicatE_ROLE_NAME?: string | null;
+        };
         RegisterUserCommand: {
             name?: string | null;
             username?: string | null;
@@ -252,6 +310,57 @@ export interface components {
             bio?: string | null;
             /** Format: date */
             birthday?: string;
+        };
+        USER: {
+            readonly emaiL_LENGTH_INVALID?: string | null;
+            readonly noT_FOUND?: string | null;
+            readonly lockeD_OUT?: string | null;
+            readonly noT_ALLOWED?: string | null;
+            readonly requireS_TWO_FACTOR?: string | null;
+            readonly invaliD_REFRESH_TOKEN?: string | null;
+            readonly invaliD_USER_ID?: string | null;
+            readonly noT_AUTHORIZED?: string | null;
+            readonly defaulT_ERROR?: string | null;
+            readonly concurrencY_FAILURE?: string | null;
+            readonly passworD_MISMATCH?: string | null;
+            readonly invaliD_TOKEN?: string | null;
+            readonly logiN_ALREADY_ASSOCIATED?: string | null;
+            readonly useR_ALREADY_HAS_PASSWORD?: string | null;
+            readonly useR_LOCKOUT_NOT_ENABLED?: string | null;
+            readonly useR_ALREADY_ROLE?: string | null;
+            readonly useR_NOT_IN_ROLE?: string | null;
+            readonly recoverY_CODE_REDEMPTION_FAILED?: string | null;
+        };
+        USERNAME: {
+            readonly usernamE_ALREADY_IN_USE?: string | null;
+            readonly usernamE_IS_REQUIRED?: string | null;
+            readonly usernamE_LENGTH_INVALID?: string | null;
+            readonly invaliD_USERNAME?: string | null;
+        };
+        UserItemDetails: {
+            /** Format: uuid */
+            id: string;
+            name: string | null;
+            username: string | null;
+            bio: string | null;
+            /** Format: date */
+            birthday: string;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: int32 */
+            followersCount: number;
+            /** Format: int32 */
+            followingCount: number;
+            /** Format: int32 */
+            postsCount: number;
+        };
+        UserItemDetailsBaseResponse: {
+            readonly hasNotifications?: boolean;
+            notifications?: {
+                [key: string]: string[];
+            } | null;
+            httpStatusCode?: components["schemas"]["HttpStatusCode"];
+            data?: components["schemas"]["UserItemDetails"];
         };
     };
     responses: never;
