@@ -1,0 +1,60 @@
+name: Living
+services:
+  living_webapp:
+    container_name: living_webapp
+    image: living_webapp
+    build:
+      context: ./Living.WebAPP
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - living_webapi
+    ports:
+      - 6010:3000
+    networks:
+      - living.network
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+
+  living_webapi:
+    container_name: living_webapi
+    image: living_webapi
+    build:
+      context: .
+      dockerfile: ./Living.WebAPI/Dockerfile
+    restart: always
+    depends_on:
+      - living_postgres
+    ports:
+      - 6015:6015
+    environment:
+      - TZ=America/Sao_Paulo
+      - ASPNETCORE_URLS=http://+:6015
+      - ASPNETCORE_ENVIRONMENT=Production
+    networks:
+      - living.network
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+
+  living_postgres:
+    container_name: living_postgres
+    image: postgres:16.3
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=living
+    networks:
+      - living.network
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+
+networks:
+  living.network:
+    driver: bridge

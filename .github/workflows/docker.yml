@@ -1,0 +1,15 @@
+name: "Docker"
+
+on:
+  pull_request:
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Docker build 
+        run: docker-compose build
+        working-directory: .
