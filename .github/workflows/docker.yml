@@ -11,5 +11,5 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Docker build 
-        run: docker compose build
+        run: docker compose -f docker-compose.yml build
         working-directory: .
