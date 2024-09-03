@@ -27,9 +27,11 @@ jobs:
 
       - name: Run Build
         run: npm run build
+        working-directory: Living.WebAPP
 
       - name: Run Lint
         run: npm run lint
+        working-directory: Living.WebAPP
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
