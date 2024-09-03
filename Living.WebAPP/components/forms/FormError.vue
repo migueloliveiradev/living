@@ -1,10 +1,7 @@
 <script setup lang="ts">
-import type { Notification } from '~/composables/useForm';
+import type { FormErrorProps } from '~/components/forms/FormError.types';
 
-const props = defineProps<{
-    errors: Notification;
-    keys: string[];
-}>();
+const { errors, keys } = defineProps<FormErrorProps>();
 
 const { t } = useI18n({
     useScope: 'local'
@@ -13,9 +10,9 @@ const { t } = useI18n({
 </script>
 <template>
     <div v-if="errors" class="mt-2">
-        <div v-for="(codes, key) in errors">
-            <div v-if="keys.includes(key as string)">
-                <div v-for="code in codes">
+        <div v-for="(codes, key) in errors" :key="key">
+            <div v-if="keys.includes(key as unknown as string)">
+                <div v-for="code in codes" :key="`${key}.${code}`">
                     <div class="text-red-500">{{ t(`${key}.${code}`) }}</div>
                 </div>
             </div>
@@ -23,8 +20,7 @@ const { t } = useI18n({
     </div>
 </template>
 
-<i18n lang="json">
-{
+<i18n lang="json">{
     "pt-br": {
         "USER": {
             "NOT_FOUND": "Usuário não encontrado"
@@ -34,7 +30,8 @@ const { t } = useI18n({
             "IS_EMAIL": "Email inválido"
         },
         "PASSWORD": {
-            "IS_REQUIRED": "Senha é obrigatória"
+            "IS_REQUIRED": "Senha é obrigatória",
+            "INVALID_LOGIN": "Email ou senha inválidos"
         }
     },
     "en": {
@@ -46,8 +43,8 @@ const { t } = useI18n({
             "IS_EMAIL": "Invalid email"
         },
         "PASSWORD": {
-            "IS_REQUIRED": "Password is required"
+            "IS_REQUIRED": "Password is required",
+            "INVALID_LOGIN": "Invalid email or password"
         }
     }
-}
-</i18n>
+}</i18n>
