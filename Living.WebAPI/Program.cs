@@ -1,7 +1,6 @@
 using Living.Application.UseCases.Users.Login;
 using Living.WebAPI.ExceptionsHandler;
 using Living.WebAPI.Extensions;
-using System.Text.Json.Serialization;
 
 namespace Living.WebAPI;
 public abstract class Program
@@ -15,7 +14,6 @@ public abstract class Program
         builder.Services.AddDatabase();
 
         builder.Services.AddControllers()
-            .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()))
             .AddInvalidModelStateConfiguration();
 
         builder.Services.AddIdentityConfiguration();
@@ -34,10 +32,7 @@ public abstract class Program
 
         builder.Services.AddExceptionHandler<ApplicationExceptionHandler>();
 
-        builder.Services.AddCors(options => options.AddDefaultPolicy(
-            cors => cors.AllowAnyOrigin()
-                .AllowAnyHeader()
-                .AllowAnyMethod()));
+        builder.Services.AddCrosConfiguration();
 
         var app = builder.Build();
 
@@ -51,7 +46,7 @@ public abstract class Program
 
         app.UseAuthentication();
 
-        app.UseCors();
+        app.UseCorsConfiguration();
 
         app.UseExceptionHandler();
         app.UseExceptionHandler();
