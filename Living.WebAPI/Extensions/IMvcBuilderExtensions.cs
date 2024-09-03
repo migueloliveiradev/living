@@ -4,7 +4,7 @@ namespace Living.WebAPI.Extensions;
 
 public static class IMvcBuilderExtensions
 {
-    public static IMvcBuilder ConfigureInvalidModelStateResponse(this IMvcBuilder mvcBuilder)
+    public static IMvcBuilder AddInvalidModelStateConfiguration(this IMvcBuilder mvcBuilder)
     {
         mvcBuilder.ConfigureApiBehaviorOptions(options =>
         {

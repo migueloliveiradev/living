@@ -9,13 +9,14 @@ public abstract class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.Services.ConfigureAllOptions(builder.Configuration);
+        builder.Services.AddOptionsConfiguration(builder.Configuration);
 
         builder.Services.AddDatabase();
 
-        builder.Services.AddControllers().ConfigureInvalidModelStateResponse();
+        builder.Services.AddControllers()
+            .AddInvalidModelStateConfiguration();
 
-        builder.Services.ConfigureIdentity();
+        builder.Services.AddIdentityConfiguration();
 
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
@@ -26,15 +27,12 @@ public abstract class Program
             configuration.RegisterServicesFromAssemblyContaining(typeof(LoginUserCommand));
         });
 
-        builder.Services.ConfigureAuthentication();
+        builder.Services.AddAuthenticationConfiguration();
         builder.Services.AddApplication();
 
         builder.Services.AddExceptionHandler<ApplicationExceptionHandler>();
 
-        builder.Services.AddCors(options => options.AddDefaultPolicy(
-        builder => builder.AllowAnyOrigin()
-                .AllowAnyHeader()
-                .AllowAnyMethod()));
+        builder.Services.AddCrosConfiguration();
 
         var app = builder.Build();
 
@@ -44,11 +42,11 @@ public abstract class Program
             app.UseSwaggerUI();
         }
 
-        app.MigrateDatabase();
+        app.UseDatabase();
 
         app.UseAuthentication();
 
-        app.UseCors();
+        app.UseCorsConfiguration();
 
         app.UseExceptionHandler();
         app.UseExceptionHandler();

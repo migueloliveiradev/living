@@ -30,7 +30,7 @@ public class UserContext(
         {
             HttpOnly = true,
             Secure = true,
-            SameSite = SameSiteMode.Strict,
+            SameSite = SameSiteMode.None,
             Expires = DateTimeOffset.UtcNow.AddMinutes(settings.AccessTokenExpireInMinutes),
         };
         HttpContext.Response.Cookies.Append(UserCookies.ACCESS_TOKEN, accessToken, cookieOptions);
@@ -42,7 +42,7 @@ public class UserContext(
         {
             HttpOnly = true,
             Secure = true,
-            SameSite = SameSiteMode.Strict,
+            SameSite = SameSiteMode.None,
             Expires = DateTimeOffset.UtcNow.AddMonths(settings.RefreshTokenExpireInMonth),
         };
 
@@ -55,7 +55,7 @@ public class UserContext(
         {
             HttpOnly = true,
             Secure = true,
-            SameSite = SameSiteMode.Strict,
+            SameSite = SameSiteMode.None,
             Expires = DateTimeOffset.UtcNow.AddMonths(settings.RefreshTokenExpireInMonth),
         };
 

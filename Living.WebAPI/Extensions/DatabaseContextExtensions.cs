@@ -37,7 +37,7 @@ public static class DatabaseContextExtensions
     }
 
 
-    public static IApplicationBuilder MigrateDatabase(this IApplicationBuilder app)
+    public static IApplicationBuilder UseDatabase(this IApplicationBuilder app)
     {
         using var scope = app.ApplicationServices.CreateScope();
 

@@ -26,6 +26,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<InternalsVisibleTo Include="Living.Tests.Unit" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\Living.Application\Living.Application.csproj" />
 		<ProjectReference Include="..\Living.Domain\Living.Domain.csproj" />
 		<ProjectReference Include="..\Living.Infraestructure\Living.Infraestructure.csproj" />
