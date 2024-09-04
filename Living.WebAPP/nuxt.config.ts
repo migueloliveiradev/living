@@ -51,7 +51,11 @@ export default defineNuxtConfig({
     },
   },
 
-  css: ["primeicons/primeicons.css", "/node_modules/primeflex/primeflex.css"],
+  css: [
+    "primeicons/primeicons.css",
+    "/node_modules/primeflex/primeflex.css",
+    "~/assets/css/main.css",
+  ],
 
   compatibilityDate: "2024-08-25",
 });
