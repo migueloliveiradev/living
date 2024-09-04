@@ -5,8 +5,8 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "export NODE_TLS_REJECT_UNAUTHORIZED=0 && nuxt dev",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
+    "lint": "eslint . --ignore-pattern './api/schema.d.ts'",
+    "lint:fix": "eslint --fix . --ignore-pattern './api/schema.d.ts'",
     "openapi": "NODE_TLS_REJECT_UNAUTHORIZED=0 openapi-typescript https://localhost:7129/swagger/v1/swagger.json  --enum -o ./api/schema.d.ts",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
@@ -16,10 +16,9 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "^1.3.14",
-    "@nuxt/eslint-config": "^0.5.2",
+    "@nuxt/eslint": "^0.5.5",
     "@nuxtjs/i18n": "^8.5.0",
     "@primevue/nuxt-module": "^4.0.5",
-    "eslint": "^8.57.0",
     "nuxt": "^3.13.0",
     "openapi-typescript": "^7.3.0",
     "typescript": "^5.5.4",

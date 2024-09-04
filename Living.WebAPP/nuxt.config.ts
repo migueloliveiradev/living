@@ -2,60 +2,69 @@ import Aura from "@primevue/themes/aura";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: false },
-  modules: ["@primevue/nuxt-module", "@nuxtjs/i18n"],
+	devtools: { enabled: false },
+	modules: ["@primevue/nuxt-module", "@nuxtjs/i18n", "@nuxt/eslint"],
 
-  devServer: {
-    port: 8080,
-  },
+	devServer: {
+		port: 8080,
+	},
 
-  runtimeConfig: {
-    public: {
-      API_URL: "https://localhost:7129",
-    },
-  },
+	runtimeConfig: {
+		public: {
+			API_URL: "https://localhost:7129",
+		},
+	},
 
-  components: [
-    {
-      path: "~/components",
-      pathPrefix: false,
-    },
-  ],
+	components: [
+		{
+			path: "~/components",
+			pathPrefix: false,
+		},
+	],
 
-  i18n: {
-    detectBrowserLanguage: {
-      useCookie: true,
-      cookieKey: "i18n_redirected",
-      redirectOn: "root",
-    },
-    customRoutes: "config",
-    defaultLocale: "pt-br",
-    strategy: "no_prefix",
-    locales: [
-      {
-        code: "en",
-        name: "English",
-      },
-      {
-        code: "pt-br",
-        name: "Português",
-      },
-    ],
-  },
+	eslint: {
+		config: {
+			stylistic: {
+				indent: "tab",
+				semi: true,
+			},
+		},
+	},
 
-  primevue: {
-    options: {
-      theme: {
-        preset: Aura,
-      },
-    },
-  },
+	i18n: {
+		detectBrowserLanguage: {
+			useCookie: true,
+			cookieKey: "i18n_redirected",
+			redirectOn: "root",
+		},
+		customRoutes: "config",
+		defaultLocale: "pt-br",
+		strategy: "no_prefix",
+		locales: [
+			{
+				code: "en",
+				name: "English",
+			},
+			{
+				code: "pt-br",
+				name: "Português",
+			},
+		],
+	},
 
-  css: [
-    "primeicons/primeicons.css",
-    "/node_modules/primeflex/primeflex.css",
-    "~/assets/css/main.css",
-  ],
+	primevue: {
+		options: {
+			theme: {
+				preset: Aura,
+			},
+		},
+	},
 
-  compatibilityDate: "2024-08-25",
+	css: [
+		"primeicons/primeicons.css",
+		"/node_modules/primeflex/primeflex.css",
+		"~/assets/css/main.css",
+	],
+
+	compatibilityDate: "2024-08-25",
 });

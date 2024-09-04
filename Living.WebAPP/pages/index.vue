@@ -1,11 +1,14 @@
 <script setup lang="ts">
 </script>
+
 <template>
-  <NuxtLayout name="home">
-    <p>Home</p>
-  </NuxtLayout>
+	<NuxtLayout name="home">
+		<p>Home</p>
+	</NuxtLayout>
 </template>
-<i18n lang="json">{
+
+<i18n lang="json">
+{
   "en": {
     "menu_bar": {
       "signup": "Signup",
@@ -18,4 +21,5 @@
       "login": "Login"
     }
   }
-}</i18n>
+}
+</i18n>
