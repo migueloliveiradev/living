@@ -1,34 +1,56 @@
-﻿using Living.Domain.Entities.Users;
-using Living.Domain.Entities.Users.Constants;
-using Microsoft.AspNetCore.Authentication.BearerToken;
-using Microsoft.AspNetCore.Http;
+﻿using Living.Domain.Features.Users;
+using Living.Domain.Features.Users.Constants;
+using Living.Domain.Services;
 using Microsoft.AspNetCore.Identity;
-using System.Security.Claims;
 
 namespace Living.Application.UseCases.Users.Login;
-public class LoginUserHandler(UserManager<User> userManager) : IRequestHandler<LoginUserCommand, IResult>
+public class LoginUserHandler(
+    IUserRepository userRepository,
+    SignInManager<User> signInManager,
+    IUserContext currentUser,
+    ITokenService tokenService,
+    IUnitOfWork unitOfWork) : Handler(unitOfWork), IRequestHandler<LoginUserCommand, BaseResponse>
 {
-    public async Task<IResult> Handle(LoginUserCommand request, CancellationToken cancellationToken)
+    public async Task<BaseResponse> Handle(LoginUserCommand request, CancellationToken cancellationToken)
     {
-        var user = await userManager.FindByEmailAsync(request.Email);
+        var user = await userRepository
+            .DBSet()
+            .Where(u => EF.Functions.ILike(u.Email, request.EmailOrUsername) || EF.Functions.ILike(u.UserName, request.EmailOrUsername))
+            .FirstOrDefaultAsync(cancellationToken);
 
         if (user is null)
-            return Results.NotFound(new BaseResponse(UserErrors.NOT_FOUND));
+            return new(UserErrors.INVALID_LOGIN);
 
-        var passwordIsValid = await userManager.CheckPasswordAsync(user, request.Password);
-        if (!passwordIsValid)
-            return Results.BadRequest(new BaseResponse(UserErrors.PASSWORD_INVALID));
-        
-        var authenticationScheme = request.UseCookies ? IdentityConstants.ApplicationScheme : BearerTokenDefaults.AuthenticationScheme;
+        var signInResult = await signInManager.CheckPasswordSignInAsync(user, request.Password, lockoutOnFailure: false);
 
-        var identity = new ClaimsIdentity(GetClaims(user), authenticationScheme);
-        var principal = new ClaimsPrincipal(identity);
+        if (!signInResult.Succeeded)
+            return GetErrorSignIn(signInResult);
 
-        return TypedResults.SignIn(principal, null, authenticationScheme);
+        var token = await tokenService.GenerateAccessToken(user);
+        var refreshToken = await tokenService.GenerateRefreshToken(user);
+
+        user.AddSession(refreshToken);
+
+        currentUser.SetUserId(user.Id);
+        currentUser.SetAccessToken(token);
+        currentUser.SetRefreshToken(refreshToken);
+
+        await CommitAsync(cancellationToken);
+
+        return new();
     }
 
-    private List<Claim> GetClaims(User user)
+    private static BaseResponse GetErrorSignIn(SignInResult signInResult)
     {
-        return [new(UserClaimsTypes.USER_ID, user.Id.ToString())];
+        if (signInResult.IsLockedOut)
+            return new(UserErrors.LOCKED_OUT);
+
+        if (signInResult.IsNotAllowed)
+            return new(UserErrors.NOT_ALLOWED);
+
+        if (signInResult.RequiresTwoFactor)
+            return new(UserErrors.REQUIRES_TWO_FACTOR);
+
+        return new(UserErrors.INVALID_LOGIN);
     }
 }

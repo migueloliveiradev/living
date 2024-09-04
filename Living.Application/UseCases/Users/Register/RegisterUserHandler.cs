@@ -1,20 +1,27 @@
-﻿using AutoMapper;
-using Living.Domain.Entities.Users;
-using Microsoft.AspNetCore.Http;
+﻿using Living.Domain.Features.Users;
+using Living.Domain.Features.Users.Constants;
+using Living.Shared.Extensions;
 using Microsoft.AspNetCore.Identity;
 
 namespace Living.Application.UseCases.Users.Register;
-public class RegisterUserHandler(IMapper mapper, UserManager<User> userManager) : IRequestHandler<RegisterUserCommand, IResult>
+public class RegisterUserHandler(UserManager<User> userManager, IUnitOfWork unitOfWork)
+    : Handler(unitOfWork), IRequestHandler<RegisterUserCommand, BaseResponse<Guid>>
 {
-    public async Task<IResult> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<Guid>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
-        var user = mapper.Map<User>(request);
+        var user = request.ToUser();
+
+        var errors = user.IsValid();
+        if (errors.Any())
+            return new(errors);
+
+        if (!user.Email.IsEmail())
+            return new(UserErrors.INVALID_EMAIL);
 
         var result = await userManager.CreateAsync(user, request.Password);
-
         if (!result.Succeeded)
-            return Results.BadRequest(new BaseResponse(result.Errors));
+            return new(result.Errors);
 
-        return Results.Ok(new BaseResponse());
+        return new(user.Id);
     }
 }

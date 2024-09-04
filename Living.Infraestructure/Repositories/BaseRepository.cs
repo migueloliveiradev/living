@@ -1,6 +1,5 @@
 ﻿using Living.Domain.Base.Interfaces;
 using Living.Infraestructure.Context;
-using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace Living.Infraestructure.Repositories;

@@ -1,4 +1,4 @@
-﻿using Living.Domain.Entities.Posts;
+﻿using Living.Domain.Features.Posts.Enums;
 
 namespace Living.Application.UseCases.Posts.Create;
 public class CreatePostCommand : IRequest<BaseResponse<Guid>>

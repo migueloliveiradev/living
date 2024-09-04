@@ -1,8 +1,8 @@
 ﻿namespace Living.Application.UseCases.Posts.Create;
-public class CreatePostHandler : IRequestHandler<CreatePostCommand, BaseResponse<Guid>>
+public class CreatePostHandler(IUnitOfWork unitOfWork) : Handler(unitOfWork), IRequestHandler<CreatePostCommand, BaseResponse<Guid>>
 {
-    public async Task<BaseResponse<Guid>> Handle(CreatePostCommand request, CancellationToken cancellationToken)
+    public Task<BaseResponse<Guid>> Handle(CreatePostCommand request, CancellationToken cancellationToken)
     {
-        return new(Guid.NewGuid());
+        return Task.FromResult(new BaseResponse<Guid>(Guid.NewGuid()));
     }
 }

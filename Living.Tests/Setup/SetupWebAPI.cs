@@ -1,36 +1,44 @@
-﻿using Living.Infraestructure.Context;
-using Living.WebAPI;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace Living.Tests.Setup;
-public class SetupWebAPI : IDisposable
+
+#pragma warning disable S101
+#pragma warning disable MA0048
+
+[CollectionDefinition("WebAPI")]
+public record WebAPIFactoryCollection : ICollectionFixture<WebAPIFactory>;
+
+[Collection("WebAPI")]
+public partial class SetupWebAPI(WebAPIFactory webAPI) : TestBase
 {
-    protected readonly HttpClient client;
-    private readonly WebApplicationFactory<Program> factory;
-
-    public SetupWebAPI()
+    protected HttpClient Http { get; } = webAPI.CreateHttpClient();
+    protected IReadOnlyCollection<Cookie> GetCookies() => new List<Cookie>(Http.GetCookies());
+    protected void AddCookies(IEnumerable<Cookie> cookies)
     {
-        factory = new WebAPIApplicationFactory();
-        client = factory.CreateClient();
-
-        CreateDatabase();
-    }
-
-    private void CreateDatabase()
-    {
-        using var context = GetService<DatabaseContext>()!;
-        context.Database.EnsureCreated();
+        foreach (var cookie in cookies)
+            Http.DefaultRequestHeaders.Add("Cookie", cookie.ToString());
     }
 
     protected T GetService<T>()
+        where T : notnull
     {
-        return factory.Services.GetService<T>()!;
+        return webAPI.Services.GetRequiredService<T>();
     }
 
-    public void Dispose()
+
+    protected async Task<T> PostAsync<T>(string path, object? body = null)
     {
-        client.Dispose();
-        factory.Dispose();
+        var response = await Http.PostAsJsonAsync(path, body);
+
+        var data = await response.Content.ReadFromJsonAsync<T>();
+        return data!;
+    }
+
+    protected async Task<T> GetAsync<T>(string path)
+    {
+        var response = await Http.GetAsync(path);
+
+        var data = await response.Content.ReadFromJsonAsync<T>();
+        return data!;
     }
 }

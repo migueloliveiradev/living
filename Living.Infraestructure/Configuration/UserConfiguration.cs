@@ -1,31 +1,25 @@
-﻿using Living.Domain.Entities.Users;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Living.Domain.Features.Users;
 
 namespace Living.Infraestructure.Configuration;
-public class UserConfiguration : IEntityTypeConfiguration<User>
+
+#pragma warning disable MA0051
+
+internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
         builder.ToTable("Users")
             .HasKey(e => e.Id);
 
-        builder.Property(e => e.Name)
-            .HasMaxLength(100)
-            .IsRequired();
+        builder.Property(e => e.Name);
 
-        builder.Property(e => e.Bio)
-            .HasMaxLength(200)
-            .IsRequired(false);
+        builder.Property(e => e.Bio);
 
-        builder.Property(e => e.Birthday)
-            .IsRequired();
+        builder.Property(e => e.Birthday);
 
-        builder.Property(e => e.CreatedAt)
-            .IsRequired();
+        builder.Property(e => e.CreatedAt);
 
-        builder.Property(e => e.LastUpdatedAt)
-            .IsRequired();
+        builder.Property(e => e.LastUpdatedAt);
 
         builder.HasMany(e => e.Posts)
             .WithOne(e => e.Author)
@@ -37,13 +31,11 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.HasMany(e => e.UsersFollowers)
             .WithOne(e => e.Follower)
-            .HasForeignKey(e => e.FollowerId)
-            .IsRequired();
+            .HasForeignKey(e => e.FollowerId);
 
         builder.HasMany(e => e.UsersFollowing)
             .WithOne(e => e.Following)
-            .HasForeignKey(e => e.FollowingId)
-            .IsRequired();
+            .HasForeignKey(e => e.FollowingId);
 
         builder.HasMany(e => e.GroupsUser)
             .WithOne(e => e.User)
@@ -53,26 +45,29 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .WithOne(e => e.Owner)
             .HasForeignKey(e => e.OwnerId);
 
-        builder.HasMany(e => e.Claims)
-            .WithOne()
-            .HasForeignKey(e => e.UserId)
-            .IsRequired();
+        builder.HasMany(e => e.UserClaims)
+            .WithOne(p => p.User)
+            .HasForeignKey(e => e.UserId);
 
-        builder.HasMany(e => e.Logins)
-            .WithOne()
-            .HasForeignKey(e => e.UserId)
-            .IsRequired();
+        builder.HasMany(e => e.UserLogins)
+            .WithOne(p => p.User)
+            .HasForeignKey(e => e.UserId);
 
-        builder.HasMany(e => e.Tokens)
-            .WithOne()
-            .HasForeignKey(e => e.UserId)
-            .IsRequired();
+        builder.HasMany(e => e.UserTokens)
+            .WithOne(p => p.User)
+            .HasForeignKey(e => e.UserId);
 
         builder.HasMany(e => e.UserRoles)
             .WithOne(p => p.User)
-            .HasForeignKey(e => e.UserId)
-            .IsRequired();
+            .HasForeignKey(e => e.UserId);
 
-        builder.HasIndex(e => e.Name);
+        builder.HasMany(e => e.UserSessions)
+            .WithOne(p => p.User)
+            .HasForeignKey(e => e.UserId);
+
+
+        builder.Ignore(e => e.NormalizedUserName);
+        builder.Ignore(e => e.NormalizedEmail);
+        builder.Ignore(e => e.ConcurrencyStamp);
     }
 }

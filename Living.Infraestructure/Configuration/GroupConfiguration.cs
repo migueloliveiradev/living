@@ -1,9 +1,7 @@
-﻿using Living.Domain.Entities.Groups;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Living.Domain.Features.Groups;
 
 namespace Living.Infraestructure.Configuration;
-internal class GroupConfiguration : IEntityTypeConfiguration<Group>
+internal sealed class GroupConfiguration : IEntityTypeConfiguration<Group>
 {
     public void Configure(EntityTypeBuilder<Group> builder)
     {
