@@ -11,8 +11,6 @@ Uma futura rede social para você compartilhar e salvar suas memórias, seus int
     - [ASP.NET Core Identity](https://learn.microsoft.com/pt-br/aspnet/core/security/authentication/identity)
     - [MediatR](https://github.com/jbogard/MediatR)
     - [.NET Core Native DI](https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection)
-    - [AutoMapper](https://github.com/AutoMapper/AutoMapper)
-    - [FluentValidation](https://github.com/FluentValidation/FluentValidation)
   - Persistência
     - [Entity Framework Core 8](https://learn.microsoft.com/pt-br/ef/core/)
     - [PostgreSQL](https://www.postgresql.org/)
@@ -20,11 +18,15 @@ Uma futura rede social para você compartilhar e salvar suas memórias, seus int
     - [Swagger UI](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)
   - Testes
     - [xUnit](https://learn.microsoft.com/pt-br/dotnet/core/testing/unit-testing-with-dotnet-test)
+    - [Testcontainers](https://testcontainers.com/)
     - [AutoFixture](https://github.com/AutoFixture/AutoFixture/)
     - [FluentAssertions](https://github.com/fluentassertions/fluentassertions/)
     - [TestServer](https://learn.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-8.0)
     - [Coverlet](https://github.com/coverlet-coverage/coverlet)
 - Front End
+  - Linguagem
+    - [Node.Js](https://nodejs.org/pt)
+    - [TypeScript](https://www.typescriptlang.org/)
   - Frameworks
     - [Vue.Js 3](https://vuejs.org/)
     - [Nuxt 3](https://nuxt.com/)
@@ -32,6 +34,9 @@ Uma futura rede social para você compartilhar e salvar suas memórias, seus int
     - [PrimeVue](https://primevue.org/)
     - [PrimeFlex](https://primeflex.org/)
     - [PrimeIcons](https://primevue.org/icons)
+  - Desenvolvimento
+    - [ESLint](https://eslint.nuxt.com/)
+    - [OpenAPI TypeScript](https://openapi-ts.dev/)
 
 ## Design Patterns
   - CQRS
