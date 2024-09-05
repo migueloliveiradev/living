@@ -63,4 +63,4 @@ jobs:
               git config --global user.name 'Github'
               git config --global user.email 'github-action@users.noreply.github.com'
               git commit -am "feat: update tests results"
-              git push
+              ggit push origin HEAD:badges
