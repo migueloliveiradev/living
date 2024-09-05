@@ -66,3 +66,4 @@ jobs:
               git add badges.json
               git commit -m "feat: update tests results"
               git push origin HEAD:badges
+        continue-on-error: true
