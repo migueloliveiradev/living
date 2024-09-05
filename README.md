@@ -1,8 +1,17 @@
 # Living
-[![Status](https://img.shields.io/badge/em-desenvolvimento-orange?style=for-the-badge)](#)
+[![DOTNET](https://img.shields.io/badge/dynamic/xml?url=https://raw.githubusercontent.com/migueloliveiradev/living/main/Living.WebAPI/Living.WebAPI.csproj&query=//Project/PropertyGroup/TargetFramework&style=for-the-badge&label=DOTNET%20VERSION)](#)
+[![TOTAL DE TESTES](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/migueloliveiradev/living/badges/badges.json&query=%24.testsTotal&label=TOTAL%20DE%20TESTES&style=for-the-badge)](#)
+[![COBERTURA DE CODIGO](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/migueloliveiradev/living/badges/badges.json&query=%24.coverageLine&label=COBERTURA%20DE%20CODIGO%20%25&style=for-the-badge)](#)
+[![COBERTURA DE CODIGO](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/migueloliveiradev/living/badges/badges.json&query=%24.coverageLines&label=COBERTURA%20DE%20CODIGO%20&style=for-the-badge)](#)
+
+[![NUXT JS](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmigueloliveiradev%2Fliving%2Fmain%2FLiving.WebAPP%2Fpackage.json&query=%24.devDependencies.nuxt&label=NUXT%20JS&style=for-the-badge&color=rgb(0,%20220,%20130))](#)
+[![Vue Js](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmigueloliveiradev%2Fliving%2Fmain%2FLiving.WebAPP%2Fpackage.json&query=%24.devDependencies.vue&label=VUE%20JS&style=for-the-badge&color=rgb(0,%20220,%20130))](#)
+
+
+
 [![wakatime](https://wakatime.com/badge/user/4ea4d323-1f7a-46e1-a08e-2080b1b95450/project/2d30b516-80de-4f2a-9840-412dc68667ac.svg?style=for-the-badge)](https://wakatime.com/@eimigueloliveir)
 
-Uma futura rede social para você compartilhar e salvar suas memórias, seus interesses, suas ideias e dividir com seus amigos
+Uma rede social para você compartilhar e salvar suas memórias, seus interesses, suas ideias e dividir com seus amigos
 
 ## Tecnologias Utilizadas 
 - Back End
