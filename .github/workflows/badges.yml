@@ -52,6 +52,7 @@ jobs:
                 "coverageLine": "${{ steps.tests_reporter.outputs.coverage-line }}",
                 "coverageLinesTotal": "${{ steps.tests_reporter.outputs.coverage-lines-total }}",
                 "coverageLinesCovered": "${{ steps.tests_reporter.outputs.coverage-lines-covered }}",
+                "coverageLines": "${{ steps.tests_reporter.outputs.coverage-lines-covered }} / ${{ steps.tests_reporter.outputs.coverage-lines-total }}"
                 "coverageBranch": "${{ steps.tests_reporter.outputs.coverage-branch }}",
                 "coverageBranchesTotal": "${{ steps.tests_reporter.outputs.coverage-branches-total }}",
                 "coverageBranchesCovered": "${{ steps.tests_reporter.outputs.coverage-branches-covered }}"
