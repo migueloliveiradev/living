@@ -1,1 +1,12 @@
-
+{
+    "testsTotal": "52",
+    "testsPassed": "52",
+    "testsFailed": "0",
+    "testsSkipped": "0",
+    "coverageLine": "73.54",
+    "coverageLinesTotal": "1096",
+    "coverageLinesCovered": "806",
+    "coverageBranch": "57.81",
+    "coverageBranchesTotal": "128",
+    "coverageBranchesCovered": "74"
+  }
