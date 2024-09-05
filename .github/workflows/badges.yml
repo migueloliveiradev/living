@@ -42,7 +42,8 @@ jobs:
       
       - name: Update file badge
         run: |
-            git checkout badges
+            git fetch --unshallow origin badges
+            git checkout origin/badges
             echo '{
                 "testsTotal": "${{ steps.tests_reporter.outputs.tests-total }}",
                 "testsPassed": "${{ steps.tests_reporter.outputs.tests-passed }}",
