@@ -1,0 +1,65 @@
+name: "Badges"
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  badges:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore
+
+      - name: Tests
+        run: dotnet test --configuration Release --logger GitHubActions --logger trx /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=../coverage/ /p:ExcludeByFile="**/*Migrations/*.cs" /p:ExcludeByFile="**/*.g.cs"
+
+      - name: Tests Reporter
+        id: tests_reporter
+        uses: bibipkins/dotnet-test-reporter@v1.4.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          comment-title: "Test Results"
+          results-path: ./**/TestResults/*.trx
+          coverage-path: ./coverage/coverage.cobertura.xml
+          coverage-type: cobertura
+          coverage-threshold: 0
+      
+      - name: Update file badge
+        run: |
+            git checkout badges
+            echo '{
+                "testsTotal": "${{ steps.tests_reporter.outputs.tests-total }}",
+                "testsPassed": "${{ steps.tests_reporter.outputs.tests-passed }}",
+                "testsFailed": "${{ steps.tests_reporter.outputs.tests-failed }}",
+                "testsSkipped": "${{ steps.tests_reporter.outputs.tests-skipped }}",
+                "coverageLine": "${{ steps.tests_reporter.outputs.coverage-line }}",
+                "coverageLinesTotal": "${{ steps.tests_reporter.outputs.coverage-lines-total }}",
+                "coverageLinesCovered": "${{ steps.tests_reporter.outputs.coverage-lines-covered }}",
+                "coverageBranch": "${{ steps.tests_reporter.outputs.coverage-branch }}",
+                "coverageBranchesTotal": "${{ steps.tests_reporter.outputs.coverage-branches-total }}",
+                "coverageBranchesCovered": "${{ steps.tests_reporter.outputs.coverage-branches-covered }}"
+              }' > badges.json
+            
+
+      - name: Commit report
+        run: |
+              git config --global user.name 'Github'
+              git config --global user.email 'github-action@users.noreply.github.com'
+              git commit -am "feat: update tests results"
+              git push
