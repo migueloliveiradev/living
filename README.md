@@ -1,12 +1,10 @@
 # Living
-[![DOTNET](https://img.shields.io/badge/dynamic/xml?url=https://raw.githubusercontent.com/migueloliveiradev/living/main/Living.WebAPI/Living.WebAPI.csproj&query=//Project/PropertyGroup/TargetFramework&style=for-the-badge&label=DOTNET%20VERSION)](#)
+[![DOTNET](https://img.shields.io/badge/dynamic/xml?url=https://raw.githubusercontent.com/migueloliveiradev/living/main/Living.WebAPI/Living.WebAPI.csproj&query=//Project/PropertyGroup/TargetFramework&style=for-the-badge&label=DOTNET%20VERSION&logo=dotnet&logoSize=auto&logoColor=blue)](#)
 [![TOTAL DE TESTES](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/migueloliveiradev/living/badges/badges.json&query=%24.testsTotal&label=TOTAL%20DE%20TESTES&style=for-the-badge)](#)
 [![COBERTURA DE CODIGO](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/migueloliveiradev/living/badges/badges.json&query=%24.coverageLines&label=COBERTURA%20DE%20CODIGO&style=for-the-badge)](#)
 
-[![NUXT JS](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmigueloliveiradev%2Fliving%2Fmain%2FLiving.WebAPP%2Fpackage.json&query=%24.devDependencies.nuxt&label=NUXT%20JS&style=for-the-badge&color=#23a336)](#)
-[![Vue Js](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmigueloliveiradev%2Fliving%2Fmain%2FLiving.WebAPP%2Fpackage.json&query=%24.devDependencies.vue&label=VUE%20JS&style=for-the-badge&color=#23a336)](#)
-
-
+[![NUXT JS](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmigueloliveiradev%2Fliving%2Fmain%2FLiving.WebAPP%2Fpackage.json&query=%24.devDependencies.nuxt&label=NUXT%20JS&style=for-the-badge&logo=nuxtdotjs)](#)
+[![Vue Js](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmigueloliveiradev%2Fliving%2Fmain%2FLiving.WebAPP%2Fpackage.json&query=%24.devDependencies.vue&label=VUE%20JS&style=for-the-badge&logo=vuedotjs)](#)
 
 [![wakatime](https://wakatime.com/badge/user/4ea4d323-1f7a-46e1-a08e-2080b1b95450/project/2d30b516-80de-4f2a-9840-412dc68667ac.svg?style=for-the-badge)](https://wakatime.com/@eimigueloliveir)
 
