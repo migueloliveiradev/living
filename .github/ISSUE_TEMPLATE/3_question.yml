@@ -1,0 +1,43 @@
+name: Faça uma pergunta
+description: Tem alguma dúvida sobre o repositório, código ou implementação de algo do Projeto? Faça uma pergunta.
+labels: ['question']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Antes de abrir um novo issue, faça uma [pesquisa](https://github.com/migueloliveiradev/living/issues) para ver se a sua dúvida já foi respondida.
+  - type: dropdown
+    attributes:
+      label: Assunto
+      description: Qual é o assunto da sua dúvida?
+      multiple: true
+      options:
+        - Funcionalidade
+        - API
+        - Código
+        - Repositório
+        - Contribuição
+        - Outro
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Dúvida
+      description: Qual é a sua dúvida? Seja claro e coloque as informações relevantes para que outras pessoas consigam te ajudar.
+      placeholder: |
+        Eu não consegui entender como faço para...
+    validations:
+      required: true
+  - type: checkboxes
+    attributes:
+      label: Checklist
+      description: Lista rápida de verificações para garantir que tudo esteja em ordem.
+      options:
+        - label: Eu examinei as issues existentes para ter certeza de que essa duvida não foi enviada antes
+          required: true
+        - label: Eu forneci um título descritivo para essa duvida
+          required: true
+        - label: Eu encontrei uma questão semelhantes nas issues existentes, porém não foi suficiente para resolução da minha duvida
+          required: false
+        - label: Não li nenhum dos itens acima e apenas marquei todas as caixas para enviar a issue
+          required: false

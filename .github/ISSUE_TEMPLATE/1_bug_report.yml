@@ -1,0 +1,65 @@
+name: Reportar bug
+description: Reporte um problema ou comportamento diferente do esperado.
+labels: ['bug']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        - Antes de abrir um novo issue, faça uma [pesquisa](https://github.com/migueloliveiradev/living/issues) para garantir que não está reportando um problema duplicado. Caso encontre um issue equivalente, contribua com informações adicionais, se necessário.
+        - Evite títulos genéricos ou vagos, como "Algo não está funcionando" ou "Alguns problemas" – seja o mais descritivo possível.
+        - Mantenha sua issue focado em um único problema. Se você tiver vários relatórios de bugs, crie uma issue separado para cada um deles.
+  - type: textarea
+    attributes:
+      label: Descrição
+      description: Que tipo de problema você encontrou? Por favor, descreva-o de forma clara e adicione imagens, se aplicável.
+      placeholder: |
+        Eu encontrei um problema na página de ... quando eu estava tentando...
+        O resultado foi esse:
+        ![imagem](https://example.com/imagem)
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Passos para reproduzir o problema
+      description: Quais são os passos necessários para que outra pessoa consiga encontrar o mesmo problema?
+      placeholder: |
+        1. Como usuário logado, acesse a página...
+        2. Clique em...
+        3. Faça...
+        4. Volte para ... e veja o erro.
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: Navegadores testados
+      description: Em quais navegadores você percebeu esse problema?
+      multiple: true
+      options:
+        - Chrome
+        - Firefox
+        - Microsoft Edge
+        - Safari
+        - Outro
+  - type: textarea
+    attributes:
+      label: Possível solução
+      description: Você pensou em algo que pode resolver esse problema? Se sim, compartilhe abaixo.
+      placeholder: |
+        Ao invés de ... poderíamos mudar ... para...
+        Aqui está um exemplo de como ficaria:
+        ![imagem](https://example.com/imagem)
+  - type: checkboxes
+    attributes:
+      label: Checklist
+      description: Lista rápida de verificações para garantir que tudo esteja em ordem.
+      options:
+        - label: Eu examinei as issues existentes para ter certeza de que esse bug não foi relatado antes
+          required: true
+        - label: Eu forneci um título descritivo para esta issue
+          required: true
+        - label: Eu forneci passo a passos claros e suficientes para essa issue
+          required: true
+        - label: Após melhor analise do bug descrito posso contribuir com um pull request
+          required: false
+        - label: Não li nenhum dos itens acima e apenas marquei todas as caixas para enviar a issue
+          required: false

@@ -1,0 +1,47 @@
+name: Sugerir novo recurso
+description: Sugira um novo recurso, funcionalidade ou melhoria para o Projeto.
+labels: ['enhancement']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Antes de abrir um novo issue, faça uma [pesquisa](https://github.com/migueloliveiradev/living/issues) para garantir que não está sugerindo algo duplicado. Caso encontre um issue equivalente, contribua com informações adicionais, se necessário.
+  - type: dropdown
+    attributes:
+      label: Tipo de recurso
+      description: Qual novo tipo de recurso desejado?
+      options:
+        - Melhoria em Layout
+        - Nova funcionalidade
+        - Codigo
+        - Outro
+  - type: textarea
+    attributes:
+      label: Descrição
+      description: O que você deseja melhorar ou adicionar? Por favor, descreva a sua sugestão e qual necessidade você tem hoje que essa sugestão resolveria.
+      placeholder: |
+        Eu acho que a página ... ficaria melhor se ... porque tive dificuldade em...
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Sugestão de implementação
+      description: Você pensou em como isso poderia ser implementado? Compartilhe imagens, código ou referências que você considera úteis para a implementação dessa sugestão.
+      placeholder: |
+        Poderíamos mudar ... para acrescentar ... Fiz alguns desenhos de como isso poderia ficar:
+        ![imagem](https://example.com/imagem)
+  - type: checkboxes
+    attributes:
+      label: Checklist
+      description: Lista rápida de verificações para garantir que tudo esteja em ordem.
+      options:
+        - label: Eu examinei as issues existentes para ter certeza de que esse recurso não foi sugerido antes
+          required: true
+        - label: Eu forneci um título descritivo para esse recurso
+          required: true
+        - label: Eu forneci uma sugestão de implementação para o recurso sugerido
+          required: false
+        - label: Após melhor analise do recurso sugerido posso contribuir com um pull request
+          required: false
+        - label: Não li nenhum dos itens acima e apenas marquei todas as caixas para enviar a issue
+          required: false
