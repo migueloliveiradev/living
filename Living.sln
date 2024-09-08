@@ -26,6 +26,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Living.Shared", "Living.Sha
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Living.Tests.Unit", "Living.Tests.Unit\Living.Tests.Unit.csproj", "{56819CE8-7DCD-472D-9A66-E28DDFECD15A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Living.Worker", "Living.Worker\Living.Worker.csproj", "{AF206AE3-9F1C-46EF-A645-52736250CEC0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,6 +66,10 @@ Global
 		{56819CE8-7DCD-472D-9A66-E28DDFECD15A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56819CE8-7DCD-472D-9A66-E28DDFECD15A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56819CE8-7DCD-472D-9A66-E28DDFECD15A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF206AE3-9F1C-46EF-A645-52736250CEC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF206AE3-9F1C-46EF-A645-52736250CEC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF206AE3-9F1C-46EF-A645-52736250CEC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF206AE3-9F1C-46EF-A645-52736250CEC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

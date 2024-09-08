@@ -1,43 +1,26 @@
 ﻿using FluentMigrator.Runner;
-using Living.Infraestructure.Context;
-using Living.Infraestructure.Context.Interceptors;
 using Living.Infraestructure.Migrations;
 using Living.Infraestructure.Settings;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+using Living.Shared.Extensions;
 
 namespace Living.WebAPI.Extensions;
 
 public static class DatabaseContextExtensions
 {
-    public static IServiceCollection AddDatabase(this IServiceCollection services)
+    public static void AddMigrations(this IServiceCollection services)
     {
-        using var serviceProvider = services.BuildServiceProvider();
-        var connectionStrings = serviceProvider.GetRequiredService<IOptions<ConnectionStrings>>().Value;
+        var connectionStrings = services.GetOptions<ConnectionStrings>();
 
-        services.AddDbContext<DatabaseContext>(options =>
-        {
-            options.AddInterceptors(new SavingChangesInterceptor());
-            options.UseNpgsql(connectionStrings.PostgresConnection);
-        });
-
-        return services.AddFluentMigrator(connectionStrings.PostgresConnection);
-    }
-
-    private static IServiceCollection AddFluentMigrator(this IServiceCollection services, string connectionString)
-    {
         services.AddFluentMigratorCore()
                 .ConfigureRunner(rb => rb
                     .AddPostgres()
-                    .WithGlobalConnectionString(connectionString)
+                    .WithGlobalConnectionString(connectionStrings.PostgresConnection)
                     .ScanIn(typeof(AddIdentity).Assembly).For.Migrations())
                 .AddLogging(lb => lb.AddFluentMigratorConsole());
-
-        return services;
     }
 
 
-    public static IApplicationBuilder UseDatabase(this IApplicationBuilder app)
+    public static IApplicationBuilder ApplyMigrations(this IApplicationBuilder app)
     {
         using var scope = app.ApplicationServices.CreateScope();
 

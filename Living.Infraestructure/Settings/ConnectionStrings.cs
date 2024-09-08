@@ -5,4 +5,7 @@ public class ConnectionStrings
 {
     [Required]
     public string PostgresConnection { get; set; }
+
+    [Required]
+    public string RabbitMqConnection { get; set; }
 }

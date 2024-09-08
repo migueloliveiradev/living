@@ -1,5 +1,4 @@
-﻿using Living.Domain.Features.Groups;
-using Living.Domain.Features.Posts;
+﻿using Living.Domain.Features.Posts;
 using Living.Domain.Features.Roles;
 using Living.Domain.Features.Users.Constants;
 using Microsoft.AspNetCore.Identity;
@@ -25,9 +24,6 @@ public class User : IdentityUser<Guid>, IEntity, ITimestamps, IValidit
 
     public List<UserFollow> UsersFollowers { get; set; } = [];
     public List<UserFollow> UsersFollowing { get; set; } = [];
-
-    public List<GroupUser> GroupsUser { get; set; } = [];
-    public List<Group> GroupsOwned { get; set; } = [];
 
     public List<UserRole> UserRoles { get; set; } = [];
     public List<UserClaim> UserClaims { get; set; } = [];
