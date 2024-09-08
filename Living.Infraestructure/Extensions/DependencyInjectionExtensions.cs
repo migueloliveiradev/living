@@ -38,20 +38,27 @@ public static class DependencyInjectionExtensions
 
         services.AddMassTransit(x =>
         {
-            x.AddDelayedMessageScheduler();
-
             action(x);
 
-            x.UsingRabbitMq((context, cfg) =>
-            {
-                cfg.Host(new Uri(connectionStrings.RabbitMqConnection), "Living");
+            x.ConfigureTeste(connectionStrings.RabbitMqConnection);
+        });
+    }
 
-                cfg.UseDelayedMessageScheduler();
+    public static void ConfigureTeste(this IBusRegistrationConfigurator busRegistrationConfigurator, string connectionString)
+    {
+        busRegistrationConfigurator.AddDelayedMessageScheduler();
 
-                cfg.ConfigureEndpoints(context);
 
-                cfg.UseMessageRetry(retry => { retry.Interval(3, TimeSpan.FromSeconds(5)); });
-            });
+
+        busRegistrationConfigurator.UsingRabbitMq((context, cfg) =>
+        {
+            cfg.Host(new Uri(connectionString), "Living");
+
+            cfg.UseDelayedMessageScheduler();
+
+            cfg.ConfigureEndpoints(context);
+
+            cfg.UseMessageRetry(retry => { retry.Interval(3, TimeSpan.FromSeconds(5)); });
         });
     }
 
