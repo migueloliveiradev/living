@@ -16,17 +16,17 @@ public partial class SetupWebAPI(WebAPIFactory webAPI) : TestBase
     private ITestHarness HarnessWebApi { get; } = webAPI.CreateTestHarnessWebAPI();
     private ITestHarness HarnessWorker { get; } = webAPI.CreateTestHarnessWorker();
 
-    protected IList<IReceivedMessage<T>> ConsumedMessages<T>()
+    protected IList<IReceivedMessage<T>> ConsumedMessages<T>(FilterDelegate<IReceivedMessage<T>> filter)
         where T : class
     {
 
-        return HarnessWebApi.Consumed.Select<T>().ToList();
+        return HarnessWebApi.Consumed.Select<T>(filter).ToList();
     }
 
-    protected IList<IPublishedMessage<T>> PublishedMessages<T>()
+    protected IList<IPublishedMessage<T>> PublishedMessages<T>(FilterDelegate<IPublishedMessage<T>> filter)
         where T : class
     {
-        return HarnessWebApi.Published.Select<T>().ToList();
+        return HarnessWebApi.Published.Select<T>(filter).ToList();
     }
 
     protected IReadOnlyCollection<Cookie> GetCookies() => new List<Cookie>(Http.GetCookies());

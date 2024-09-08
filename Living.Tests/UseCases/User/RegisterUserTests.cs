@@ -28,11 +28,11 @@ public class RegisterUserTests(WebAPIFactory webAPI) : SetupWebAPI(webAPI)
         user.Birthday.Should().Be(command.Birthday);
 
 
-        ConsumedMessages<UserCreatedEvent>().Should().HaveCount(1);
+        ConsumedMessages<UserCreatedEvent>(p => p.Context.Message.UserId == user.Id).Should().HaveCount(1);
 
         await Task.Delay(TimeSpan.FromSeconds(10));
 
-        ConsumedMessages<UserCreatedEvent>().Should().HaveCount(2);
+        ConsumedMessages<UserCreatedEvent>(p => p.Context.Message.UserId == user.Id).Should().HaveCount(2);
 
     }
 
