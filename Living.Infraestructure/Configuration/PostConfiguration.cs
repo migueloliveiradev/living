@@ -29,9 +29,6 @@ internal sealed class PostConfiguration : IEntityTypeConfiguration<Post>
         builder.Property(x => x.PostChildId)
             .IsRequired(false);
 
-        builder.Property(x => x.GroupId)
-            .IsRequired(false);
-
         builder.HasOne(x => x.Author)
             .WithMany(x => x.Posts)
             .HasForeignKey(x => x.AuthorId);
@@ -39,10 +36,6 @@ internal sealed class PostConfiguration : IEntityTypeConfiguration<Post>
         builder.HasMany(x => x.PostLikes)
             .WithOne(x => x.Post)
             .HasForeignKey(x => x.PostId);
-
-        builder.HasOne(x => x.Group)
-            .WithMany(x => x.Posts)
-            .HasForeignKey(x => x.GroupId);
 
         builder.HasOne(x => x.PostChild)
             .WithMany(x => x.PostsParent)

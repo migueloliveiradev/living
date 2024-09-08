@@ -4,6 +4,5 @@ public enum PostAccess
 {
     Public,
     Followers,
-    Group,
     Private
 }
