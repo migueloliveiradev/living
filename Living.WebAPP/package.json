@@ -5,7 +5,7 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "export NODE_TLS_REJECT_UNAUTHORIZED=0 && nuxt dev",
-    "lint": "eslint . --ignore-pattern './api/schema.d.ts'",
+    "lint": "eslint . --ignore-pattern '**/api/**'",
     "lint:fix": "eslint --fix . --ignore-pattern './api/schema.d.ts'",
     "openapi": "NODE_TLS_REJECT_UNAUTHORIZED=0 openapi-typescript https://localhost:7129/swagger/v1/swagger.json  --enum -o ./api/schema.ts",
     "generate": "nuxt generate",

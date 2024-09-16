@@ -19,6 +19,7 @@ const { post } = defineProps<PostComponent>();
           <span class="font-bold p-2">Miguel Oliveira</span>
         </div>
       </template>
+      <!-- eslint-disable-next-line vue/no-v-html -->
       <p class="m-0" v-html="post.content" />
       <Divider />
       <div class="footer flex justify-content-between">
