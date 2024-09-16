@@ -34,9 +34,6 @@ export default withNuxt(
 					},
 				},
 			],
-		},
-		ignores: [
-			"api/schema.d.ts",
-		],
+		}
 	},
 );
