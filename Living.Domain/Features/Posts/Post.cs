@@ -1,5 +1,4 @@
-﻿using Living.Domain.Features.Groups;
-using Living.Domain.Features.Posts.Enums;
+﻿using Living.Domain.Features.Posts.Enums;
 
 namespace Living.Domain.Features.Posts;
 public class Post : IEntity, ITimestamps, ISoftDelete
@@ -9,7 +8,6 @@ public class Post : IEntity, ITimestamps, ISoftDelete
     public required Guid AuthorId { get; set; }
     public required PostAccess Access { get; set; }
     public required PostType Type { get; set; }
-    public Guid? GroupId { get; set; }
     public Guid? PostParentId { get; set; }
     public Guid? PostChildId { get; set; }
 
@@ -24,7 +22,6 @@ public class Post : IEntity, ITimestamps, ISoftDelete
     public Post? PostChild { get; init; }
     public List<Post> PostsChildrens { get; init; } = [];
     public User Author { get; init; }
-    public Group? Group { get; init; }
     public List<PostLike> PostLikes { get; init; } = [];
 
     public void AddLike(Guid userId)

@@ -17,10 +17,13 @@ export function useForm<
 >(
 	path: ReqT,
 	method: Method,
-	defaultForm?: Partial<TRequest>,
-	onSuccess?: (response: ExtractData<TResponse>) => void,
+	defaultForm: Partial<TRequest>,
+	onSuccess: (response: ExtractData<TResponse>) => void,
+	storage: boolean,
 ) {
-	const form = ref<Partial<TRequest>>(defaultForm || {});
+	const { fullPath } = useRoute();
+
+	const form = storage ? useLocalStorage<Partial<TRequest>>(fullPath, defaultForm ?? {}) : ref<Partial<TRequest>>(defaultForm ?? {});
 	const response = ref<ExtractData<TResponse>>();
 	const errors = ref<Notification>({});
 

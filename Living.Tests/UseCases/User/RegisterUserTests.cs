@@ -1,5 +1,6 @@
 ﻿using Living.Application.UseCases.Users.Register;
 using Living.Domain.Features.Users.Constants;
+using Living.Domain.Features.Users.Events;
 using Living.Tests.Extensions;
 
 namespace Living.Tests.UseCases.User;
@@ -25,6 +26,14 @@ public class RegisterUserTests(WebAPIFactory webAPI) : SetupWebAPI(webAPI)
         user.UserName.Should().Be(command.Username);
         user.Bio.Should().Be(command.Bio);
         user.Birthday.Should().Be(command.Birthday);
+
+
+        ConsumedMessages<UserCreatedEvent>(p => p.Context.Message.UserId == user.Id).Should().HaveCount(1);
+
+        await Task.Delay(TimeSpan.FromSeconds(10));
+
+        ConsumedMessages<UserCreatedEvent>(p => p.Context.Message.UserId == user.Id).Should().HaveCount(2);
+
     }
 
     [Theory, LivingAutoData]

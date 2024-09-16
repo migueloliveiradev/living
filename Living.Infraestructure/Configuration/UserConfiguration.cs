@@ -37,14 +37,6 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
             .WithOne(e => e.Following)
             .HasForeignKey(e => e.FollowingId);
 
-        builder.HasMany(e => e.GroupsUser)
-            .WithOne(e => e.User)
-            .HasForeignKey(e => e.UserId);
-
-        builder.HasMany(e => e.GroupsOwned)
-            .WithOne(e => e.Owner)
-            .HasForeignKey(e => e.OwnerId);
-
         builder.HasMany(e => e.UserClaims)
             .WithOne(p => p.User)
             .HasForeignKey(e => e.UserId);

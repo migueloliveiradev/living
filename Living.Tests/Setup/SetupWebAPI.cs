@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using MassTransit.Testing;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Living.Tests.Setup;
 
@@ -12,6 +13,22 @@ public record WebAPIFactoryCollection : ICollectionFixture<WebAPIFactory>;
 public partial class SetupWebAPI(WebAPIFactory webAPI) : TestBase
 {
     protected HttpClient Http { get; } = webAPI.CreateHttpClient();
+    private ITestHarness HarnessWebApi { get; } = webAPI.CreateTestHarnessWebAPI();
+    private ITestHarness HarnessWorker { get; } = webAPI.CreateTestHarnessWorker();
+
+    protected IList<IReceivedMessage<T>> ConsumedMessages<T>(FilterDelegate<IReceivedMessage<T>> filter)
+        where T : class
+    {
+
+        return HarnessWebApi.Consumed.Select<T>(filter).ToList();
+    }
+
+    protected IList<IPublishedMessage<T>> PublishedMessages<T>(FilterDelegate<IPublishedMessage<T>> filter)
+        where T : class
+    {
+        return HarnessWebApi.Published.Select<T>(filter).ToList();
+    }
+
     protected IReadOnlyCollection<Cookie> GetCookies() => new List<Cookie>(Http.GetCookies());
     protected void AddCookies(IEnumerable<Cookie> cookies)
     {

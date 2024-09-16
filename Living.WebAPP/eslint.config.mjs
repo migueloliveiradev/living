@@ -14,9 +14,26 @@ export default withNuxt(
 				},
 			}],
 			"vue/prop-name-casing": ["error", "camelCase"],
+			"vue/html-indent": [
+				"error",
+				2,
+				{
+					attribute: 1,
+					baseIndent: 1,
+					closeBracket: 0,
+					alignAttributesVertically: false,
+				},
+			],
+			"vue/block-order": ["error", {
+				order: ["script", "template", "style"],
+			}],
+			"vue/block-lang": ["error",
+				{
+					script: {
+						lang: "ts",
+					},
+				},
+			],
 		},
-		ignores: [
-			"api/schema.d.ts",
-		],
 	},
 );

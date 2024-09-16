@@ -1,4 +1,5 @@
 ﻿using Living.Infraestructure.Settings;
+using Living.Shared.Extensions;
 
 namespace Living.WebAPI.Extensions;
 
@@ -6,18 +7,8 @@ public static class OptionsExtensions
 {
     public static IServiceCollection AddOptionsConfiguration(this IServiceCollection services, IConfiguration configuration)
     {
-        services.ConfigureOptions<JwtSettings>(configuration);
-        services.ConfigureOptions<ConnectionStrings>(configuration);
-
-        return services;
-    }
-
-    private static IServiceCollection ConfigureOptions<T>(this IServiceCollection services, IConfiguration configuration)
-        where T : class
-    {
-        services.AddOptions<T>()
-            .Bind(configuration.GetSection(typeof(T).Name))
-            .ValidateDataAnnotations();
+        services.AddOptionsConfiguration<JwtSettings>(configuration);
+        services.AddOptionsConfiguration<ConnectionStrings>(configuration);
 
         return services;
     }
