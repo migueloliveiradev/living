@@ -2,6 +2,7 @@ using Living.Application.UseCases.Users.Login;
 using Living.Infraestructure.Extensions;
 using Living.WebAPI.ExceptionsHandler;
 using Living.WebAPI.Extensions;
+using System.Text.Json.Serialization;
 
 namespace Living.WebAPI;
 public abstract class Program
@@ -17,7 +18,8 @@ public abstract class Program
         builder.Services.AddMessaging();
 
         builder.Services.AddControllers()
-            .AddInvalidModelStateConfiguration();
+            .AddInvalidModelStateConfiguration()
+            .AddJsonOptions(p => p.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
         builder.Services.AddIdentityConfiguration();
 
