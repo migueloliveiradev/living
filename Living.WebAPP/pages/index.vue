@@ -2,9 +2,9 @@
 </script>
 
 <template>
-	<NuxtLayout name="home">
-		<p>Home</p>
-	</NuxtLayout>
+  <NuxtLayout name="home">
+    <p>Home</p>
+  </NuxtLayout>
 </template>
 
 <i18n lang="json">
