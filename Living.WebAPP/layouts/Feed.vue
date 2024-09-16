@@ -71,7 +71,7 @@ const items = ref<MenuItem[]>([
           </template>
           <template #content>
             <div class="flex">
-              <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" class="mt-2" />
+              <Avatar image="https://avatars.githubusercontent.com/u/87040481" shape="circle" class="mt-2" />
               <p class="ml-2">
                 Miguel Oliveira
               </p>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { FormErrorProps } from "~/components/forms/FormError.types";
+import type { FormErrorProps } from "./FormError.types";
 
 const { errors, keys } = defineProps<FormErrorProps>();
 
