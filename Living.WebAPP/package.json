@@ -19,7 +19,7 @@
     "@nuxt/eslint": "^0.5.5",
     "@nuxtjs/i18n": "^8.5.0",
     "@primevue/nuxt-module": "^4.0.5",
-    "nuxt": "^3.13.0",
+    "nuxt": "^3.19.0",
     "openapi-typescript": "^7.3.0",
     "typescript": "^5.5.4",
     "vue": "^3.4.38",
